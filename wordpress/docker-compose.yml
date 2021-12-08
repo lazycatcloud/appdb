@@ -1,0 +1,23 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: wordpress
+  icon: icon_wordpress.png
+  title: Wordpress
+  version: 0.0.2
+  screenshots: 
+    - screenshot_wordpress.png
+  categories:
+    - utilities
+services:
+  wordpress:
+    image: bitnami/wordpress:5.8.2
+    environment:
+    - ALLOW_EMPTY_PASSWORD=yes
+    - WORDPRESS_DATABASE_HOST={{ .mysql.host }}
+    - WORDPRESS_DATABASE_PORT={{ .mysql.port }}
+    - WORDPRESS_DATABASE_NAME={{ .mysql.db }}
+    - WORDPRESS_DATABASE_USER={{ .mysql.user }}
+    - WORDPRESS_DATABASE_PASSWORD={{ .mysql.password }}
+    labels:
+      ingress-8080: wordpress
+      use_mysql: ""

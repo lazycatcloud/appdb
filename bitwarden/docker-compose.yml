@@ -1,0 +1,14 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: bitwarden
+  icon: icon_bitwarden.png
+  title: Bitwarden
+  categories:
+    - security
+  screenshots:
+    - screenshot_bitwarden.png
+services:
+  bitwarden:
+    image: bitwarden/nginx:1.44.1
+    labels:
+      ingress-80: bitwarden

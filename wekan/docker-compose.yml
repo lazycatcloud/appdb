@@ -1,0 +1,16 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: wekan
+  icon: icon_wekan.svg
+  title: wekan
+  screenshots:
+    - screenshot_wekan.png
+services:
+  wekan:
+    image: wekanteam/wekan:v5.71
+    environment:
+    - ROOT_URL=http://wekan.{{ .public.main_host }}
+    - MONGO_URL=mongodb://root:root@mongodb
+    - DEBUG=true
+    labels:
+      ingress-8080: wekan

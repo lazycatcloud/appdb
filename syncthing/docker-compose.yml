@@ -1,0 +1,24 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: syncthing
+  icon: icon_syncthing.png
+  title: Syncthing
+  screenshots:
+    - screenshot_syncthing.png
+  categories:
+    - files
+services:
+  syncthing:
+    image: linuxserver/syncthing:1.18.4
+    volumes:
+    - syncthing--config--config:/config
+    - syncthing--normal--data1:/data1
+    - syncthing--normal--data2:/data2
+    - /etc/timezone:/etc/timezone
+    - /etc/localtime:/etc/localtime
+    labels:
+      ingress-8384: syncthing
+volumes:
+  syncthing--config--config: {}
+  syncthing--normal--data1: {}
+  syncthing--normal--data2: {}

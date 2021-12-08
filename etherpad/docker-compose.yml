@@ -1,0 +1,15 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: etherpad
+  icon: icon_etherpad.svg
+  title: etherpad
+  screenshots:
+    - screenshot_etherpad.jpg
+  categories:
+    - files
+    - productivity
+services:
+  etherpad:
+    image: etherpad/etherpad:1.8.14
+    labels:
+      ingress-9001: etherpad

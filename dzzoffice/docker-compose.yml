@@ -1,0 +1,18 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: dzzoffice
+  icon: icon_dzzoffice.png
+  title: dzzoffice
+  screenshots:
+    - screenshot_dzzoffice.png
+  categories:
+    - productivity
+services:
+  dzzoffice:
+    image: imdevops/dzzoffice
+    volumes:
+    - dzzoffice--normal--data:/var/www/html/data
+    labels:
+      ingress-80: dzzoffice
+volumes:
+  dzzoffice--normal--data: {}

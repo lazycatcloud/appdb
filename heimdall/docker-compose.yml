@@ -1,0 +1,17 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: heimdall
+  icon: icon_heimdall.png
+  title: heimdall
+  screenshots:
+    - screenshot_heimdall.png
+  
+services:
+  heimdall:
+    image: linuxserver/heimdall:2.2.2
+    volumes:
+    - heimdall--config--config:/config
+    labels:
+      ingress-80: heimdall
+volumes:
+  heimdall--config--config: {}

@@ -1,0 +1,19 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: cloud9
+  icon: icon_cloud9.png
+  title: AWS Cloud9
+  screenshots:
+    - screenshot_cloud9.png
+  categories:
+    - files
+  
+services:
+  cloud9:
+    image: linuxserver/cloud9:1.29.2
+    volumes:
+    - cloud9--normal--Documents:/code
+    labels:
+      ingress-8000: cloud9
+volumes:
+  cloud9--normal--Documents: {}

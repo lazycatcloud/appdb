@@ -1,0 +1,18 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: drawio
+  icon: icon_drawio.png
+  title: draw.io
+  screenshots:
+    - screenshot_drawio.png
+  categories:
+    - productivity
+services:
+  drawio:
+    image: jgraph/drawio:15.9.1
+    volumes:
+    - drawio--normal--Documents:/documents
+    labels:
+      ingress-8080: drawio
+volumes:
+  drawio--normal--Documents: {}

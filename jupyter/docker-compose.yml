@@ -1,0 +1,20 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: jupyter
+  icon: icon_ipython.png
+  title: Jupyter Notebook
+  screenshots:
+    - screenshot_ipython.png
+  categories:
+    - developer
+services:
+  jupyter:
+    image: ipython/ipython:3.x
+    command:
+    - ipython
+    - notebook
+    - --port=8888
+    - --no-browser
+    - --ip='*'
+    labels:
+      ingress-8888: jupyter

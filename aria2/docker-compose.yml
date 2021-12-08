@@ -1,0 +1,26 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: aria2
+  version: 0.0.6
+  icon: icon_aria2.jpg
+  title: AriaNg
+  categories:
+    - files
+  quality: high
+  screenshots: 
+    - screenshot_aria2.png
+services:
+  aria2:
+    image: hurlenko/aria2-ariang:1.2.3
+    environment:
+    - PUID=1000
+    - PGID=1000
+    - ARIA2RPCPORT=80
+    volumes:
+    - aria2--normal--data:/aria2/data
+    - aria2--config--config:/aria2/conf
+    labels:
+      ingress-8080: aria2
+volumes:
+  aria2--config--config: {}
+  aria2--normal--data: {}

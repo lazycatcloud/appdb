@@ -1,0 +1,13 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: shiori
+  icon: icon_shiori.png
+  title: shiori
+  summary: Simple bookmark manager built with Go
+  screenshots:
+    - screenshot_shiori.png
+services:
+  shiori:
+    image: radhifadlillah/shiori:latest
+    labels:
+      ingress-8080: shiori

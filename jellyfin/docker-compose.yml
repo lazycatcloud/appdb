@@ -1,0 +1,25 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: jellyfin
+  icon: icon_jellyfin.png
+  title: Jellyfin
+  screenshots:
+    - screenshot_jellyfin.png
+  categories:
+    - multimedia
+  
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:10.7.7
+    volumes:
+    - jellyfin--config--config:/config
+    - jellyfin--cache--cache:/cache
+    - jellyfin--normal--Musics:/media
+    - jellyfin--normal--Videos:/media1
+    labels:
+      ingress-8096: jellyfin
+volumes:
+  jellyfin--cache--cache: {}
+  jellyfin--config--config: {}
+  jellyfin--normal--Musics: {}
+  jellyfin--normal--Videos: {}

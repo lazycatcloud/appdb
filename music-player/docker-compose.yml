@@ -1,0 +1,14 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: music-player
+  icon: icon_music_player.png
+  title: 在线音乐播放器
+  screenshots:
+    - screenshot_music-player.jpg
+  categories:
+    - multimedia
+services:
+  music-player:
+    image: oldiy/music-player-docker
+    labels:
+      ingress-264: music-player

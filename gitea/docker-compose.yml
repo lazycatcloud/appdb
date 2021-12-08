@@ -1,0 +1,19 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: gitea
+  icon: icon_gitea.png
+  title: Gitea
+  screenshots:
+    - screenshot_gitea.png
+  categories:
+    - developer
+  
+services:
+  gitea:
+    image: gitea/gitea:1.15.7
+    volumes:
+    - gitea--normal--data:/data
+    labels:
+      ingress-3000: gitea
+volumes:
+  gitea--normal--data: {}

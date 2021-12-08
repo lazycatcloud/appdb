@@ -1,0 +1,12 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: cash_warden
+  icon: icon_cash_warden.svg
+  title: An open source asset management system
+  screenshots:
+    - screenshot_cash_warden.jpg
+services:
+  cash_warden:
+    image: hailin/cashwarden-web:latest
+    labels:
+      ingress-80: cash_warden

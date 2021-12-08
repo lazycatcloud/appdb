@@ -1,0 +1,24 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: leanote
+  icon: icon_leanote.png
+  title: 蚂蚁笔记
+  screenshots:
+    - screenshot_leanote.png
+  categories:
+    - productivity
+services:
+  leanote:
+    image: axboy/leanote:latest
+    volumes:
+    - leanote--config--db:/data/db
+    - leanote--config--config:/data/leanote/conf
+    - leanote--config--upload:/data/leanote/public/upload
+    - leanote--normal--leanote:/data/leanote/files
+    labels:
+      ingress-9000: leanote
+volumes:
+  leanote--config--config: {}
+  leanote--config--db: {}
+  leanote--config--upload: {}
+  leanote--normal--leanote: {}

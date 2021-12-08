@@ -1,0 +1,13 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: openspeedtest
+  icon: icon_openspeedtest.png
+  title: Open Speedtest
+  summary: 网速测试
+  screenshots:
+    - screenshot_openspeedtest.png
+services:
+  openspeedtest:
+    image: openspeedtest/latest:speedtest
+    labels:
+      ingress-3000: openspeedtest

@@ -1,0 +1,17 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: hackerslides
+  icon: icon_hackerslides.jpg
+  title: hacker-slides
+  screenshots:
+    - screenshot_hackerslides.png
+  categories:
+    - productivity
+services:
+  hackerslides:
+    image: msoedov/hacker-slides:1.0.3
+    volumes:
+    - /home/home-cloud/Documents:/app/slides
+    labels:
+      ingress-8080: hackerslides
+

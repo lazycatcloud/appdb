@@ -1,0 +1,26 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: filerun
+  icon: icon_filerun.png
+  title: Filerun
+  screenshots:
+    - screenshot_filerun.png
+  categories:
+    - files
+services:
+  filerun:
+    image: afian/filerun:libreoffice
+    environment:
+    - FR_DB_HOST={{ .mysql.host }}
+    - FR_DB_PORT={{ .mysql.port }}
+    - FR_DB_NAME={{ .mysql.db }}
+    - FR_DB_USER={{ .mysql.user }}
+    - FR_DB_PASS={{ .mysql.password }}
+    volumes:
+    - /home/home-cloud/Documents:/user-files
+    - filerun--config--config:/var/www/html
+    labels:
+      ingress-80: filerun
+      use_mysql: ""
+volumes:
+  filerun--config--config: {}

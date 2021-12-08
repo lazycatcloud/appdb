@@ -1,0 +1,19 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: nexus3
+  icon: icon_nexus3.png
+  title: Nexus3
+  summary: Repository Manager 3
+  screenshots:
+    - screenshot_nexus3.png
+  categories:
+    - developer
+services:
+  nexus3:
+    image: sonatype/nexus3:3.37.0
+    volumes:
+    - nexus3--normal--data:/nexus-data
+    labels:
+      ingress-8081: nexus3
+volumes:
+  nexus3--normal--data: {}

@@ -1,0 +1,29 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: nextcloud
+  version: 1.0.6
+  icon: icon_nextcloud.png
+  title: Nextcloud
+  screenshots:
+    - screenshot_nextcloud.png
+  categories:
+    - files
+services:
+  nextcloud:
+    image: nextcloud:22.2.3
+    volumes:
+    - nextcloud--config--apps:/var/www/html/custom_apps
+    - nextcloud--config--config:/var/www/html/config
+    - nextcloud--config--theme:/var/www/html/themes
+    - nextcloud--normal--data:/var/www/html/data
+    entrypoint:
+    - bash
+    - -c
+    - echo "#!/bin/bash" > /tmp/run.sh && echo "/entrypoint.sh apache2-foreground &" >> /tmp/run.sh && echo "while [ ! -f '/var/www/html/config/config.php' ]; do sleep 1; done;" >> /tmp/run.sh && echo " if [[ ! \`cat /var/www/html/config/config.php\` =~ 'appstoreenabled' ]]; then sed -i \"s#);#  'appstoreenabled' => true,\n  'appstoreurl' => 'https://www.orcy.net/ncapps/v1/',\n);#g\" config/config.php; fi;" >> /tmp/run.sh && cat /tmp/run.sh && bash /tmp/run.sh && echo hello && sleep 315360000
+    labels:
+      ingress-80: nextcloud
+volumes:
+  nextcloud--config--apps: {}
+  nextcloud--config--config: {}
+  nextcloud--config--theme: {}
+  nextcloud--normal--data: {}

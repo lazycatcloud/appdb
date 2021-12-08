@@ -1,0 +1,25 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: sdk
+  icon: logo.png
+  title: 懒猫云开发工具包
+  categories:
+    - developer
+  screenshots:
+    - logo.png
+services:
+  sdk:
+    image: registry.linakesi.com/homecloud/hc-sdk:latest
+    init: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - hc-app-sdk:/var/lib/sdk
+      - hc-app-sdk-user:/home/box
+    ports:
+      - 2222:22
+    labels:
+      ingress-80: sdk
+volumes:
+  hc-app-sdk: {}
+  hc-app-sdk-user: {}
+

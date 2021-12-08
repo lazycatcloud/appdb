@@ -1,0 +1,13 @@
+version: "3.9"
+x-lazycat-metadata:
+  id: speedtest
+  icon: icon_speedtest.png
+  title: Speedtest
+  summary: 网速测试
+  screenshots:
+    - screenshot_speedtest.png
+services:
+  speedtest:
+    image: adolfintel/speedtest:5.2.4
+    labels:
+      ingress-80: speedtest
