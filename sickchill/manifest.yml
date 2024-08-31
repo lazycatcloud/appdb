@@ -1,0 +1,71 @@
+application:
+  routes:
+  - /=http://sickchill.cloud.lazycat.app.sickchill.lzcapp:8081
+  subdomain: sickchill
+description: 'This app packages SickChill <upstream>v2021.03.18-1</upstream>.
+
+
+  ### Overview
+
+
+  Automatic Video Library Manager for TV Shows.
+
+
+  It watches for new episodes of your favorite shows, and when they are posted it
+  does its magic: automatic torrent/nzb searching, downloading, and processing at
+  the qualities you want.
+
+
+  ### Features
+
+
+  * Kodi/XBMC library updates, poster/banner/fanart downloads, and NFO/TBN generation
+
+  * Configurable automatic episode renaming, sorting, and other processing
+
+  * Easily see what episodes you’re missing, are airing soon, and more
+
+  * Automatic torrent/nzb searching, downloading, and processing at the qualities
+  you want
+
+  * Largest list of supported torrent and nzb providers, both public and private
+
+  * Can notify Kodi, XBMC, Growl, Trakt, Twitter, and more when new episodes are available
+
+  * Searches TheTVDB.com and AniDB.net for shows, seasons, episodes, and metadata
+
+  * Episode status management allows for mass failing seasons/episodes to force retrying
+
+  * DVD Order numbering for returning the results in DVD order instead of Air-By-Date
+  order
+
+  * Allows you to choose which indexer to have SickChill search its show info from
+  when importing
+
+  * Automatic XEM Scene Numbering/Naming for seasons/episodes
+
+  * Available for any platform, uses a simple HTTP interface
+
+  * Specials and multi-episode torrent/nzb support
+
+  * Automatic subtitles matching and downloading
+
+  * Improved failed download handling
+
+  * DupeKey/DupeScore for NZBGet 12+
+
+  * Real SSL certificate validation
+
+  * Supports Anime shows
+
+
+  '
+lzc-sdk-version: '0.1'
+name: SickChill
+package: cloud.lazycat.app.sickchill
+services:
+  sickchill:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/io.github.sickchill.cloudronapp:20210322-171832-6404bef6c
+version: 1.3.10

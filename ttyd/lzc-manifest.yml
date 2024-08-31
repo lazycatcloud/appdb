@@ -1,0 +1,26 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.ttyd
+version: 0.1.1
+name: ttyd
+description: Share your terminal over the web
+
+license: https://opensource.org/license/mit
+homepage: https://github.com/tsl0922/ttyd
+author: d1y
+
+application:
+  subdomain: ttyd
+  background_task: true
+  user_app: true
+
+  routes:
+    - /=http://$uid.tty.cloud.lazycat.app.ttyd.lzcapp:7681
+
+  image: registry.lazycat.cloud/alpine:3.16
+
+  depends_on:
+    - tty
+
+services:
+  tty:
+    image: registry.lazycat.cloud/tsl0922/ttyd

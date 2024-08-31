@@ -1,0 +1,126 @@
+services:
+  postgres:
+    image: postgres:14-alpine
+    shm_size: 256mb
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    volumes:
+      - postgres14:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=mastodon
+  redis:
+    image: redis:6-alpine
+    command: redis-server --requirepass password
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+    volumes:
+      - redis:/data
+  mastodon:
+    image: cloudron/org.joinmastodon.cloudronapp:20211127-185915-19699ba03
+    links:
+      - postgres
+      - redis
+    environment:
+    - CLOUDRON_API_ORIGIN=http://${LAZYCAT_ROOT_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://${LAZYCAT_APP_ORIGIN}
+    - CLOUDRON_APP_DOMAIN=${LAZYCAT_APP_ORIGIN}
+
+    - CLOUDRON_LDAP_SERVER=ldap
+    - CLOUDRON_LDAP_HOST=ldap
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://${LAZYCAT_AUTH_LDAP_HOST}
+    - CLOUDRON_LDAP_USERS_BASE_DN=${LAZYCAT_AUTH_LDAP_BASE_DN}
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=${LAZYCAT_AUTH_LDAP_BASE_DN}
+    - CLOUDRON_LDAP_BIND_DN=${LAZYCAT_AUTH_LDAP_BIND_DN}
+    - CLOUDRON_LDAP_BIND_PASSWORD=${LAZYCAT_AUTH_LDAP_BIND_PASS}
+
+
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+
+    - CLOUDRON_REDIS_PASSWORD=password
+    - CLOUDRON_REDIS_HOST=redis
+    - CLOUDRON_REDIS_PORT=6379
+    
+    - CLOUDRON_POSTGRESQL_URL=postgres://user5327ad8fde784bf387aab60cb84e0c1f:76c1215f564054c045c6c66ed104ca9062fc8588747602bf7206eebbcd43284e47983ca051c858de9a2ff0b039b429ac8dbd74705b632a94ab61f47d5d7fb4a1@postgresql/db5327ad8fde784bf387aab60cb84e0c1f
+    - CLOUDRON_POSTGRESQL_USERNAME=postgres
+    - CLOUDRON_POSTGRESQL_PASSWORD=password
+    - CLOUDRON_POSTGRESQL_HOST=postgres
+    - CLOUDRON_POSTGRESQL_PORT=5432
+    - CLOUDRON_POSTGRESQL_DATABASE=mastodon
+    volumes:
+    - data:/app/data
+volumes:
+  data:
+  redis:
+  postgres14:
+networks:
+  mastodon:
+version: '3.9'
+x-lazycat-app:
+  ingress:
+    - service:   mastodon
+      port:      8000
+      subdomain: mastodon
+      auth: auto
+  addons:
+    ldap: {}
+    localstorage: {}
+    postgresql: {}
+    redis: {}
+    scheduler:
+      cleanup:
+        command: /app/pkg/cleanup.sh
+        schedule: 11 11 * * *
+    sendmail: {}
+  categories:
+  - social
+  - forum
+  - chat
+  - twitter
+  - federated
+  description: 'This app packages Mastodon <upstream>3.4.4</upstream>.
+
+
+    ## About
+
+
+    Mastodon is a free, open-source social network server based on ActivityPub where
+    users can follow friends and discover new ones. On Mastodon, users can publish
+    anything they want: links, pictures, text, video. All Mastodon servers are interoperable
+    as a federated network (users on one server can seamlessly communicate with users
+    from another one, including non-Mastodon software that implements ActivityPub)!
+
+
+    ## Features
+
+
+    * No vendor lock-in: Fully interoperable with any conforming platform
+
+    * Real-time, chronological timeline updates
+
+    * Media attachments like images and short videos
+
+    * Safety and moderation tools
+
+    * OAuth2 and a straightforward REST API
+
+
+    '
+  icon: icon_mastodon.png
+  id: mastodon
+  screenshots:
+  - screenshot_mastodon0.jpg
+  - screenshot_mastodon1.png
+  summary: Federated social network
+  title: Mastodon
+  version: 1.7.2

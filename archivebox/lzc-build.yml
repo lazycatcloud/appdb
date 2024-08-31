@@ -1,0 +1,7 @@
+manifest: ./lzc-manifest.yml
+contentdir: ./build
+icon: ./logo.png
+pkgout: ./
+devshell:
+  routes:
+    - /=http://${LocalIP}:3000

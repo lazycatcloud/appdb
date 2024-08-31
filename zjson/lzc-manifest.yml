@@ -1,0 +1,9 @@
+lzc-sdk-version: '0.1'
+version: 0.0.1
+name: ZJSON
+package: cloud.lazycat.app.zjson
+description: 一个强大的JSON格式化和编辑工具
+application:
+  routes:
+  - /=file:///lzcapp/pkg/content/
+  subdomain: zjson

@@ -1,0 +1,15 @@
+application:
+  routes:
+  - /=http://photoprism.cloud.lazycat.app.photoprism.lzcapp:2342
+  subdomain: photoprism
+description: 相册管理
+lzc-sdk-version: '0.1'
+name: Photoprism
+package: cloud.lazycat.app.photoprism
+services:
+  photoprism:
+    environment:
+    - PHOTOPRISM_ADMIN_PASSWORD=admin
+    - PHOTOPRISM_UPLOAD_NSFW=true
+    image: photoprism/photoprism:20211018
+version: 0.0.11

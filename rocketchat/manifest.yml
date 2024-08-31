@@ -1,0 +1,25 @@
+application:
+  routes:
+  - /=http://rocketchat.cloud.lazycat.app.rocketchat.lzcapp:3000
+  subdomain: rocketchat
+description: "This app packages Rocket.Chat <upstream>4.2.0</upstream>\n\n### Overview\n\
+  \nA complete team chat solution, from group messages and video calls all the way\
+  \ to helpdesk killer features.\n\n### Features\n* **Video Conference**\n    Chat\
+  \ with your colleagues and friends face-to-face over audio and video.\n* **Helpdesk\
+  \ Chat**\n    Have your website visitors contact you in real-time and increase conversions.\n\
+  * **File Sharing**\n    Drag-and-drop files or select them from your computer or\
+  \ mobile device.\n* **Voice Messages**\n    Record and transmit voice messages to\
+  \ a channel, group or private conversation.\n* **Link Preview**\n    Post a link\
+  \ and immediately view its content. YouTube, Twitter, Gifs!\n* **API**\n    Integrate\
+  \ your chat to multiple services: GitHub, GitLab, JIRA, Confluence and others.\n\
+  * **Extendability**\n    Want a new killing feature? Add a new package. It's as\
+  \ simple as that.\n* **Native Applications**\n    Native client applications available\
+  \ for download on Linux, Windows and OSX.\n* **Mobile Applications**\n    Mobile\
+  \ client applications available for iOS and Android on their respective stores.\n"
+lzc-sdk-version: '0.1'
+name: Rocket.Chat
+package: cloud.lazycat.app.rocketchat
+services:
+  rocketchat:
+    image: cloudron/chat.rocket.cloudronapp:20211130-115053-979b93195
+version: 2.23.10

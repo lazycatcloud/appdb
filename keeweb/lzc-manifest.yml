@@ -1,0 +1,14 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.keeweb
+version: 0.0.4
+name: Keeweb
+description: 与 KeePass 兼容的免费跨平台密码管理器
+license: https://choosealicense.com/licenses/apache-2.0
+homepage: https://github.com/keeweb/keeweb
+application:
+  subdomain: keeweb
+  public_path:
+    - /manifest.json
+    - /lzc-file-pickers.umd.js
+  routes:
+    - /=file:///lzcapp/pkg/content/

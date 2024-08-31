@@ -1,0 +1,6 @@
+buildscript: ./build.sh
+
+pkgout: ./
+
+contentdir: ./vikunja-frontend/dist
+icon: ./logo.png

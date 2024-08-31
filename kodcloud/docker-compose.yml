@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  kodexplorer:
+    image: registry.lazycat.cloud/appdb/kodexplorer:202307131
+    build: ./
+    environment:
+      - DATA_PATH=/data
+    volumes:
+      - ./contentdir/user.class.php:/var/www/html/app/controller/user.class.php
+      - ./contentdir/config.php:/var/www/html/app/controller/config/config.php
+    ports:
+      - "8000:80"

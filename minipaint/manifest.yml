@@ -1,0 +1,20 @@
+application:
+  file_handler:
+    actions:
+      open: /webdav.html?file=/_lzc/files/home/%u
+    mime:
+    - image/png
+    - image/jpeg
+  routes:
+  - /=http://minipaint.cloud.lazycat.app.minipaint.lzcapp:80
+  subdomain: minipaint
+description: Online image editor lets you create, edit images using HTML5 technologies
+lzc-sdk-version: '0.1'
+name: Minipaint
+package: cloud.lazycat.app.minipaint
+services:
+  minipaint:
+    binds:
+    - /lzcapp/pkg/./webdav.html:/usr/share/nginx/html/webdav.html
+    image: jpdaramburos/minipaint:edge
+version: 0.0.15

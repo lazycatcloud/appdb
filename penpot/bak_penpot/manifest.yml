@@ -1,0 +1,54 @@
+application:
+  routes:
+  - /=http://penpot-frontend.cloud.lazycat.app.penpot.lzcapp:80
+  subdomain: penpot
+  authcallback: /api/auth/oauth/oidc/callback
+description: A design and prototyping platform meant for cross-domain teams
+lzc-sdk-version: '0.1'
+name: Penpot
+package: cloud.lazycat.app.penpot
+services:
+  penpot-backend:
+    binds:
+    - /lzcapp/var:/opt/data
+    environment:
+    - PENPOT_PUBLIC_URI=https://penpot.${LAZYCAT_BOX_DOMAIN}
+    - PENPOT_DATABASE_URI=postgresql://penpot-postgres.cloud.lazycat.app.penpot.lzcapp/penpot
+    - PENPOT_DATABASE_USERNAME=penpot
+    - PENPOT_DATABASE_PASSWORD=penpot
+    - ASSETS_STORAGE_BACKEND=assets-fs
+    - PENPOT_STORAGE_ASSETS_FS_DIRECTORY=/opt/data/assets
+    - PENPOT_FLAGS=enable-registration enable-demo-users enable-login-with-oidc
+    - PENPOT_SMTP_DEFAULT_FROM=no-reply@example.com
+    - PENPOT_SMTP_DEFAULT_REPLY_TO=no-reply@example.com
+    - PENPOT_SMTP_ENABLED=false
+    - PENPOT_REDIS_URI=redis://penpot-redis.cloud.lazycat.app.penpot.lzcapp/0
+    - PENPOT_OIDC_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+    - PENPOT_OIDC_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+    - PENPOT_OIDC_BASE_URI=${LAZYCAT_AUTH_OIDC_ISSUER_URL}
+    image: penpotapp/backend:latest
+  penpot-exporter:
+    environment:
+    - PENPOT_PUBLIC_URI=http://penpot-frontend.cloud.lazycat.app.penpot.lzcapp
+    image: penpotapp/exporter:latest
+  penpot-frontend:
+    binds:
+    - /lzcapp/var:/opt/data
+    - /lzcapp/pkg/nginx.conf:/etc/nginx/nginx.conf
+    environment:
+    - PENPOT_FLAGS=enable-login-with-oidc
+    image: penpotapp/frontend:latest
+  penpot-postgres:
+    binds:
+    - /lzcapp/var:/var/lib/postgresql/data
+    environment:
+    - POSTGRES_INITDB_ARGS=--data-checksums
+    - POSTGRES_DB=penpot
+    - POSTGRES_USER=penpot
+    - POSTGRES_PASSWORD=penpot
+    image: postgres:13
+  penpot-redis:
+    environment:
+    - PENPOT_REDIS_URI=redis://penpot-redis.cloud.lazycat.app.penpot.lzcapp/0
+    image: redis:6
+version: 0.0.12

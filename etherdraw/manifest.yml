@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://etherdraw.cloud.lazycat.app.etherdraw.lzcapp:9002
+  subdomain: etherdraw
+description: An intuitive collaborative drawing web based tool
+lzc-sdk-version: '0.1'
+name: EtherDraw
+package: cloud.lazycat.app.etherdraw
+services:
+  etherdraw:
+    image: anybox/etherdraw:stable
+version: 0.0.11

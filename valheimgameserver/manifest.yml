@@ -1,0 +1,32 @@
+application:
+  routes:
+  - /=http://valheimgameserver.cloud.lazycat.app.valheimgameserver.lzcapp:8000
+  subdomain: valheimgameserver
+description: '### Overview
+
+
+  This app packages the <upstream>evergreen</upstream> Valheim Dedicated Server
+
+
+  A battle-slain warrior, the Valkyries have ferried your soul to Valheim, the tenth
+  Norse world. Besieged by creatures of chaos and ancient enemies of the gods, you
+  are the newest custodian of the primordial purgatory, tasked with slaying Odin’s
+  ancient rivals and bringing order to Valheim.
+
+
+  Your trials begin at the disarmingly peaceful centre of Valheim, but the gods reward
+  the brave and glory awaits. Venture forth through imposing forests and snow-capped
+  mountains, explore and harvest more valuable materials to craft deadlier weapons,
+  sturdier armor, viking strongholds and outposts. Build a mighty longship and sail
+  the great oceans in search of exotic lands … but be wary of sailing too far...
+
+  '
+lzc-sdk-version: '0.1'
+name: Valheim Gameserver
+package: cloud.lazycat.app.valheimgameserver
+services:
+  valheimgameserver:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/com.valheim.cloudronapp:20210927-111501-502ebc799
+version: 1.0.11

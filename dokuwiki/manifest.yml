@@ -1,0 +1,33 @@
+application:
+  routes:
+  - /=http://dokuwiki.cloud.lazycat.app.dokuwiki.lzcapp:8000
+  subdomain: dokuwiki
+description: "This app packages DokuWiki <upstream>2020-07-29</upstream>.\n\nDokuWiki\
+  \ is a simple to use and highly versatile Open Source wiki software.\n\nIt is loved\
+  \ by users for its clean and readable syntax. Wikis are quick to\nupdate and new\
+  \ pages are easily added. Designed for collaboration while \nmaintaining a history\
+  \ of every change, DokuWiki could be used as\n\n* Corporate Knowledge Base\n* Private\
+  \ notebook\n* Software manual\n* Project workspace\n* CMS – intranet\n\n#### Accounts\n\
+  \nThis app allows edits by any Cloudron user. Cloudron administrators are automatically\n\
+  made wiki administrators.\n\n#### Changing the Logo\n\nTo change the logo upload\
+  \ a file named `logo.png` at the root of the wiki.\n\n#### Links\n\n* [Submit bugs\
+  \ and feature wishes](https://github.com/splitbrain/dokuwiki/issues)\n* [Forum](http://forum.dokuwiki.org/)\n\
+  \n"
+lzc-sdk-version: '0.1'
+name: DokuWiki
+package: cloud.lazycat.app.dokuwiki
+services:
+  dokuwiki:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/org.dokuwiki.cloudronapp:20210218-201043-5598da04d
+version: 1.11.10

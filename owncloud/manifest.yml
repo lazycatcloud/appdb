@@ -1,0 +1,41 @@
+application:
+  routes:
+  - /=http://owncloud.cloud.lazycat.app.owncloud.lzcapp:8080
+  subdomain: owncloud
+description: ownCloud is a self-hosted file sync and share server
+lzc-sdk-version: '0.1'
+name: OwnCloud
+package: cloud.lazycat.app.owncloud
+services:
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+  owncloud:
+    binds:
+    - /lzcapp/var:/userdata
+    - /lzcapp/pkg/./entrypoint:/usr/bin/entrypoint
+    - /lzcapp/pkg/./owncloud:/usr/bin/owncloud
+    - /lzcapp/var:/mnt/data
+    entrypoint: bash /usr/bin/entrypoint /usr/bin/owncloud server
+    environment:
+    - OWNCLOUD_DATABASE_HOST=mysql.cloud.lazycat.app.owncloud.lzcapp
+    - OWNCLOUD_DATABASE_PORT_NUMBER=3306
+    - OWNCLOUD_DATABASE_USER=LAZYCAT
+    - OWNCLOUD_DATABASE_PASSWORD=LAZYCAT
+    - OWNCLOUD_DATABASE_NAME=LAZYCAT
+    - ALLOW_EMPTY_PASSWORD=yes
+    - OWNCLOUD_DOMAIN=${LAZYCAT_APP_ORIGIN}
+    - OWNCLOUD_ADMIN_USERNAME=admin123
+    - OWNCLOUD_ADMIN_PASSWORD=admin123
+    - LDAP_HOST=${LAZYCAT_AUTH_LDAP_HOST}
+    - LDAP_BASE_DN=${LAZYCAT_AUTH_LDAP_BASE_DN}
+    - LDAP_BIND_DN=${LAZYCAT_AUTH_LDAP_BIND_DN}
+    - LDAP_ADMIN_PASSWORD=${LAZYCAT_AUTH_LDAP_BIND_PASS}
+    image: owncloud/server:10.9.1
+version: 0.0.13

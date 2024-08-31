@@ -1,0 +1,20 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.flare
+version: 0.0.1
+name: Flare
+description: 轻量、快速、美观的个人导航页面，适用于 HomeLab 或其他注重私密的场景。
+license: https://github.com/soulteary/docker-flare/blob/main/LICENSE
+homepage: https://github.com/soulteary/flare
+application:
+  subdomain: flare
+  routes:
+    - /=http://web.cloud.lazycat.app.flare.lzcapp:5005
+  user_app: true
+services:
+  web:
+    image: soulteary/flare
+    binds:
+      - /lzcapp/var/app:/app
+      - /lzcapp/pkg/content:/pkg_content
+    # command: flare
+    entrypoint: /bin/sh /pkg_content/entrypoint.sh

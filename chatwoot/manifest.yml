@@ -1,0 +1,37 @@
+application:
+  routes:
+  - /=http://chatwoot.cloud.lazycat.app.chatwoot.lzcapp:3000
+  subdomain: chatwoot
+description: "This app packages Chatwoot <upstream>v1.22.1</upstream>\n\n## Features\n\
+  Chatwoot gives an integrated view of conversations happening in different communication\
+  \ channels.\n\nIt supports the following conversation channels:\n\n - **Website**:\
+  \ Talk to your customers using our live chat widget and make use of our SDK to identify\
+  \ a user and provide contextual support.\n - **Facebook**: Connect your Facebook\
+  \ pages and start replying to the direct messages to your page.\n - **Twitter**:\
+  \ Connect your Twitter profiles and reply to direct messages or the tweets where\
+  \ you are mentioned.\n - **Whatsapp**: Connect your Whatsapp business account and\
+  \ manage the conversation in Chatwoot\n - **SMS**: Connect your Twilio SMS account\
+  \ and reply to the SMS queries in Chatwoot\n - **API Channel**: Build custom communication\
+  \ channels using our API channel.\n - **Email (beta)**: Forward all your email queries\
+  \ to Chatwoot and view it in our integrated dashboard.\n\nOther features include:\n\
+  \n- **Multi-brand inboxes**: Manage multiple brands or pages using a single dashboard.\n\
+  - **Private notes**: Inter team communication is possible using private notes in\
+  \ a conversation.\n- **Canned responses (Saved replies)**: Improve the response\
+  \ rate by adding saved replies for frequently asked questions.\n- **Conversation\
+  \ Labels**: Use conversation labelling to create custom workflows.\n- **Auto assignment**:\
+  \ Chatwoot intelligently assigns a ticket to the agents who have access to the inbox\
+  \ depending on their availability and load.\n- **Conversation continuity**: If the\
+  \ user has provided an email address through the chat widget, Chatwoot would send\
+  \ an email to the customer under the agent name so that the user can continue the\
+  \ conversation over the email.\n- **Multi-lingual support**: Chatwoot supports 10+\
+  \ languages.\n- **Powerful API & Webhooks**: Extend the capability of the software\
+  \ using Chatwoot’s webhooks and APIs.\n- **Integrations**: Chatwoot natively integrates\
+  \ with Slack right now. Manage your conversations in Slack without logging into\
+  \ the dashboard.\n\n"
+lzc-sdk-version: '0.1'
+name: Chatwoot
+package: cloud.lazycat.app.chatwoot
+services:
+  chatwoot:
+    image: cloudron/com.chatwoot.cloudronapp:20211122-202225-051190e7d
+version: 1.1.11

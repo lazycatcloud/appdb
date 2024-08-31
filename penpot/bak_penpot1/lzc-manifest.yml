@@ -1,0 +1,57 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.penpot1
+version: 1.19.0-lzc1-1
+name: Penpot
+description:
+license: https://www.mozilla.org/en-US/MPL/2.0/
+homepage: https://penpot.app
+application:
+  subdomain: penpot
+  routes:
+    - /=http://penpot-frontend.cloud.lazycat.app.penpot1.lzcapp:80
+  authcallback: /api/auth/oauth/oidc/callback
+services:
+  penpot-redis:
+    image: redis:7-alpine
+  penpot-postgres:
+    image: postgres:15.3-bookworm
+    environment:
+      - POSTGRES_DB=penpot
+      - POSTGRES_USER=penpot
+      - POSTGRES_PASSWORD=penpot
+      - PGDATA=/lzcapp/var/pgdata
+  penpot-backend:
+    image: registry.lazycat.cloud/appdb/penpot-backend:v1.19.0-lzc1-1
+    environment:
+      - PENPOT_PUBLIC_URI=https://penpot.${LAZYCAT_BOX_DOMAIN}
+      - PENPOT_DATABASE_URI=postgresql://penpot-postgres.cloud.lazycat.app.penpot1.lzcapp/penpot
+      - PENPOT_DATABASE_USERNAME=penpot
+      - PENPOT_DATABASE_PASSWORD=penpot
+      - PENPOT_REDIS_URI=redis://penpot-redis.cloud.lazycat.app.penpot1.lzcapp/0
+      - PENPOT_ASSET_STORAGE_BACKEND=assets-fs
+      - PENPOT_STORAGE_ASSETS_FS_DIRECTORY=/lzcapp/var/assets
+      - PENPOT_TELEMETRY_ENABLED=false
+      - PENPOT_SMTP_ENABLED=false
+      - PENPOT_OIDC_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - PENPOT_OIDC_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - PENPOT_OIDC_BASE_URI=${LAZYCAT_AUTH_OIDC_ISSUER_URL}/
+      - PENPOT_FLAGS=enable-login-with-oidc
+    depends_on:
+      - penpot-redis
+      - penpot-postgres
+  penpot-frontend:
+    image: registry.lazycat.cloud/appdb/penpot-frontend:v1.19.0-lzc1-1
+    environment:
+      - PENPOT_BACKEND_URI=http://penpot-backend.cloud.lazycat.app.penpot1.lzcapp:6060
+      - PENPOT_EXPORTER_URI=http://penpot-exporter.cloud.lazycat.app.penpot1.lzcapp:6061
+      - PENPOT_FLAGS=enable-login-with-oidc
+    depends_on:
+      - penpot-backend
+      - penpot-exporter
+  penpot-exporter:
+    image: registry.lazycat.cloud/appdb/penpot-exporter:v1.19.0-lzc1-1
+    environment:
+      - PENPOT_PUBLIC_URI=http://penpot-frontend.cloud.lazycat.app.penpot1.lzcapp
+      - PENPOT_REDIS_URI=redis://penpot-redis.cloud.lazycat.app.penpot1.lzcapp/0
+    depends_on:
+      - penpot-redis

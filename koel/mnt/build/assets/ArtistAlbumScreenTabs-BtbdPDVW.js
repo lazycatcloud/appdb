@@ -1,0 +1,1 @@
+import{_ as n,o as r,n as t,T as s,q as a}from"./userStore-DI58VgZ6.js";const o={},c={class:"tabs"};function d(e,l){return r(),t("div",c,[s("header",null,[a(e.$slots,"header",{},void 0,!0)]),s("main",null,[a(e.$slots,"default",{},void 0,!0)])])}const u=n(o,[["render",d],["__scopeId","data-v-28d09cba"]]);export{u as S};

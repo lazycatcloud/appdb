@@ -1,0 +1,19 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.goshs
+version: 0.0.1
+name: goshs
+description: 用Go语言编写的SimpleHTTPServer，功能强大，设计美观。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/patrickhener/goshs
+application:
+  subdomain: goshs
+  routes:
+    # - /=http://pc.lan:8000/
+    # - /=file:///lzcapp/pkg/content/
+    - /=http://web.cloud.lazycat.app.goshs.lzcapp:8000
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/goshs:202307132
+    binds:
+      - /lzcapp/run/mnt/home:/data

@@ -1,0 +1,4 @@
+manifest: ./lzc-manifest.yml
+icon: ./logo.png
+contentdir: ./flutter_drawing_board/build/web
+pkgout: ./

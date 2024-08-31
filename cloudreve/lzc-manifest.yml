@@ -1,0 +1,20 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.cloudreve
+version: 3.8.2-lzc1-1
+name: Cloudreve
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://cloudreve.org/
+application:
+  subdomain: cloudreve
+  routes:
+    - /=http://cloudreve.cloud.lazycat.app.cloudreve.lzcapp:5212
+  public_path:
+    - /manifest.json
+    - /api/v3/wopi
+services:
+  cloudreve-redis:
+    image: redis:7.0.11-alpine3.18
+  cloudreve:
+    environment:
+      - CLOUDREVE_SITE_URL=https://cloudreve.${LAZYCAT_BOX_DOMAIN}
+    image: registry.lazycat.cloud/appdb/cloudreve:v3.8.2-lzc1

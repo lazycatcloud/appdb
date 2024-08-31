@@ -1,0 +1,15 @@
+lzc-sdk-version: '0.1'
+name: Home Assistant
+version: 0.0.1
+package: cloud.lazycat.app.homeassistant
+license: https://choosealicense.com/licenseqs/apache-2.0
+description: 将本地控制和隐私放在首位的开源家庭自动化
+application:
+  routes:
+  - /=http://server.cloud.lazycat.app.homeassistant.lzcapp:8123
+  subdomain: homeassistant
+services:
+  server:
+    image: registry.lazycat.cloud/homeassistant:23.8.4
+    binds:
+      - /lzcapp/var/config://homeassistant/config

@@ -1,0 +1,24 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.openproject
+version: 0.0.5
+name: OpenProject
+description: 项目管理工具
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://www.openproject.org/
+author: OpenProject authors
+application:
+  subdomain: openproject
+  routes:
+    - /=http://openproject.cloud.lazycat.app.openproject.lzcapp:80
+services:
+  openproject:
+    image: registry.lazycat.cloud/appdb/openproject:v0.0.3
+    environment:
+      - PEERTUBE_WEBSERVER_HOSTNAME=0.0.0.0
+      - >-
+        PEERTUBE_SECRET=c0230d3ed55464c2f3ff2e08d5b8953293f9024be048ed07b0a0ba4456c7c783
+    health_check:
+      test:
+        - CMD-SHELL
+        - "curl -f http://localhost/ || exit 1"
+      start_period: 190s

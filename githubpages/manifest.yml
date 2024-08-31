@@ -1,0 +1,55 @@
+application:
+  routes:
+  - /=http://githubpages.cloud.lazycat.app.githubpages.lzcapp:3000
+  subdomain: githubpages
+description: 'This app packages GitHub Pages version <upstream>222</upstream> and
+  supports Jekyll 3.9.0
+
+
+  ## About
+
+
+  GitHub Pages is a Cloudron app for hosting static web pages for GitHub users, user
+  blogs, project documentation or even whole books.
+
+
+  It is integrated with the Jekyll software for static web site and blog generation.
+  The Jekyll source pages for a web site can be stored as a Git repository inside
+  the app, and when the repository is updated the GitHub Pages servers will automatically
+  regenerate the site.
+
+
+  ## Jekyll Support
+
+
+  This app uses the GitHub pages gem and as such only supports the Jekyll version
+  and Jekyll
+
+  plugins that GitHub supports for it''s Pages feature.
+
+
+  See [Dependency versions](https://pages.github.com/versions/) for the version list.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: GitHub Pages
+package: cloud.lazycat.app.githubpages
+services:
+  githubpages:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://githubpages.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://githubpages.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=githubpages.${LAZYCAT_BOX_DOMAIN}
+    image: cloudron/github.pages.cloudronapp:20211117-115800-319c4932f
+version: 1.15.12

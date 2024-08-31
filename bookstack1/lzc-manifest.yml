@@ -1,0 +1,35 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.bookstack
+version: 0.0.1
+name: BookStack
+description:
+license: https://opensource.org/license/mit/
+homepage: https://www.bookstackapp.com/
+application:
+  subdomain: bookstack
+  routes:
+    - /=http://bookstack.cloud.lazycat.app.bookstack.lzcapp:80
+  authcallback: /oidc/callback
+services:
+  bookstack:
+    image: registry.lazycat.cloud/appdb/bookstack:v0.0.1
+    environment:
+      - APP_URL=https://bookstack.${LAZYCAT_BOX_DOMAIN}
+      - APP_DEBUG=false
+      - DB_HOST=127.0.0.1
+      - DB_DATABASE=bookstack
+      - DB_USERNAME=bookstack
+      - DB_PASSWORD=bookstack
+      - AUTH_METHOD=oidc
+      - AUTH_AUTO_INITIATE=true
+      - OIDC_NAME=LZC
+      - OIDC_DISPLAY_NAME_CLAIMS=name
+      - OIDC_USER_TO_GROUPS=true
+      - OIDC_GROUPS_CLAIM=groups
+      - OIDC_ADDITIONAL_SCOPES=groups
+      - OIDC_REMOVE_FROM_GROUPS=false
+      - OIDC_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - OIDC_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - OIDC_ISSUER=${LAZYCAT_AUTH_OIDC_ISSUER_URL}
+      - OIDC_ISSUER_DISCOVER=true
+      - STORAGE_TYPE=local_secure

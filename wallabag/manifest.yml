@@ -1,0 +1,62 @@
+application:
+  routes:
+  - /=http://wallabag.cloud.lazycat.app.wallabag.lzcapp:8000
+  subdomain: wallabag
+description: 'This app packages Wallabag <upstream>2.4.2</upstream>
+
+
+  Wallabag is a read-it-later application: it saves a web page by keeping content
+  only.
+
+  Elements like navigation or ads are removed.
+
+
+  ### Features
+
+
+  **Comfortable reading**
+
+
+  Wallabag extracts the article''s content (and only its content!) and displays it
+  in a comfortable view.
+
+  Moreover, wallabag is responsive: you can read your articles on your smartphone
+  or your tablet.
+
+
+  **Migrate from other services**
+
+
+  If you already have an account on Pocket©, Readability©, Instapaper© or even wallabag,
+  you can import your data into wallabag.
+
+
+  **Retrieve your articles easily thanks to filters**
+
+
+  Wallabag provides a powerful tool to filter your saved articles. It''s so easy to
+  look for them.
+
+
+  **Keep your data**
+
+
+  All your data belongs to you. You can download all your articles in many formats:
+  PDF, ePUB, .mobi, JSON, CSV, txt or HTML.
+
+
+  ### Apps
+
+
+  Wallabag comes with addons for Firefox and Chrome. Mobile apps are available for
+
+  Android, iOS and Windows Phone.
+
+  '
+lzc-sdk-version: '0.1'
+name: Wallabag
+package: cloud.lazycat.app.wallabag
+services:
+  wallabag:
+    image: cloudron/org.wallabag.cloudronapp2:20210604-091830-9843bc4fb
+version: 2.1.12

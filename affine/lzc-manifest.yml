@@ -1,0 +1,18 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.affine
+version: 0.0.1
+name: AFFiNE
+description: There can be more than Notion and Miro. AFFiNE is a next-gen knowledge base that brings planning, sorting and creating all together. Privacy first, open-source, customizable and ready to use.
+license: https://www.mozilla.org/en-US/MPL/2.0
+homepage: https://github.com/toeverything/AFFiNE
+author: d1y
+
+application:
+  subdomain: affine
+  background_task: false
+  routes:
+    - /=file:///lzcapp/pkg/content/
+
+  image: registry.lazycat.cloud/alpine:3.16
+
+  user_app: false

@@ -1,0 +1,21 @@
+FROM registry.lazycat.cloud/realcugan_web:dependencies
+
+WORKDIR /root
+COPY ./src /root/realcugan-ncnn-webassembly
+# RUN git clone https://github.com/hanfengsan/realcugan-ncnn-webassembly.git --depth=1
+# WORKDIR /root/realcugan-ncnn-webassembly
+
+# RUN git submodule add -f https://github.com/Tencent/ncnn.git
+# WORKDIR /root/realcugan-ncnn-webassembly/ncnn
+# RUN git checkout 20220420
+# WORKDIR /root/realcugan-ncnn-webassembly
+
+# RUN git submodule add -f https://github.com/fmtlib/fmt.git
+# WORKDIR /root/realcugan-ncnn-webassembly/fmt
+# RUN git checkout 8.1.1
+
+WORKDIR /root/realcugan-ncnn-webassembly
+RUN sed -i s/-j4/-j16/g build.sh
+SHELL ["/bin/bash", "-c"]
+RUN echo $0
+RUN source "/root/emsdk/emsdk_env.sh" && ./build.sh

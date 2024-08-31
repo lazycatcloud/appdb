@@ -1,0 +1,73 @@
+application:
+  routes:
+  - /=http://espocrm.cloud.lazycat.app.espocrm.lzcapp:8000
+  subdomain: espocrm
+description: 'This app packages EspoCRM version <upstream>7.0.8</upstream>.
+
+
+  EspoCRM is an Open Source CRM (Customer Relationship Management) software that
+
+  allows you to see, enter and evaluate all your company relationships regardless
+
+  of the type. People, companies or opportunities - all in an easy and intuitive
+
+  interface.
+
+
+  ## Features
+
+
+  * Web based CRM. One version for all your devices.
+
+  * Free of charge and open source CRM distributed under GPLv3.
+
+  * Tested with most hosting providers.
+
+  * New features every 2 months.
+
+  * Responsive Design and latest Web Technologies.
+
+  * Lightning fast.
+
+  * No user limitation.
+
+  * Cloud and On-Premise version available.
+
+  * Easy to customize.
+
+  * Open architecture for third party integration via API.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Espo CRM
+package: cloud.lazycat.app.espocrm
+services:
+  espocrm:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.espocrm.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/com.espocrm.cloudronapp:20211027-051033-129384563
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 2.1.10

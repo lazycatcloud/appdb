@@ -1,0 +1,24 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.planka
+version: 1.14.1-lzc1-1
+name: Planka
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://planka.app/
+application:
+  subdomain: planka
+  routes:
+    - /=http://planka.cloud.lazycat.app.planka.lzcapp:1337
+services:
+  planka-postgres:
+    image: postgres:14-alpine
+    environment:
+      - PGDATA=/lzcapp/var/db
+      - POSTGRES_DB=planka
+      - POSTGRES_HOST_AUTH_METHOD=trust
+  planka:
+    image: registry.lazycat.cloud/appdb/planka:v1.14.1-lzc1
+    environment:
+      - BASE_URL=https://planka.${LAZYCAT_BOX_DOMAIN}
+      - DATABASE_URL=postgresql://postgres@planka-postgres.cloud.lazycat.app.planka.lzcapp/planka
+    depends_on:
+      - planka-postgres

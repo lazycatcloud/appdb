@@ -1,0 +1,16 @@
+application:
+  routes:
+  - /=http://gotify.cloud.lazycat.app.gotify.lzcapp:80
+  subdomain: gotify
+description: a simple server for sending and receiving messages
+lzc-sdk-version: '0.1'
+name: Gotify
+package: cloud.lazycat.app.gotify
+services:
+  gotify:
+    binds:
+    - /lzcapp/cache:/app/data
+    environment:
+    - TZ="Asia/Shanghai"
+    image: gotify/server:2.1.3
+version: 0.0.17

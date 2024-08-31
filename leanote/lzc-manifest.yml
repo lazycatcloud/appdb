@@ -1,0 +1,22 @@
+name: 蚂蚁笔记
+package: cloud.lazycat.app.leanote
+description: 一款开源云笔记软件
+lzc-sdk-version: '0.1'
+version: 0.0.3
+application:
+  routes:
+    - /=http://server.cloud.lazycat.app.leanote.lzcapp:9000
+  subdomain: leanote
+services:
+  server:
+    binds:
+      - /lzcapp/pkg/content/app.conf:/root/app/src/github.com/leanote/leanote/conf/app.conf
+      - /lzcapp/var/files:/root/app/src/github.com/leanote/leanote/files
+      - /lzcapp/var/upload:/root/app/src/github.com/leanote/leanote/public/upload
+    image: registry.lazycat.cloud/leanote:2.6.1-3
+    depends_on:
+      - db
+  db:
+    binds:
+      - /lzcapp/var/db:/data/db/
+    image: registry.lazycat.cloud/leanote_mongo:4.0.28

@@ -1,0 +1,28 @@
+application:
+  routes:
+  - /=http://nextcloud.cloud.lazycat.app.nextcloud.lzcapp:80
+  subdomain: nextcloud
+description: 一套用于创建网络硬盘的客户端－服务器软件
+lzc-sdk-version: '0.1'
+name: Nextcloud
+package: cloud.lazycat.app.nextcloud
+services:
+  nextcloud:
+    binds:
+    - /lzcapp/var:/userdata
+    - /lzcapp/pkg/./entrypoint.sh:/entrypoint.sh
+    - /lzcapp/pkg/./start.sh:/start.sh
+    - /lzcapp/pkg/./onlyoffice.tar.gz:/mnt/onlyoffice.tar.gz
+    - /lzcapp/var/app:/var/www/html/custom_apps
+    - /lzcapp/var/config:/var/www/html/config
+    - /lzcapp/var/theme:/var/www/html/themes
+    - /lzcapp/var:/var/www/html/data
+    entrypoint: bash /start.sh
+    environment:
+    - APP_ORIGIN=${LAZYCAT_APP_ORIGIN}
+    - LDAP_HOST=${LAZYCAT_AUTH_LDAP_HOST}
+    - LDAP_BASE_DN=${LAZYCAT_AUTH_LDAP_BASE_DN}
+    - LDAP_BIND_DN=${LAZYCAT_AUTH_LDAP_BIND_DN}
+    - LDAP_ADMIN_PASSWORD=${LAZYCAT_AUTH_LDAP_BIND_PASS}
+    image: nextcloud:22.2.0
+version: 1.3.10

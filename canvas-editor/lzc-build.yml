@@ -1,0 +1,6 @@
+buildscript: ./build.sh
+
+pkgout: ./
+
+contentdir: ./canvas-editor/dist
+icon: ./logo.png

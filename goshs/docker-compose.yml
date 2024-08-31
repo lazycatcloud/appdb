@@ -1,0 +1,13 @@
+version: '3'
+services:
+  goshs:
+    image: registry.lazycat.cloud/appdb/goshs:202307132
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/data
+    environment:
+      - IP=0.0.0.0
+      - PORT=8000
+      - DIR=/data

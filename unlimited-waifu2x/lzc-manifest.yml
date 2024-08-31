@@ -1,0 +1,14 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.unlimited.waifu2x
+version: 0.0.2
+name: unlimited waifu2x
+license: https://opensource.org/license/mit/
+homepage: https://unlimited.waifu2x.net/
+author: nagadomi
+application:
+  subdomain: unlimited-waifu2x
+  routes:
+    - /=http://unlimited-waifu2x.cloud.lazycat.app.unlimited.waifu2x.lzcapp:80
+services:
+  unlimited-waifu2x:
+    image: registry.lazycat.cloud/appdb/unlimited-waifu2x:v0.0.2

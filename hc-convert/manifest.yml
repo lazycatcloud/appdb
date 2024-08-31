@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://hc-convert.cloud.lazycat.app.hc-convert.lzcapp:80
+  subdomain: hc-convert
+description: 文件转换
+lzc-sdk-version: '0.1'
+name: 文件转换app demo
+package: cloud.lazycat.app.hc-convert
+services:
+  hc-convert:
+    image: registry.lazycat.cloud/homecloud/hc-convert
+version: 0.0.11

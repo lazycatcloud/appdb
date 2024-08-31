@@ -1,0 +1,21 @@
+description: 一套多媒体应用程序软件套装
+lzc-sdk-version: '0.1'
+name: Jellyfin
+version: 0.0.14
+package: cloud.lazycat.app.jellyfin1
+license: https://choosealicense.com/licenses/gpl-2.0/
+application:
+  # authcallback: /sso/OID/r/lzcoauth
+  routes:
+  - /=http://$uid.jellyfin.cloud.lazycat.app.jellyfin1.lzcapp:8096
+  subdomain: jellyfin
+  user_app: true
+services:
+  jellyfin:
+    image: registry.lazycat.cloud/jellyfin:0.1.4
+    environment:
+      - OAUTH2_ENABLE=true
+      - OAUTH2_LOGIN_STYLE=redirect
+      - OAUTH2_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - OAUTH2_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - OAUTH2_SERVER_URL=${LAZYCAT_AUTH_OIDC_ISSUER_URL}

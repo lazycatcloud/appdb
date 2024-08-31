@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://scoold.cloud.lazycat.app.scoold.lzcapp:8000
+  subdomain: scoold
+description: Scoold is a Q&A/knowledge base platform written in Java
+lzc-sdk-version: '0.1'
+name: scoold
+package: cloud.lazycat.app.scoold
+services:
+  scoold:
+    image: erudikaltd/scoold:1.47.0
+version: 0.0.11

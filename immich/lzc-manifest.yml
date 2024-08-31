@@ -1,0 +1,159 @@
+description: 高性能的自托管照片和视频备份方案
+lzc-sdk-version: '0.1'
+name: Immich 
+version: 0.0.3
+package: cloud.lazycat.app.immich
+license: https://choosealicense.com/licenses/mit
+application:
+  authcallback: /auth/login
+  routes:
+  - /=http://proxy.cloud.lazycat.app.immich.lzcapp:8080
+  subdomain: immich
+services:
+  server:
+    image: registry.lazycat.cloud/immich-server:23.6.26
+    entrypoint: /bin/sh -c /usr/src/app/start.sh immich
+    binds:
+      - /lzcapp/var/upload:/usr/src/app/upload
+    environment:
+      - IMMICH_APP=immich
+      - DB_HOSTNAME=database.cloud.lazycat.app.immich.lzcapp
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=redis.cloud.lazycat.app.immich.lzcapp
+      - UPLOAD_LOCATION=/mnt/immich_UPLOAD_LOCATION
+      - TYPESENSE_API_KEY=some-random-text
+      - TYPESENSE_HOST=typesense.cloud.lazycat.app.immich.lzcapp
+      - PUBLIC_LOGIN_PAGE_MESSAGE=
+      - IMMICH_WEB_URL=http://web.cloud.lazycat.app.immich.lzcapp:3000
+      - IMMICH_SERVER_URL=http://server.cloud.lazycat.app.immich.lzcapp:3001
+      - IMMICH_MACHINE_LEARNING_URL=http://ml.cloud.lazycat.app.immich.lzcapp:3003
+    depends_on:
+      - redis
+      - database
+      - typesense
+
+  microservices:
+    image: registry.lazycat.cloud/immich-server:23.6.26
+    entrypoint: /bin/sh -c /usr/src/app/start.sh microservices
+    binds:
+      - /lzcapp/var/upload:/usr/src/app/upload
+    environment:
+      - IMMICH_APP=microservices
+      - DB_HOSTNAME=database.cloud.lazycat.app.immich.lzcapp
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=redis.cloud.lazycat.app.immich.lzcapp
+      - UPLOAD_LOCATION=/mnt/immich_UPLOAD_LOCATION
+      - TYPESENSE_API_KEY=some-random-text
+      - TYPESENSE_HOST=typesense.cloud.lazycat.app.immich.lzcapp
+      - PUBLIC_LOGIN_PAGE_MESSAGE=
+      - IMMICH_WEB_URL=http://web.cloud.lazycat.app.immich.lzcapp:3000
+      - IMMICH_SERVER_URL=http://server.cloud.lazycat.app.immich.lzcapp:3001
+      - IMMICH_MACHINE_LEARNING_URL=http://ml.cloud.lazycat.app.immich.lzcapp:3003
+    depends_on:
+      - redis
+      - database
+      - typesense
+
+  ml:
+    image: registry.lazycat.cloud/immich-machine-learning:23.6.26-cached
+    binds:
+      - /lzcapp/cache/machine-learning-model:/cache
+    environment:
+      - DB_HOSTNAME=database.cloud.lazycat.app.immich.lzcapp
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=redis.cloud.lazycat.app.immich.lzcapp
+      - UPLOAD_LOCATION=/mnt/immich_UPLOAD_LOCATION
+      - TYPESENSE_API_KEY=some-random-text
+      - PUBLIC_LOGIN_PAGE_MESSAGE=
+      - IMMICH_WEB_URL=http://web.cloud.lazycat.app.immich.lzcapp:3000
+      - IMMICH_SERVER_URL=http://server.cloud.lazycat.app.immich.lzcapp:3001
+      - IMMICH_MACHINE_LEARNING_URL=http://ml.cloud.lazycat.app.immich.lzcapp:3003
+
+  web:
+    image: registry.lazycat.cloud/immich-web:23.6.26
+    environment:
+      - DB_HOSTNAME=database.cloud.lazycat.app.immich.lzcapp
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=redis.cloud.lazycat.app.immich.lzcapp
+      - UPLOAD_LOCATION=/mnt/immich_UPLOAD_LOCATION
+      - TYPESENSE_API_KEY=some-random-text
+      - PUBLIC_LOGIN_PAGE_MESSAGE=
+      - IMMICH_WEB_URL=http://web.cloud.lazycat.app.immich.lzcapp:3000
+      - IMMICH_SERVER_URL=http://server.cloud.lazycat.app.immich.lzcapp:3001
+      - IMMICH_MACHINE_LEARNING_URL=http://ml.cloud.lazycat.app.immich.lzcapp:3003
+
+  typesense:
+    image: registry.lazycat.cloud/immich-typesense:23.6.26
+    environment:
+      - TYPESENSE_DATA_DIR=/data
+      - DB_HOSTNAME=database.cloud.lazycat.app.immich.lzcapp
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=redis.cloud.lazycat.app.immich.lzcapp
+      - UPLOAD_LOCATION=/mnt/immich_UPLOAD_LOCATION
+      - TYPESENSE_API_KEY=some-random-text
+      - PUBLIC_LOGIN_PAGE_MESSAGE=
+      - IMMICH_WEB_URL=http://web.cloud.lazycat.app.immich.lzcapp:3000
+      - IMMICH_SERVER_URL=http://server.cloud.lazycat.app.immich.lzcapp:3001
+      - IMMICH_MACHINE_LEARNING_URL=http://ml.cloud.lazycat.app.immich.lzcapp:3003
+    binds:
+      - /lzcapp/var/typesense:/data
+
+  redis:
+    image: registry.lazycat.cloud/immich-redis:23.6.26
+  
+  database:
+    image: registry.lazycat.cloud/immich-postgres:23.6.26
+    binds:
+      - /lzcapp/var/pgdb:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=immich
+      - PG_DATA=/var/lib/postgresql/data
+      - DB_HOSTNAME=database.cloud.lazycat.app.immich.lzcapp
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=redis.cloud.lazycat.app.immich.lzcapp
+      - UPLOAD_LOCATION=/mnt/immich_UPLOAD_LOCATION
+      - TYPESENSE_API_KEY=some-random-text
+      - PUBLIC_LOGIN_PAGE_MESSAGE=
+      - IMMICH_WEB_URL=http://web.cloud.lazycat.app.immich.lzcapp:3000
+      - IMMICH_SERVER_URL=http://server.cloud.lazycat.app.immich.lzcapp:3001
+      - IMMICH_MACHINE_LEARNING_URL=http://ml.cloud.lazycat.app.immich.lzcapp:3003
+  
+  proxy:
+    image: registry.lazycat.cloud/immich-proxy:23.6.26
+    binds:
+      - /lzcapp/pkg/content/immichInit:/bin/immichInit
+    entrypoint: sh -c "immichInit && /docker-entrypoint.sh nginx -g 'daemon off;'"
+    environment:
+      - OAUTH2_ENABLE=true
+      - OAUTH2_LOGIN_STYLE=redirect
+      - OAUTH2_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - OAUTH2_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - OAUTH2_SERVER_URL=${LAZYCAT_AUTH_OIDC_ISSUER_URL}
+      - DB_HOSTNAME=database.cloud.lazycat.app.immich.lzcapp
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE_NAME=immich
+      - REDIS_HOSTNAME=redis.cloud.lazycat.app.immich.lzcapp
+      - UPLOAD_LOCATION=/mnt/immich_UPLOAD_LOCATION
+      - TYPESENSE_API_KEY=some-random-text
+      - PUBLIC_LOGIN_PAGE_MESSAGE=
+      - IMMICH_WEB_URL=http://web.cloud.lazycat.app.immich.lzcapp:3000
+      - IMMICH_SERVER_URL=http://server.cloud.lazycat.app.immich.lzcapp:3001
+      - IMMICH_MACHINE_LEARNING_URL=http://ml.cloud.lazycat.app.immich.lzcapp:3003
+    depends_on:
+      - server
+      - web

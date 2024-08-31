@@ -1,0 +1,17 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.control.web.transmission
+version: 1.6.31-lzc1-1
+name: Transmission Web Control
+description:
+license: https://opensource.org/license/mit/
+homepage: https://github.com/transmission-web-control/transmission-web-control
+application:
+  subdomain: transmission-web-control
+  routes:
+    - /=http://transmission-web-control.cloud.lazycat.app.control.web.transmission.lzcapp:80
+    - /rpc=http://transmission-web-control.cloud.lazycat.app.control.web.transmission.lzcapp:9091/transmission/rpc
+    - /transmission/=http://transmission-web-control.cloud.lazycat.app.control.web.transmission.lzcapp:9091/transmission/
+  user_app: true
+services:
+  transmission-web-control:
+    image: registry.lazycat.cloud/appdb/transmission-web-control:v1.6.31-lzc1-1

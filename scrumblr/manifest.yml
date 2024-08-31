@@ -1,0 +1,31 @@
+application:
+  routes:
+  - /=http://scrumblr.cloud.lazycat.app.scrumblr.lzcapp:8000
+  subdomain: scrumblr
+description: 'This app packages scrumblr <upstream>cb1475d4f</upstream>
+
+
+  ### Overview
+
+
+  It is a minimalistic simulation of a physical agile kanban board that supports real-time
+  collaboration.
+
+
+  It does not come with any kind of user-management.
+
+  '
+lzc-sdk-version: '0.1'
+name: scrumblr
+package: cloud.lazycat.app.scrumblr
+services:
+  redis:
+    image: redis:6
+  scrumblr:
+    environment:
+    - CLOUDRON_REDIS_URL=redis://default:@redis.scrumblr.lzcapp
+    - CLOUDRON_REDIS_PASSWORD=
+    - CLOUDRON_REDIS_HOST=redis
+    - CLOUDRON_REDIS_PORT=6379
+    image: cloudron/ca.scrumblr.cloudronapp:20211129-203200-307437d39
+version: 1.1.10

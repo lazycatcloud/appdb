@@ -1,0 +1,23 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.nextterminal
+version: 0.0.1
+name: Next Terminal
+description: Next Terminal是一个简单好用安全的开源交互审计系统，支持RDP、SSH、VNC、Telnet、Kubernetes协议。
+license: https://choosealicense.com/licenses/agpl-3.0/
+homepage: https://github.com/dushixiang/next-terminal
+application:
+  subdomain: nextterminal
+  routes:
+    # - /=http://pc.lan:8088/
+    - /=http://web.cloud.lazycat.app.nextterminal.lzcapp:8088
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/nextterminal:20230628
+    binds:
+      - /lzcapp/var/data:/usr/local/next-terminal/data
+    #   - /lzcapp/pkg/content/config.yml:/usr/local/next-terminal/config.yml
+    #   - /lzcapp/var/moodledata:/var/www/moodledata
+    #   - /lzcapp/pkg/content/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+    #   - /lzcapp/run/mnt/home:/homes
+    #   - /lzcapp/cache:/app/cache

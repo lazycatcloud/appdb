@@ -1,0 +1,20 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.siyuan
+version: 0.0.3
+name: 思源笔记
+description: 一款本地优先的个人知识管理系统， 支持细粒度块级引用和 Markdown 所见即所得。
+license: https://choosealicense.com/licenses/agpl-3.0/
+homepage: https://b3log.org/siyuan/
+author: siyuan
+application:
+  subdomain: siyuan
+  routes:
+    - /=http://$uid.web.cloud.lazycat.app.siyuan.lzcapp:6806
+  user_app: true
+services:
+  web:
+    # Build FROM build
+    image: registry.lazycat.cloud/siyuan-note:v2.8.1.2
+    binds:
+      # - /lzcapp/run/mnt/home/SiYuanNote:/root/Documents/SiYuan
+      - /lzcapp/var/:/root/Documents/SiYuan

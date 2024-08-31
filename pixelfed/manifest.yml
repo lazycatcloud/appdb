@@ -1,0 +1,37 @@
+application:
+  routes:
+  - /=http://pixelfed.cloud.lazycat.app.pixelfed.lzcapp:8000
+  subdomain: pixelfed
+description: 'This app packages Pixelfed <upstream>0.11.1</upstream>
+
+
+  A free and ethical photo sharing platform, powered by ActivityPub federation.
+
+
+  Pixelfed is a free and ethical photo sharing platform.
+
+
+  ## Features
+
+
+  * Ad-Free - No ads in timelines, or anywhere
+
+  * Chronological - Timelines properly ordered, no algorithms
+
+  * Discover - Explore new content and creators
+
+  * Filters - Add optional filters to your photos
+
+  * Photo Albums - Share your photos, one post at a time
+
+  * Privacy Focused - No 3rd party analytics or tracking included
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Pixelfed
+package: cloud.lazycat.app.pixelfed
+services:
+  pixelfed:
+    image: cloudron/org.pixelfed.cloudronapp:20210909-103454-885d7a67d
+version: 1.6.11

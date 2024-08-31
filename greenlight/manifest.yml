@@ -1,0 +1,23 @@
+application:
+  routes:
+  - /=http://greenlight.cloud.lazycat.app.greenlight.lzcapp:80
+  subdomain: greenlight
+description: 'This app packages Greenlight <upstream>2.10.0.3</upstream>
+
+
+  Greenlight is the main front-end interface for a BigBlueButton server.
+
+
+  This app does **not** bundle BigBlueButton itself, but requires a backend server
+  to be installed.
+
+  It comes pre-configured with a demo backend server, to test out the frontend.
+
+  '
+lzc-sdk-version: '0.1'
+name: Greenlight
+package: cloud.lazycat.app.greenlight
+services:
+  greenlight:
+    image: cloudron/org.bigbluebutton.greenlight.cloudronapp:20211108-123656-7022233f7
+version: 1.0.25

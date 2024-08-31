@@ -1,0 +1,29 @@
+application:
+  routes:
+  - /=http://dockerregistry.cloud.lazycat.app.dockerregistry.lzcapp:8000
+  subdomain: dockerregistry
+description: 'This app packages Docker Distribution <upstream>2.7.1 (Registry UI 2.1.0)</upstream>.
+
+
+  ## About
+
+
+  The Docker toolset to pack, ship, store, and deliver content.
+
+
+  This repository''s main product is the Open Source Docker Registry implementation
+  for storing and distributing Docker and OCI images using the OCI Distribution Specification.
+  The goal of this project is to provide a simple, secure, and scalable base for building
+  a registry solution or running a simple private registry.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Docker Registry
+package: cloud.lazycat.app.dockerregistry
+services:
+  dockerregistry:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/com.docker.registry:20211110-005530-263cff8bb
+version: 1.4.10

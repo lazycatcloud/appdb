@@ -1,0 +1,16 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.typecho
+version: 0.0.1
+name: typecho
+description: 一个 PHP 编写博客平台。 简单而强大。
+license: https://choosealicense.com/licenses/gpl-2.0/
+homepage: https://github.com/typecho/typecho
+application:
+  subdomain: typecho
+  routes:
+    - /=http://pc.lan:8000/
+    # - /=file:///lzcapp/pkg/content/
+    # - /=http://web.cloud.lazycat.app.molview.lzcapp:80
+# services:
+#   web:
+#     image: registry.lazycat.cloud/appdb/typecho:202306163

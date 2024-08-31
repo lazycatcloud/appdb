@@ -1,0 +1,31 @@
+application:
+  routes:
+  - /=http://confluence.cloud.lazycat.app.confluence.lzcapp:8090
+  subdomain: confluence
+description: 'This app packages Confluence <upstream>7.15.0</upstream>
+
+
+  ### About
+
+
+  Atlassian Confluence is where you create, organize and discuss work with your team.
+
+
+  Capture the knowledge that''s too often lost in email inboxes and shared
+
+  network drives in Confluence instead – where it''s easy to find, use, and
+
+  update. Give every team, project, or department its own space to create
+
+  the things they need, whether it''s meeting notes, product requirements,
+
+  file lists, or project plans, you can get it done in Confluence.
+
+  '
+lzc-sdk-version: '0.1'
+name: Confluence
+package: cloud.lazycat.app.confluence
+services:
+  confluence:
+    image: cloudron/com.atlassian.confluence:20211130-012843-273ecc0b4
+version: 2.16.10

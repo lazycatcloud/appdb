@@ -1,0 +1,7 @@
+manifest: ./lzc-manifest.yml
+contentdir: ./AFFiNE/apps/web/out
+pkgout: ./
+icon: ./logo.png
+devshell:
+  routes:
+    - /=http://${LocalIP}:8080

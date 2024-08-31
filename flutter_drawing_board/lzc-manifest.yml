@@ -1,0 +1,19 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.flutter.drawingboard
+version: 0.1.1
+name: Flutter Drawing Board
+description: A simple drawing app made with Flutter
+
+license: https://github.com/JideGuru/flutter_drawing_board/blob/master/LICENSE
+homepage: https://github.com/JideGuru/flutter_drawing_board
+author: d1y
+
+application:
+  subdomain: drawing
+  background_task: false
+  user_app: true
+
+  routes:
+    - /=file:///lzcapp/pkg/content/
+
+  image: registry.lazycat.cloud/alpine:3.16

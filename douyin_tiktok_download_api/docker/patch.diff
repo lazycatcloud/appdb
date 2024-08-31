@@ -1,0 +1,56 @@
+diff --git a/web_api.py b/web_api.py
+index d9afe25..49417f1 100644
+--- a/web_api.py
++++ b/web_api.py
+@@ -28,16 +28,21 @@ from starlette.responses import RedirectResponse
+ 
+ from scraper import Scraper
+ 
++lzc_app_domain = os.getenv("LAZYCAT_APP_DOMAIN")
++lzc_api = "https://{}/api".format(lzc_app_domain)
++
+ # 读取配置文件
+ config = configparser.ConfigParser()
+ config.read('config.ini', encoding='utf-8')
+ # 运行端口
+ port = int(config["Web_API"]["Port"])
+ # 域名
+-domain = config["Web_API"]["Domain"]
++domain = lzc_api # config["Web_API"]["Domain"]
+ # 限制器/Limiter
+ Rate_Limit = config["Web_API"]["Rate_Limit"]
+ 
++print("current work domain is {}", lzc_api)
++
+ # 创建FastAPI实例
+ title = "Douyin TikTok Download/Scraper API-V1"
+ version = '3.1.3'
+diff --git a/web_app.py b/web_app.py
+index 0175ed3..4bd2c69 100644
+--- a/web_app.py
++++ b/web_app.py
+@@ -20,9 +20,16 @@ from pywebio.input import *
+ from pywebio.output import *
+ from pywebio.session import info as session_info, run_asyncio_coroutine
+ 
++lzc_app_domain = os.getenv("LAZYCAT_APP_DOMAIN")
++lzc_api = "https://{}/api".format(lzc_app_domain)
++
+ config = configparser.ConfigParser()
+ config.read('config.ini', encoding='utf-8')
+ 
++config["Web_API"]["Domain"] = lzc_api
++
++print("current work domain is {}", lzc_api)
++
+ # 创建一个Scraper类的实例/Create an instance of the Scraper class
+ api = Scraper()
+ 
+@@ -392,6 +399,7 @@ if __name__ == '__main__':
+     else:
+         # 在这里修改默认端口(记得在防火墙放行该端口)
+         port = int(config['Web_APP']['Port'])
++    print("当前端口 {}".format(port))
+     # 判断是否使用CDN加载前端资源
+     cdn = True if config['Web_APP']['PyWebIO_CDN'] == 'True' else False
+     # 启动Web服务\Start Web service

@@ -1,0 +1,64 @@
+application:
+  routes:
+  - /=http://transmission.cloud.lazycat.app.transmission.lzcapp:9091
+  subdomain: transmission
+description: 'This app packages Transmission <upstream>3.00</upstream>
+
+
+  ### Overview
+
+
+  Transmission is a cross-platform BitTorrent client.
+
+
+  ### Features
+
+
+  * Uses fewer resources than other clients
+
+  * Daemon ideal for servers, embedded systems, and headless use
+
+  * All these can be remote controlled by Web and Terminal clients
+
+  * Local Peer Discovery
+
+  * Full encryption, DHT, µTP, PEX and Magnet Link support
+
+
+  ### Configuration
+
+
+  By default, this app is configured to, at the end of a download, automatically hard-link
+  the downloaded files from
+
+  `/app/data/files/Downloading/` to `/app/data/files/Downloaded/`. This allows potential
+  post-processing by other apps of
+
+  the file in `Downloaded`, without interfering with seeding from the file in `Downloading`.
+
+
+  Also, it seeds torrents up to a ratio of 2, then automatically remove them, and
+  removes the corresponding files from
+
+  `Downloading`.
+
+
+  To change the configuration, you must edit the file `/app/data/transmission-config/modifiable.settings.json`
+  then
+
+  restart the app. Changing configuration from the web interface **will not** work.
+
+  '
+lzc-sdk-version: '0.1'
+name: Transmission
+package: cloud.lazycat.app.transmission
+services:
+  transmission:
+    binds:
+    - /lzcapp/var:/downloads
+    environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=Asia/Shanghai
+    image: linuxserver/transmission:2021.11.18
+version: 1.0.11

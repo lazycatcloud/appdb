@@ -1,0 +1,16 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.melody
+version: 0.0.1
+name: Melody
+description: 为您提供更加现代的个人音乐流媒体服务
+license: https://choosealicense.com/licenses/apache-2.0/
+homepage: https://github.com/foamzou/melody
+application:
+  subdomain: melody
+  routes:
+    - /=http://$uid.web.cloud.lazycat.app.melody.lzcapp:5566
+  user_app: true
+services:
+  web:
+    # build from foamzou/melody:all-platform-2022082102
+    image: registry.lazycat.cloud/melody:all-platform-20230307

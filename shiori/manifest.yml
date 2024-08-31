@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://shiori.cloud.lazycat.app.shiori.lzcapp:8080
+  subdomain: shiori
+description: Simple bookmark manager built with Go
+lzc-sdk-version: '0.1'
+name: shiori
+package: cloud.lazycat.app.shiori
+services:
+  shiori:
+    image: radhifadlillah/shiori:latest
+version: 0.0.11

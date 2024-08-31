@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://duplicati.cloud.lazycat.app.commafeed.lzcapp:8082
+  subdomain: commafeed
+description: 一个免费的开源提要阅读器
+lzc-sdk-version: '0.1'
+name: CommaFeed
+package: cloud.lazycat.app.commafeed
+services:
+  duplicati:
+    image: lucabelluccini/commafeed-docker
+version: 0.0.11

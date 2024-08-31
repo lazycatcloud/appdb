@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.kavita
+version: 0.0.1
+name: Kavita
+description: 图书阅读工具
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://www.kavitareader.com/
+application:
+  subdomain: kavita
+  routes:
+    - /=http://kavita.cloud.lazycat.app.kavita.lzcapp:5000
+  user_app: true
+services:
+  kavita:
+    image: registry.lazycat.cloud/appdb/kavita:v0.0.1

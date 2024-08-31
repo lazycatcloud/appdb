@@ -1,0 +1,20 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.qquanweigante
+version: 0.0.2
+name: 甘特图
+description: gante.link 高效的项目管理，甘特图在线工具。免费管理你自己的项目进度、日程安排。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/Qquanwei/gante
+application:
+  subdomain: qquanweigante
+  routes:
+    - /=http://web.cloud.lazycat.app.qquanweigante.lzcapp:8088/
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/qquanwei/gante:20230524
+    environment:
+      - MONGODB_URI=mongodb://db.cloud.lazycat.app.qquanweigante.lzcapp:27017/myapp
+  db:
+    image: registry.lazycat.cloud/mongo:4.4.22
+    binds:
+      - /lzcapp/var/db/mongodb:/data/db

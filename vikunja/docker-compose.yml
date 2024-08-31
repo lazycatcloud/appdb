@@ -1,0 +1,72 @@
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: vikunja
+    volumes:
+      - postgres_db:/var/lib/postgresql/
+  api:
+    image: vikunja/api
+    environment:
+      VIKUNJA_DATABASE_HOST: db
+      VIKUNJA_DATABASE_PASSWORD: secret
+      VIKUNJA_DATABASE_TYPE: postgres
+      VIKUNJA_DATABASE_USER: vikunja
+      VIKUNJA_DATABASE_DATABASE: vikunja
+    ports:
+      - 3456:3456
+    volumes:
+      - files:/app/vikunja/files
+    depends_on:
+      - db
+    restart: unless-stopped
+  frontend:
+    image: vikunja/frontend
+    environment:
+      VIKUNJA_API_URL: http://127.0.0.1:3456/api/v1
+    labels:
+      ingress-80: vikunja
+volumes:
+  postgres_db: {}
+  files: {}
+version: '3.9'
+x-lazycat-app:
+  quality: low
+  addons:
+    localstorage: {}
+    postgresql: {}
+    redis: {}
+    sendmail: {}
+  categories:
+  - todo
+  - organize
+  - kanban
+  - trello
+  - evernote
+  - tasks
+  description: "This app packages Vikunja <upstream>0.18.1</upstream>.\n\nThink of\
+    \ Vikunja like the notebook you have with all your things to keep track of.\n\
+    But better.\n\n## About\n\nVikunja is an Open-Source, self-hosted To-Do list application\
+    \ for all platforms. It is licensed under the GPLv3.\n\n## Features\n\n* Stay\
+    \ organized - Organize your tasks in lists, organize lists in namespaces.\n* Tasks\
+    \ - Tasks are not only simple tasks. You can let Vikunja remind you of tasks when\
+    \ they're due. Never miss an important deadline again!\n* Collaboration - Ever\
+    \ wished you could just share that grocery list with your roomate instead of having\
+    \ to send dozens of texts on your way to the supermarket? With Vikunja, you can.\
+    \ Simply share a list (or a namespace with all its lists) to another user. Don't\
+    \ want your roommate to add new things to the grocery list and only do the shopping?\
+    \ You can also share a list with read-only access!\n*  Share links - You can share\
+    \ a list with a link so that others can directly see or edit all tasks on a list\
+    \ but don't need to create an account. Share links have all the same rights management\
+    \ as sharing with users or teams. \n* Labels - Effortlessly mark tasks with a\
+    \ colorful label to find and group relevant tasks with a click! \n\n"
+  icon: icon_vikunja.png
+  id: vikunja
+  screenshots:
+  - screenshot_vikunja0.jpg
+  - screenshot_vikunja1.jpg
+  - screenshot_vikunja2.png
+  summary: The to-do app to organize your life.
+  title: Vikunja
+  version: 1.0.1

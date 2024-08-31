@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://openspeedtest.cloud.lazycat.app.ospeedtest.lzcapp:3000
+  subdomain: ospeedtest
+description: 网速测试
+lzc-sdk-version: '0.1'
+name: Open Speedtest
+package: cloud.lazycat.app.ospeedtest
+services:
+  openspeedtest:
+    image: registry.lazycat.cloud/openspeed:23.5.12
+version: 0.1.1

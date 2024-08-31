@@ -1,0 +1,14 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.spdf
+version: 0.0.1
+name: Stirling PDF
+description: 这是一个本地托管的 Web 应用程序，允许您对 PDF 文件执行各种操作，例如拆分和添加图像。
+license: https://choosealicense.com/licenses/apache-2.0/
+homepage: https://github.com/Frooodle/Stirling-PDF
+application:
+  subdomain: spdf
+  routes:
+    - /=http://web.cloud.lazycat.app.spdf.lzcapp:8080
+services:
+  web:
+    image: registry.lazycat.cloud/s-pdf:20230301

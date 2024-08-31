@@ -1,0 +1,17 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.qrbtf
+version: 0.0.2
+name: 艺术二维码生成器
+description: QRBTF is a simple web app to beautify your QR code.
+homepage: https://github.com/ciaochaos/qrbtf
+author: ciaochaos
+application:
+  routes:
+    - /=http://qr.cloud.lazycat.app.qrbtf.lzcapp:80
+  depends_on:
+    - qr
+  subdomain: qrbtf
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  qr:
+    image: registry.lazycat.cloud/ciaochaos/qrbtf:0.1

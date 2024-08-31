@@ -1,0 +1,21 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.myrime
+version: 0.0.3
+name: My RIME
+description: Free and Open Source online Chinese IME powered by RIME.
+  自由开源在线中文输入法 拼音 双拼 粤语 注音 五笔 仓颉 速成
+homepage: ""
+author: admin@linakesi.com
+unsupported_platforms:
+  - android
+  - ios
+application:
+  routes:
+    - /=http://rime.cloud.lazycat.app.myrime.lzcapp:80
+  depends_on:
+    - rime
+  subdomain: rime
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  rime:
+    image: registry.lazycat.cloud/builder/my_rime:0.1

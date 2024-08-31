@@ -1,0 +1,5 @@
+buildscript: ./build.sh
+
+pkgout: ./
+
+icon: ./logo.png

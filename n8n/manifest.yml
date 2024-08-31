@@ -1,0 +1,20 @@
+application:
+  routes:
+  - /=http://n8n.cloud.lazycat.app.n8n.lzcapp:5678
+  subdomain: n8n
+description: "This app packages n8n <upstream>0.152.0</upstream>\n\nn8n is an extendable\
+  \ workflow automation tool. n8n's node-based approach makes it highly versatile,\
+  \ enabling you to connect anything to everything.\n\n### Available integrations\n\
+  \nn8n has 200+ different nodes to automate workflows. The list can be found on:\
+  \ https://n8n.io/nodes\n\n### Features\n\n* Open - Thanks to our fair-code license,\
+  \ run n8n locally, or the cloud. Decide who gets access and where your data is stored.\n\
+  * Extendable - Easy to augment with custom functions logic, and apps with minimal\
+  \ engineering effort.\n* Powerful - n8n's node based editor lets you map anything\
+  \ to everything and go beyond basic ETL. \n\n"
+lzc-sdk-version: '0.1'
+name: n8n
+package: cloud.lazycat.app.n8n
+services:
+  n8n:
+    image: cloudron/io.n8n.cloudronapp:20211205-203211-857180c85
+version: 1.22.10

@@ -1,0 +1,65 @@
+application:
+  routes:
+  - /=http://minio.cloud.lazycat.app.minio.lzcapp:8000
+  subdomain: minio
+description: 'This app packages Minio <upstream>2021-06-17T00-10-46Z</upstream>.
+
+
+  Minio is a distributed object storage server built for cloud applications and devops.
+
+
+  ### Features
+
+
+  #### Amazon S3 Compatible
+
+
+  Minio implements Amazon S3 v4 APIs. Minio also includes client SDKs and a console
+  utility.
+
+
+  #### Minimalist Design
+
+
+  Minio is deeply influenced by minimalism. We believe that only simple things scale.
+
+
+  #### Apache License 2.0
+
+
+  Minio is free software, released under Apache license v2.0. Minio has an active
+  developer and user community.
+
+
+  #### Lambda Functions
+
+
+  Minio triggers Lambda functions through event notification service. In addition
+  Minio also supports simple queueing service for AMQP, Elasticsearch, Redis, NATS
+  and Postgres targets.
+
+
+  #### Erasure Code & Bitrot Protection
+
+
+  Minio protects data against hardware failures and silent data corruption using erasure
+  code and checksums. You may lose half the number of drives and still recover from
+  it.
+
+
+  #### Written in Go
+
+
+  Go is an emerging language of choice for modern cloud infrastructure projects. Go
+  language enables Minio to be highly concurrent and lightweight.
+
+  '
+lzc-sdk-version: '0.1'
+name: Minio
+package: cloud.lazycat.app.minio
+services:
+  minio:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/io.minio.cloudronapp:20210623-170632-719620233
+version: 1.165.10

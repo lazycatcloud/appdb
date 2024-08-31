@@ -1,0 +1,21 @@
+version: '3.9'
+x-lazycat-app:
+  id: lazycat-cloud-app-mobile
+  title: 懒猫云App
+  version: 0.0.3
+  description: 
+  icon: icon.svg
+  categories: 
+  screenshots:
+    - screenshot.png
+  ingress:
+    - service: lazycat-cloud-app-mobile
+      port: 8080
+      subdomain: lazycat-cloud-app-mobile
+services:
+  lazycat-cloud-app-mobile:
+    image: registry.lazycat.cloud/lazycat-cloud-app-mobile:0.0.3
+    volumes:
+      - lzcapis-lzcapp:/lzcapp
+volumes:
+  lzcapis-lzcapp: 

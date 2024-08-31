@@ -1,0 +1,17 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.live.torrent
+version: 0.0.3
+name: Live Torrent V4
+description: Live Torrent V4
+homepage: ""
+author: admin@linakesi.com
+application:
+  routes:
+    - /=http://tor.cloud.lazycat.app.live.torrent.lzcapp:3000
+  depends_on:
+    - tor
+  subdomain: live-torrent
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  tor:
+    image: registry.lazycat.cloud/nodejs/live-torrent-next:0.2

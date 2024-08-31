@@ -1,0 +1,12 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.webp2jpg
+version: 0.0.3
+name: webp2jpg
+description: 多功能图片转换
+license: https://choosealicense.com/licenses/apache-2.0
+homepage: https://github.com/renzhezhilu/webp2jpg-online
+application:
+  subdomain: webp2jpg
+  routes:
+    - /=file:///lzcapp/pkg/content/
+    # - /=http://${LocalIP}:8080

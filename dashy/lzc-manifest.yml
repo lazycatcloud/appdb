@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.dashy
+version: 0.0.2
+name: Dashy
+description: 自定义首页面板
+license: https://opensource.org/license/mit/
+homepage: https://dashy.to/
+application:
+  subdomain: dashy
+  routes:
+    - /=http://dashy.cloud.lazycat.app.dashy.lzcapp:80
+  user_app: true
+services:
+  dashy:
+    image: registry.lazycat.cloud/appdb/dashy:v0.0.2

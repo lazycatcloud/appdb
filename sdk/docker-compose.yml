@@ -1,0 +1,41 @@
+version: "3.9"
+x-lazycat-app:
+  id: sdk
+  icon: logo.png
+  title: 懒猫云开发工具包
+  summary: 懒猫云开发工具包
+  version: 1.1.4
+  categories:
+    - developer
+  screenshots:
+    - logo.png
+  quality: normal
+  ingress:
+    - service: sdk
+      subdomain: sdk
+      proto: tcp
+      port: 2222
+    - service: sdk
+      subdomain: sdk
+      proto: http
+      port: 80
+      auth: auto
+
+services:
+  sdk:
+    image: registry.lazycat.cloud/homecloud/hc-sdk:latest
+    init: true
+    environment:
+      - LOG_LEVEL=-1
+      - HC_CORE_HOST=hc-core.hc-core.lzcapp
+      - HC_CORE_PORT=7733
+    volumes:
+      - /var/run/lzc-docker.sock:/var/run/docker.sock
+      - /usr/bin/docker-hc:/usr/bin/docker-compose:ro
+      - hc-app-sdk:/var/lib/sdk
+      - hc-app-sdk-user:/home/box
+    labels:
+      ingress-80: sdk
+volumes:
+  hc-app-sdk: {}
+  hc-app-sdk-user: {}

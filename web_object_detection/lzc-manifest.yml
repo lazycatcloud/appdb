@@ -1,0 +1,15 @@
+lzc-sdk-version: '0.1'
+name: Web 在线目标识别
+version: 0.0.1
+package: cloud.lazycat.app.webobjdetect
+license: https://choosealicense.com/licenseqs/mit
+description: Web 目标检测
+homepage: https://github.com/Tsanfer/web_object_detection.git
+application:
+  routes:
+  - /=http://server.cloud.lazycat.app.webobjdetect.lzcapp:8000
+  - /api/=http://server.cloud.lazycat.app.webobjdetect.lzcapp:4000/api/
+  subdomain: webobjdetect
+services:
+  server:
+    image: registry.lazycat.cloud/web_object_detection:22.8.27

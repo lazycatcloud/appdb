@@ -1,0 +1,1 @@
+import{_ as t,o as e,n as a,a0 as n,a1 as r,T as c}from"./userStore-DI58VgZ6.js";const o={},_={class:"relative flex gap-1 content-between w-[13px] aspect-square"};function d(l,p){return e(),a("i",_,[(e(),a(n,null,r(3,s=>c("span",{key:s})),64))])}const i=t(o,[["render",d],["__scopeId","data-v-ef580211"]]);export{i as default};

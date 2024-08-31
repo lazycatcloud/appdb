@@ -1,0 +1,11 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.reference
+version: 0.0.1
+name: 开发者速查手册
+description: 为开发人员分享快速参考备忘清单【速查表】。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/jaywcjlove/reference.git
+application:
+  subdomain: reference
+  routes:
+    - /=file:///lzcapp/pkg/content/

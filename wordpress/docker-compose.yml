@@ -1,0 +1,45 @@
+# docker-compose up
+# docker-compose down -v
+# docker-compose up && docker-compose rm -fsv # 快速测试
+version: '3.9'
+
+services:
+  wordpress:
+    image: registry.lazycat.cloud/appdb/wordpress:20231211
+    build: ./
+    restart: always
+    links:
+     - mariadb:mysql
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_URL: http://localhost:8080
+      WORDPRESS_TITLE: My.WordPress
+      WORDPRESS_ADMINNAME: admin
+      WORDPRESS_ADMINPASS: admin
+      WORDPRESS_EMAIL: admin@example.com
+      WORDPRESS_PLUGIN_DIR: /wp_plugins # 包含 wp plugin zip格式插件的目录，将由wp命令直接安装
+    volumes:
+      - wordpress:/var/www/html
+      - ./auto-install-wordpress.sh:/usr/local/bin/auto-install-wordpress.sh
+      - ./contentdir:/wp_plugins # 包含 wp plugin zip格式插件的目录，将由wp命令直接安装
+
+  mariadb:
+    image: mariadb:10.4.32
+    restart: always
+    environment:
+      # MARIADB_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: wordpress
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:

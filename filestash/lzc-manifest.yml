@@ -1,0 +1,18 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.filestash
+version: 0.0.1
+name: Filestash
+description:
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://www.filestash.app/
+application:
+  subdomain: filestash
+  routes:
+    - /=http://filestash.cloud.lazycat.app.filestash.lzcapp:8334
+  user_app: true
+services:
+  filestash:
+    image: registry.lazycat.cloud/appdb/filestash:v0.0.1
+    environment:
+      - WORK_DIR=/lzcapp/var
+      - APPLICATION_URL=https://filestash.${LAZYCAT_BOX_DOMAIN}

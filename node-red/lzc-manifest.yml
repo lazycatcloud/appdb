@@ -1,0 +1,20 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.nodered
+version: 0.0.1
+name: nodered
+description: Low-code programming for event-driven applications
+homepage: ""
+author: admin@linakesi.com
+application:
+  user_app: true
+  routes:
+    - /=http://web.cloud.lazycat.app.nodered.lzcapp:1880
+  depends_on:
+    - web
+  subdomain: nodered
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  web:
+    image: registry.lazycat.cloud/d1y/nodered-server:0.1
+    binds:
+      - /lzcapp/var/data:/data

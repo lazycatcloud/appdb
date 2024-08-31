@@ -1,0 +1,16 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.pptist
+version: 0.0.3
+name: PPTist
+description: 一个基于 Vue3.x + TypeScript 的在线演示文稿（幻灯片）应用，还原了大部分 Office PowerPoint 常用功能，支持 文字、图片、形状、线条、图表、表格、视频、音频、公式 几种最常用的元素类型，每一种元素都拥有高度可编辑能力，同时支持丰富的快捷键和右键菜单，支持导出本地 PPTX 文件，支持移动端基础编辑和预览，支持 PWA。
+license: https://choosealicense.com/licenses/gpl-3.0/
+homepage: https://github.com/pipipi-pikachu/PPTist
+application:
+  subdomain: pptist
+  routes:
+    - /=file:///lzcapp/pkg/content/
+  file_handler:
+    mime:
+      - x-lzc-extension/pptist         # app支持.pptist
+    actions:  # 打开对应文件的url路径,由文件管理器等app调用
+      open: /?file=%u   # %u是某个webdav上的具体文件路径，一定存在文件名后缀

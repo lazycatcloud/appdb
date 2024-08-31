@@ -1,0 +1,14 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.reader.epub.flow
+version: 0.0.3
+name: Flow
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://flowoss.com/
+author: pacexy
+application:
+  subdomain: flow-epub-reader
+  routes:
+    - /=http://flow-epub-reader.cloud.lazycat.app.reader.epub.flow.lzcapp:3000
+services:
+  flow-epub-reader:
+    image: registry.lazycat.cloud/appdb/flow-epub-reader:v0.0.3

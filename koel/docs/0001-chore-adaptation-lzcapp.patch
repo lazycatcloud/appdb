@@ -1,0 +1,146 @@
+From 9ba30027a2cfdde38589b220ee15f11be3a187eb Mon Sep 17 00:00:00 2001
+From: PBK-B <pbk-b@PBK6.cn>
+Date: Thu, 29 Aug 2024 17:31:34 +0800
+Subject: [PATCH] chore: adaptation lzcapp
+
+chore: add auto login
+---
+ app/Console/Commands/InitCommand.php          | 59 +++++++++++--------
+ .../assets/js/components/auth/LoginForm.vue   |  9 ++-
+ 2 files changed, 42 insertions(+), 26 deletions(-)
+
+diff --git a/app/Console/Commands/InitCommand.php b/app/Console/Commands/InitCommand.php
+index f327c7e9..2d032899 100644
+--- a/app/Console/Commands/InitCommand.php
++++ b/app/Console/Commands/InitCommand.php
+@@ -23,8 +23,8 @@ class InitCommand extends Command
+     use AskForPassword;
+ 
+     private const DEFAULT_ADMIN_NAME = 'Koel';
+-    private const DEFAULT_ADMIN_EMAIL = 'admin@koel.dev';
+-    private const DEFAULT_ADMIN_PASSWORD = 'KoelIsCool';
++    private const DEFAULT_ADMIN_EMAIL = 'admin@admin';
++    private const DEFAULT_ADMIN_PASSWORD = 'admin';
+     private const NON_INTERACTION_MAX_DATABASE_ATTEMPT_COUNT = 10;
+ 
+     protected $signature =
+@@ -61,6 +61,7 @@ class InitCommand extends Command
+             $this->maybeSetMediaPath();
+             $this->maybeCompileFrontEndAssets();
+             $this->dotenvEditor->save();
++            $this->syncSong();
+             $this->tryInstallingScheduler();
+         } catch (Throwable $e) {
+             Log::error($e);
+@@ -100,6 +101,13 @@ class InitCommand extends Command
+         return self::SUCCESS;
+     }
+ 
++    private function syncSong(): void
++    {
++        $this->components->task('Sync songs', static function (): void {
++            Artisan::call('koel:sync', ['-n' => true]);
++        });
++    }
++
+     private function clearCaches(): void
+     {
+         $this->components->task('Clearing caches', static function (): void {
+@@ -149,26 +157,28 @@ class InitCommand extends Command
+             'DB_PASSWORD' => '',
+         ];
+ 
+-        $config['DB_CONNECTION'] = $this->choice(
+-            'Your DB driver of choice',
+-            [
+-                'mysql' => 'MySQL/MariaDB',
+-                'pgsql' => 'PostgreSQL',
+-                'sqlsrv' => 'SQL Server',
+-                'sqlite-e2e' => 'SQLite',
+-            ],
+-            'mysql'
+-        );
+-
+-        if ($config['DB_CONNECTION'] === 'sqlite-e2e') {
+-            $config['DB_DATABASE'] = $this->ask('Absolute path to the DB file');
+-        } else {
+-            $config['DB_HOST'] = $this->anticipate('DB host', ['127.0.0.1', 'localhost']);
+-            $config['DB_PORT'] = (string) $this->ask('DB port (leave empty for default)');
+-            $config['DB_DATABASE'] = $this->anticipate('DB name', ['koel']);
+-            $config['DB_USERNAME'] = $this->anticipate('DB user', ['koel']);
+-            $config['DB_PASSWORD'] = (string) $this->ask('DB password');
+-        }
++        $config['DB_CONNECTION'] = "sqlite-e2e";
++        $config['DB_DATABASE'] = "/var/www/html/database/data.db";
++        // $config['DB_CONNECTION'] = $this->choice(
++        //     'Your DB driver of choice',
++        //     [
++        //         'mysql' => 'MySQL/MariaDB',
++        //         'pgsql' => 'PostgreSQL',
++        //         'sqlsrv' => 'SQL Server',
++        //         'sqlite-e2e' => 'SQLite',
++        //     ],
++        //     'mysql'
++        // );
++
++        // if ($config['DB_CONNECTION'] === 'sqlite-e2e') {
++        //     $config['DB_DATABASE'] = $this->ask('Absolute path to the DB file');
++        // } else {
++        //     $config['DB_HOST'] = $this->anticipate('DB host', ['127.0.0.1', 'localhost']);
++        //     $config['DB_PORT'] = (string) $this->ask('DB port (leave empty for default)');
++        //     $config['DB_DATABASE'] = $this->anticipate('DB name', ['koel']);
++        //     $config['DB_USERNAME'] = $this->anticipate('DB user', ['koel']);
++        //     $config['DB_PASSWORD'] = (string) $this->ask('DB password');
++        // }
+ 
+         $this->dotenvEditor->setKeys($config);
+         $this->dotenvEditor->save();
+@@ -241,7 +251,7 @@ class InitCommand extends Command
+                 Artisan::call('config:clear', ['--quiet' => true]);
+                 DB::reconnect();
+                 DB::getDoctrineSchemaManager()->listTables();
+-
++                sleep(5);
+                 break;
+             } catch (Throwable $e) {
+                 Log::error($e);
+@@ -327,7 +337,8 @@ class InitCommand extends Command
+ 
+     private function setMediaPathFromEnvFile(): void
+     {
+-        $path = config('koel.media_path');
++        // $path = config('koel.media_path');
++        $path = "/music";
+ 
+         if (!$path) {
+             return;
+diff --git a/resources/assets/js/components/auth/LoginForm.vue b/resources/assets/js/components/auth/LoginForm.vue
+index 68e27283..1b07c197 100644
+--- a/resources/assets/js/components/auth/LoginForm.vue
++++ b/resources/assets/js/components/auth/LoginForm.vue
+@@ -59,8 +59,8 @@ const DEMO_ACCOUNT = {
+ const canResetPassword = window.MAILER_CONFIGURED && !window.IS_DEMO
+ const ssoProviders = window.SSO_PROVIDERS || []
+ 
+-const email = ref(window.IS_DEMO ? DEMO_ACCOUNT.email : '')
+-const password = ref(window.IS_DEMO ? DEMO_ACCOUNT.password : '')
++const email = ref(window.IS_DEMO ? DEMO_ACCOUNT.email : 'admin@admin')
++const password = ref(window.IS_DEMO ? DEMO_ACCOUNT.password : 'admin')
+ const failed = ref(false)
+ const showingForgotPasswordForm = ref(false)
+ 
+@@ -84,6 +84,11 @@ const login = async () => {
+   }
+ }
+ 
++const lazy_mode = true;
++if (lazy_mode) {
++  login()
++}
++
+ const onSSOError = (error: any) => {
+   logger.error('SSO error: ', error)
+   useMessageToaster().toastError('Login failed. Please try again.')
+-- 
+2.45.1
+

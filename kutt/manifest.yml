@@ -1,0 +1,46 @@
+application:
+  routes:
+  - /=http://kutt.cloud.lazycat.app.kutt.lzcapp:3000
+  subdomain: kutt
+description: 'This app packages Kutt <upstream>2.7.0</upstream>
+
+
+  Kutt is a modern URL shortener with support for custom domains. Shorten URLs, manage
+  your links and view the click rate statistics.
+
+
+  ## Features
+
+
+  * Free and open source.
+
+  * Custom domain support.
+
+  * Custom URLs for shortened links
+
+  * Set password for links.
+
+  * Set description for links.
+
+  * Expiration time for links.
+
+  * Private statistics for shortened URLs.
+
+  * View, edit, delete and manage your links.
+
+  * Admin account to view, delete and ban links.
+
+  * Ability to disable registration and anonymous link creation for private use.
+
+  * RESTful API.
+
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Kutt
+package: cloud.lazycat.app.kutt
+services:
+  kutt:
+    image: cloudron/it.kutt.cloudronapp:20201107-014809-4764067ec
+version: 1.0.10

@@ -1,0 +1,43 @@
+application:
+  routes:
+  - /=http://commento.cloud.lazycat.app.commento.lzcapp:8080
+  subdomain: commento
+description: 'Commento is a fast, privacy-focused commenting platform.
+
+
+  This app packages Commento <upstream>1.8.0</upstream>
+
+
+  ### Features
+
+
+  * **Sticky Comments**: Pin important comments to the top of the thread.
+
+  * **Upvotes and Downvotes**: Upvote insightful comments and downvote ones that don''t
+  add to the discussion.
+
+  * **Markdown Support**: Allows for rich formatting and expression.
+
+  * **Nested Threads**: With nested comments, it is easy and intuitive to follow the
+  discussion.
+
+  * **Automated Spam Detection**: With built-in spam detection, you and your readers
+  have nothing to worry about.
+
+  * **Moderation Tools**: Remove offtopic comments, shadow ban spammers and trolls,
+  and enforce timeouts.
+
+
+  ### Bug reports
+
+
+  Open bugs on [GitLab](https://gitlab.com/commento/commento/issues)
+
+  '
+lzc-sdk-version: '0.1'
+name: Commento
+package: cloud.lazycat.app.commento
+services:
+  commento:
+    image: cloudron/io.commento.cloudronapp:20210330-143415-063169927
+version: 1.1.12

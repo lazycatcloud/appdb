@@ -1,0 +1,31 @@
+application:
+  routes:
+  - /=http://geoipservice.cloud.lazycat.app.geoipservice.lzcapp:3000
+  subdomain: geoipservice
+description: 'A simple Geolocation service based on [maxmind](https://www.npmjs.com/package/maxmind).
+
+
+  ### Usage
+
+
+  When making any request to either `/json` or `/jsonp?callback=functionName`, the
+  service will
+
+  resolve the IP to a location and return as much information as possible about the
+  country and city.
+
+
+  Additionally both routes can take a query param `ip` which will override the source
+  ip.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: GeoIP Service
+package: cloud.lazycat.app.geoipservice
+services:
+  geoipservice:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/io.cloudron.geoip:20211207-035542-8913e46f6
+version: 1.9.10

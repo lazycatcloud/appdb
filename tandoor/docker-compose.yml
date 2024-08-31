@@ -1,0 +1,44 @@
+version: "3.9"
+x-lazycat-app:
+  quality: normal
+  id: tandoor
+  icon: icon.svg
+  title: Tandoor Recipes
+  summary: A recipe manager to manage your collection of digital recipes
+  upstream: https://docs.tandoor.dev/install/docker/
+  screenshots:
+    - screenshot.png
+  categories:
+    - recipe
+services:
+  db_recipes:
+    image: postgres:11-alpine
+    volumes:
+      - postgresql:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+  web_recipes:
+    image: vabene1111/recipes:1.0.3
+    volumes:
+      - staticfiles:/opt/recipes/staticfiles
+      - nginx_config:/opt/recipes/nginx/conf.d
+      - mediafiles:/opt/recipes/mediafiles
+    environment:
+      - POSTGRES_PASSWORD=postgres_password
+    depends_on:
+      - db_recipes
+  nginx_recipes:
+    image: nginx:mainline-alpine
+    depends_on:
+      - web_recipes
+    volumes:
+      - nginx_config:/etc/nginx/conf.d:ro
+      - staticfiles:/static
+      - mediafiles:/media
+    labels:
+      ingress-80: tandoor
+volumes:
+  postgresql: {}
+  nginx_config: {}
+  staticfiles: {}
+  mediafiles: {}

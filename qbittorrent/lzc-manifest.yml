@@ -1,0 +1,21 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.qbittorrent
+version: 0.0.1
+name: qBittorrent
+description: qBittorrent 是一个用 C++ / Qt 编程的 bittorrent 客户端，它使用 Arvid Norberg 的 libtorrent（有时称为 libtorrent-rasterbar）。
+license: https://choosealicense.com/licenses/gpl-3.0/
+homepage: https://github.com/qbittorrent/qBittorrent
+author: qbittorrent
+application:
+  subdomain: qbittorrent
+  user_app: true
+  routes:
+    - /=http://$uid.bt.cloud.lazycat.app.qbittorrent.lzcapp:3044
+services:
+  bt:
+    image: registry.lazycat.cloud/qbittorrent:0.0.1
+    binds:
+      - /lzcapp/cache:/root/.cache/qBittorrent
+      - /lzcapp/var/config:/root/.config/qBittorrent/
+      - /lzcapp/var/data:/root/.local/share/data/qBittorrent/
+      - /lzcapp/run/mnt/home/下载:/root/Downloads/

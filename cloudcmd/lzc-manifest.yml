@@ -1,0 +1,21 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.cloudcmd
+version: 0.0.2
+name: cloudcmd
+description: 云指挥官文件管理器，用于具有控制台和编辑器的Web。
+author: admin@linakesi.com
+application:
+  user_app: true
+  routes:
+    - /=http://cmd.cloud.lazycat.app.cloudcmd.lzcapp:8000
+  depends_on:
+    - cmd
+  subdomain: cloudcmd
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  cmd:
+    image: coderaiser/cloudcmd
+    binds:
+      - /lzcapp/run/mnt/home:/mnt/fs
+      - /lzcapp/var/root:/root
+    command: --one-file-panel --terminal --no-auth --root /mnt/fs

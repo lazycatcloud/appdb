@@ -1,0 +1,6 @@
+buildscript: ./build.sh
+
+pkgout: ./
+
+contentdir: ./jt-manifest/dist
+icon: ./logo.png

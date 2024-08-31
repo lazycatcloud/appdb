@@ -1,0 +1,177 @@
+name: onlyoffice
+package: cloud.lazycat.app.onlyoffice
+version: 0.0.12
+lzc-sdk-version: '0.1'
+application:
+  routes:
+    - /=http://documentserver.cloud.lazycat.app.onlyoffice.lzcapp:80
+    - /file=http://documentserver.cloud.lazycat.app.onlyoffice.lzcapp:8001
+    - /webdav=file:///lzcapp/pkg/content
+  subdomain: onlyoffice
+  public_path:
+    - /cache/files
+  file_handler:
+    mime:
+      - application/vnd.oasis.opendocument.database
+      - application/vnd.sun.xml.base
+      - application/vnd.oasis.opendocument.spreadsheet
+      - application/vnd.oasis.opendocument.spreadsheet-template
+      - application/vnd.sun.xml.calc
+      - application/vnd.sun.xml.calc.template
+      - application/msexcel
+      - application/vnd.ms-excel
+      - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+      - application/vnd.ms-excel.sheet.macroEnabled.12
+      - application/vnd.openxmlformats-officedocument.spreadsheetml.template
+      - application/vnd.ms-excel.template.macroEnabled.12
+      - application/vnd.ms-excel.sheet.binary.macroEnabled.12
+      - text/csv
+      - application/x-dbf
+      - text/spreadsheet
+      - application/csv
+      - application/excel
+      - application/tab-separated-values
+      - application/vnd.lotus-1-2-3
+      - application/vnd.oasis.opendocument.chart
+      - application/vnd.oasis.opendocument.chart-template
+      - application/x-dbase
+      - application/x-dos_ms_excel
+      - application/x-excel
+      - application/x-msexcel
+      - application/x-ms-excel
+      - application/x-quattropro
+      - application/x-123
+      - text/comma-separated-values
+      - text/tab-separated-values
+      - text/x-comma-separated-values
+      - text/x-csv
+      - application/vnd.oasis.opendocument.spreadsheet-flat-xml
+      - application/vnd.ms-works
+      - application/clarisworks
+      - application/x-iwork-numbers-sffnumbers
+      - application/x-starcalc
+      - application/vnd.oasis.opendocument.graphics
+      - application/vnd.oasis.opendocument.graphics-flat-xml
+      - application/vnd.oasis.opendocument.graphics-template
+      - application/vnd.sun.xml.draw
+      - application/vnd.sun.xml.draw.template
+      - application/vnd.visio
+      - application/x-wpg
+      - application/vnd.corel-draw
+      - application/vnd.ms-publisher
+      - image/x-freehand
+      - application/clarisworks
+      - application/x-pagemaker
+      - application/pdf
+      - application/x-stardraw
+      - image/x-emf
+      - image/x-wmf
+      - application/vnd.oasis.opendocument.presentation
+      - application/vnd.oasis.opendocument.presentation-template
+      - application/vnd.sun.xml.impress
+      - application/vnd.sun.xml.impress.template
+      - application/mspowerpoint
+      - application/vnd.ms-powerpoint
+      - application/vnd.openxmlformats-officedocument.presentationml.presentation
+      - application/vnd.ms-powerpoint.presentation.macroEnabled.12
+      - application/vnd.openxmlformats-officedocument.presentationml.template
+      - application/vnd.ms-powerpoint.template.macroEnabled.12
+      - application/vnd.openxmlformats-officedocument.presentationml.slide
+      - application/vnd.openxmlformats-officedocument.presentationml.slideshow
+      - application/vnd.ms-powerpoint.slideshow.macroEnabled.12
+      - application/vnd.oasis.opendocument.presentation-flat-xml
+      - application/x-iwork-keynote-sffkey
+      - application/vnd.oasis.opendocument.formula
+      - application/vnd.sun.xml.math
+      - application/vnd.oasis.opendocument.formula-template
+      - text/mathml
+      - application/mathml+xml
+      - application/vnd.openofficeorg.extension
+      - x-scheme-handler/vnd.libreoffice.cmis
+      - x-scheme-handler/vnd.sun.star.webdav
+      - x-scheme-handler/vnd.sun.star.webdavs
+      - x-scheme-handler/vnd.libreoffice.command
+      - x-scheme-handler/ms-word
+      - x-scheme-handler/ms-powerpoint
+      - x-scheme-handler/ms-excel
+      - x-scheme-handler/ms-visio
+      - x-scheme-handler/ms-access
+      - application/vnd.oasis.opendocument.text
+      - application/vnd.oasis.opendocument.text-template
+      - application/vnd.oasis.opendocument.text-web
+      - application/vnd.oasis.opendocument.text-master
+      - application/vnd.oasis.opendocument.text-master-template
+      - application/vnd.sun.xml.writer
+      - application/vnd.sun.xml.writer.template
+      - application/vnd.sun.xml.writer.global
+      - application/msword
+      - application/vnd.ms-word
+      - application/x-doc
+      - application/x-hwp
+      - application/rtf
+      - text/rtf
+      - application/vnd.wordperfect
+      - application/wordperfect
+      - application/vnd.lotus-wordpro
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+      - application/vnd.ms-word.document.macroEnabled.12
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.template
+      - application/vnd.ms-word.template.macroEnabled.12
+      - application/vnd.ms-works
+      - application/vnd.stardivision.writer-global
+      - application/x-extension-txt
+      - application/x-t602
+      - text/plain
+      - application/vnd.oasis.opendocument.text-flat-xml
+      - application/x-fictionbook+xml
+      - application/macwriteii
+      - application/x-aportisdoc
+      - application/prs.plucker
+      - application/vnd.palm
+      - application/clarisworks
+      - application/x-sony-bbeb
+      - application/x-abiword
+      - application/x-iwork-pages-sffpages
+      - application/x-mswrite
+      - application/x-starwriter
+      - application/vnd.oasis.opendocument.text-flat-xml
+      - application/vnd.oasis.opendocument.spreadsheet-flat-xml
+      - application/vnd.oasis.opendocument.graphics-flat-xml
+      - application/vnd.oasis.opendocument.presentation-flat-xml
+    actions:
+      open: /webdav?file=%u
+
+services:
+  documentserver:
+    image: registry.lazycat.cloud/lzc/onlyoffice:latest
+    depends_on:
+      - postgresql
+      - rabbitmq
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=postgresql.cloud.lazycat.app.onlyoffice.lzcapp
+      - DB_PORT=5432
+      - DB_NAME=onlyoffice
+      - DB_USER=onlyoffice
+      - AMQP_URI=amqp://guest:guest@rabbitmq.cloud.lazycat.app.onlyoffice.lzcapp
+    binds:
+      - /lzcapp/var/data:/var/www/onlyoffice/Data
+      - /lzcapp/var/log:/var/log/onlyoffice
+      - /lzcapp/var/fonts:/usr/share/fonts
+      - /lzcapp/cache:/var/lib/onlyoffice/documentserver/App_Data/cache/files
+      - /lzcapp/var/public:/var/www/onlyoffice/documentserver-example/public/files
+      - /lzcapp/pkg/content/run-document-server.sh:/app/ds/run-document-server.sh
+      - /lzcapp/pkg/content/callback.bin:/usr/bin/callback.bin
+      - /lzcapp/pkg/content/file.bin:/usr/bin/file.bin
+
+  rabbitmq:
+    image: rabbitmq
+
+  postgresql:
+    image: postgres:9.5
+    environment:
+      - POSTGRES_DB=onlyoffice
+      - POSTGRES_USER=onlyoffice
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    binds:
+      - /lzcapp/var:/var/lib/postgresql

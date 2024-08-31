@@ -1,0 +1,35 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.codimd
+version: "0.1.2"
+name: codi-md
+description: codiMD
+  一款很好用的 Markdown 编辑器
+homepage: https://github.com/hackmdio/codimd
+author: admin@linakesi.com
+
+application:
+  subdomain: codimd
+  user_app: true
+  routes:
+    - /=http://web.cloud.lazycat.app.codimd.lzcapp:3000
+
+services:
+  web:
+    image: registry.lazycat.cloud/nabo.codimd.dev/hackmdio/hackmd:2.5.4_amd64
+    environment:
+      - CMD_DB_URL=postgres://admin:adminadmin@database/codimd
+      - CMD_USECDN=false
+    binds:
+      - /lzcapp/var/upload-data:/home/hackmd/app/public/uploads
+      - /lzcapp/pkg/content/lzc-entrypoint.sh:/home/hackmd/app/docker-entrypoint.sh
+    depends_on:
+      - database
+
+  database:
+    image: registry.lazycat.cloud/postgres:11.6-alpine_amd64
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=adminadmin
+      - POSTGRES_DB=codimd
+    binds:
+      - /lzcapp/var/database-data:/var/lib/postgresql/data

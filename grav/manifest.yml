@@ -1,0 +1,65 @@
+application:
+  routes:
+  - /=http://grav.cloud.lazycat.app.grav.lzcapp:3000
+  subdomain: grav
+description: 'This app packages Grav CMS <upstream>1.7.25</upstream> with Grav Admin
+  plugin.
+
+
+  ## About
+
+
+  Grav is a Fast, Simple, and Flexible, file-based Web-platform. There is Zero installation
+  required. Just extract the ZIP archive, and you are already up and running. It follows
+  similar principles to other flat-file CMS platforms, but has a different design
+  philosophy than most. Grav comes with a powerful Package Management System to allow
+  for simple installation and upgrading of plugins and themes, as well as simple updating
+  of Grav itself.
+
+
+  ## Features
+
+
+  The underlying architecture of Grav is designed to use well-established and best-in-class
+  technologies to ensure that Grav is simple to use and easy to extend. Some of these
+  key technologies include:
+
+
+  * Twig Templating: for powerful control of the user interface
+
+  * Markdown: for easy content creation
+
+  * YAML: for simple configuration
+
+  * Parsedown: for fast Markdown and Markdown Extra support
+
+  * Doctrine Cache: layer for performance
+
+  * Pimple Dependency Injection Container: for extensibility and maintainability
+
+  * Symfony Event Dispatcher: for plugin event handling
+
+  * Symfony Console: for CLI interface
+
+  * Gregwar Image Library: for dynamic image manipulation
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Grav
+package: cloud.lazycat.app.grav
+services:
+  grav:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/org.getgrav.cloudronapp:20211116-185301-229f6b2b3
+version: 1.5.15

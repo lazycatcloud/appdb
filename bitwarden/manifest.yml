@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://bitwarden.cloud.lazycat.app.bitwarden.lzcapp:80
+  subdomain: bitwarden
+description: 一款自由且开源的密码管理服务
+lzc-sdk-version: '0.1'
+name: Bitwarden
+package: cloud.lazycat.app.bitwarden
+services:
+  bitwarden:
+    image: bitwarden/nginx:1.44.1
+version: 0.0.11

@@ -1,0 +1,16 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.sshwifty
+version: 0.3.0-lzc1-1
+name: Sshwifty
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://github.com/nirui/sshwifty
+application:
+  subdomain: sshwifty
+  routes:
+    - /=http://sshwifty.cloud.lazycat.app.sshwifty.lzcapp:8182
+  user_app: true
+services:
+  sshwifty:
+    image: registry.lazycat.cloud/appdb/sshwifty:v0.3.0-lzc1-1
+    environment:
+      - SSHWIFTY_HOSTNAME=sshwifty.${LAZTCAT_BOX_DOMAIN}

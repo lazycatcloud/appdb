@@ -1,0 +1,11 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.rubiks
+version: 0.0.1
+name: Rubiks魔方
+description: 一个简单炫酷的3D魔方游戏
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/pancerZH/I-cannot-deal-with-Rubiks-cube
+application:
+  subdomain: rubike
+  routes:
+    - /=file:///lzcapp/pkg/content/

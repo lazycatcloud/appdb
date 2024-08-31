@@ -1,0 +1,24 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.aria2ng
+version: 0.0.3
+name: Aria2Ng
+description: AriaNg，一个使 aria2 更易于使用的现代网络前端。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/mayswind/AriaNg
+author: mayswind
+application:
+  subdomain: aria2ng
+  user_app: true
+  routes:
+    - /=http://$uid.serv.cloud.lazycat.app.aria2ng.lzcapp:8080
+  handlers:
+    error_page_templates:
+      '502': /lzcapp/pkg/content/502.html.tpl
+services:
+  serv:
+    image: registry.lazycat.cloud/aria2ng:1.36.0-2
+    binds:
+      - /lzcapp/run/mnt/home:/home
+      - /lzcapp/var/conf:/aria2/conf
+    environment:
+      - ARIA2RPCPORT=443

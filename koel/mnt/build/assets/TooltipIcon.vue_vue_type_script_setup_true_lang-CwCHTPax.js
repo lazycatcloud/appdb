@@ -1,0 +1,1 @@
+import{aw as c}from"./index-bkhK2U3_.js";import{t as r,v as a,x as i,o as p,y as l,B as o}from"./userStore-DI58VgZ6.js";const x=r({__name:"TooltipIcon",props:{title:{}},setup(t){const e=t,{title:n}=a(e);return(m,_)=>{const s=i("Icon");return p(),l(s,{icon:o(c),title:o(n),class:"help-trigger text-k-primary"},null,8,["icon","title"])}}});export{x as _};

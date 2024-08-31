@@ -1,0 +1,50 @@
+version: '3'
+
+# docker-compose up && docker-compose rm -fsv # 快速测试
+
+services:
+  koel:
+    image: registry.lazycat.cloud/appdb/koel:7.0.11-1
+    # depends_on:
+    #   - database
+    ports:
+      - 37200:80
+    environment:
+      - DB_CONNECTION=sqlite-e2e # 通过内部修改 entry-point 脚本达到自动初始化目标
+      - DB_DATABASE=/var/www/html/database/data.db
+      #   - DB_CONNECTION=mysql
+      #   - DB_HOST=database
+      #   - DB_USERNAME=koel
+      #   - DB_PASSWORD=koel_password
+      #   - DB_DATABASE=koel
+    volumes:
+      - ./mnt/koel-entrypoint:/usr/local/bin/koel-entrypoint:ro
+      - ./mnt/build:/var/www/html/public/build
+      # - ./mnt/app.Http.Middleware.Authentication.php:/var/www/html/app/Http/Middleware/Authentication.php
+      # - ./mnt/app.Http.Controllers.API.UserController.php:/var/www/html/app/Http/Controllers/API/UserController.php
+      - ./mnt/koel/app/Console/Commands/InitCommand.php:/var/www/html/app/Console/Commands/InitCommand.php
+      - ./mnt/koel:/var/www/koelmnt
+      - ./music:/music
+      - ./data.db:/var/www/html/database/data.db
+      # - covers:/var/www/html/public/img/covers
+      # - search_index:/var/www/html/storage/search-indexes
+
+      # database:
+      #   image: mysql/mysql-server:5.7
+      #   # volumes:
+      #   #   - db:/var/lib/mysql
+      #   environment:
+      #     - MYSQL_ROOT_PASSWORD=root_password
+      #     - MYSQL_DATABASE=koel
+      #     - MYSQL_USER=koel
+      #     - MYSQL_PASSWORD=koel_password
+
+      # volumes:
+      #   db:
+      #     driver: local
+      #   music:
+      #     driver: local
+      #   covers:
+      #     driver: local
+      #   search_index:
+      #     driver: local

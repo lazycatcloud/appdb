@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://hc-location.cloud.lazycat.app.hc-location.lzcapp:80
+  subdomain: hc-location
+description: 位置共享
+lzc-sdk-version: '0.1'
+name: 位置共享app demo
+package: cloud.lazycat.app.hc-location
+services:
+  hc-location:
+    image: registry.lazycat.cloud/homecloud/hc-location
+version: 0.0.11

@@ -1,0 +1,14 @@
+application:
+  file_handler:
+    actions:
+      open: /webdav-plugin.html?fileUrl=/_lzc/files/home/%u
+    mime:
+    - x-lzc-extension/drawio
+  routes:
+    - /=file:///lzcapp/pkg/content/dist
+  subdomain: drawio
+description: 免费和开源的跨平台图形绘制软件
+lzc-sdk-version: '0.1'
+name: draw.io
+package: cloud.lazycat.app.jgraph
+version: 0.0.20

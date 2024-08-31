@@ -1,0 +1,120 @@
+application:
+  routes:
+  - /=http://matomo.cloud.lazycat.app.matomo.lzcapp:8000
+  subdomain: matomo
+description: "This app packages Matomo <upstream>4.6.0</upstream>\n\nMatomo provides\
+  \ advanced web analytics. It displays reports regarding the geographic location\
+  \ of visits, the source of visits (i.e. whether they came from a website, directly,\
+  \ or something else), the technical capabilities of visitors (browser, screen size,\
+  \ operating system, etc.), what the visitors did (pages they viewed, actions they\
+  \ took, how they left), the time of visits and more.\n\n### Features\n\nAll standard\
+  \ statistics reports: top keywords and search engines, websites, top page URLs,\
+  \ page titles, user countries, providers, operating system, browser marketshare,\
+  \ screen resolution, desktop VS mobile, engagement (time on site, pages per visit,\
+  \ repeated visits), top campaigns, custom variables, top entry/exit pages, downloaded\
+  \ files, and many more, classified into four main analytics report categories –\
+  \ Visitors, Actions, Referrers, Goals/e-Commerce (30+ reports). See Tour of Matomo.\n\
+  \n * Real time data updates\nWatch real time flow of visits to your website. Get\
+  \ a detailed view of your visitors, pages they have visited and goals they have\
+  \ triggered.\n * Customizable Dashboard\nCreate new dashboards with widget configuration\
+  \ fit to your needs.\n * All Websites Dashboard\nBest way to get an overview of\
+  \ what is happening on all your websites at once.\n * Row Evolution\nCurrent & past\
+  \ metric data for any row in any report.\n * Analytics for e-commerce\nUnderstand\
+  \ and improve your online business thanks to advanced e-commerce analytics features.\n\
+  \ * Goal conversion tracking\nTrack Goals and identify whether you are meeting your\
+  \ current business objectives.\n * Event Tracking\nMesure any interaction by users\
+  \ on your websites and apps.\n * Content Tracking\nMesure impressions and clicks\
+  \ and CTR for image banners, text banners and any element on your pages.\n * Site\
+  \ Search Analytics\nTrack searches done on your internal search engine.\n * Custom\
+  \ Dimensions\nAssign any custom data to your visitors or actions (like pages, events,\
+  \ …) and then visualize the reports of how many visits, conversions, pageviews,\
+  \ etc. there were for each Custom Dimension.\n * Custom Variables\nsimilar to Custom\
+  \ Dimensions: custom name-value pair that you can assign to your visitors (or page\
+  \ views) using the JavaScript Tracking API, and then visualize the reports of how\
+  \ many visits, conversions, etc. for each custom variable.\n * Geolocation\nLocate\
+  \ your visitors for accurate detection of Country, Region, City, Organization. View\
+  \ the visitors statistics on a World Map by Country, Region, City. View your latest\
+  \ visitors in real time.\n * Pages Transitions\nView what visitors did before, and\
+  \ after viewing specific page.\n * Page Overlay\nDisplay statistics directly on\
+  \ top of your website with our smart overlay.\n * Site speed & pages speed reports\n\
+  Keeps track of how fast your website delivers content to your visitors.\n * Track\
+  \ different user interactions\nAutomatic tracking of file downloads, clicks on external\
+  \ website links, optional tracking of 404 pages\n * Analytics campaign tracking\n\
+  Automatically detects Google Analytics campaign parameters in your URLs.\n * Track\
+  \ traffic from search engines\nMore than 800 different search engines tracked!\n\
+  \ * Scheduled email reports (PDF and HTML reports)\nEmbed reports in your app or\
+  \ website (40+ Widgets available) or embed PNG Graphs in any custom page, email,\
+  \ or app.\n * Annotations\nCreate text notes in your graphs, to remember about particular\
+  \ events.\n * No data limit\nYou can keep all your data, without any storage limits,\
+  \ forever!\n\n\n### Administration Options\n\n * Manage unlimited users\n * Set\
+  \ user access to multiple websites\n * Manage unlimited websites\n * Exclude IPs\
+  \ and IP ranges\n * Exclude URL parameters\n * Timezone support, for each website\n\
+  \ * Supports 100+ currencies\n * Powerful options to White Label Matomo are available,\
+  \ ideal for large agencies or when you need a clean, branded Matomo interface\n\
+  \ * Upload your custom logo for UI and email reports\n * Automatically delete old\
+  \ logs and old data reports to keep you database size small\n * Integrates with\
+  \ more than 40 CMS, web frameworks or Ecommerce shops\n\n\n### Tracking API\n\n\
+  \ * By default, we recommend the Javascript Tracking API\n * Mobile App Analytics\
+  \ with the Matomo iOS SDK, the Android SDK and the Titanium Module.\n * Asynchronous\
+  \ code for faster page loads\n * Track & record any data using the REST Tracking\
+  \ API, via the PHP Tracking API Client or the Java Tracking API client\n * Track\
+  \ custom page URLs and page titles\n * Track subdomains\n * User ID lets you accurately\
+  \ measure your unique users across multiple devices.\n * Supports both 1st party\
+  \ cookies (default) and 3rd party cookie (optional)\n * Import your Apache, Nginx,\
+  \ IIS server logs for processing in Matomo!\n * Track server speed generation time\
+  \ for each Page view\n * Supports pages encoded in unicode (for example, UTF-8)\
+  \ but also supports all other charsets\n\n\n### Data Export & APIs\n\n *  Data Export\
+  \ in Excel, XML, Json and more!\n *  Fully-featured analytics API\n *  Administration\
+  \ API (REST) to create/update/delete pragmatically: users API, websites API, goals\
+  \ API, etc.\n *  Segmentation support in the API\n\n\n### Log Analytics: Import\
+  \ and Analyze your Server Logs\n\n * Reprocess historical data from your server\
+  \ logfiles\n * Report server errors and other http status codes\n * Track and identify\
+  \ search engine and other bots\n * Keep your data private on your server\n\n\n###\
+  \ User Privacy\n\n * Privacy compliant web analytics\n * Setting to anonymise your\
+  \ visitors’ IPs\n * Iframe included to let your visitor opt-out of Matomo tracking\n\
+  \ * DoNotTrack support by default\n * Use 1st party cookies by default, with an\
+  \ option to enable third party cookies\n"
+lzc-sdk-version: '0.1'
+name: Matomo
+package: cloud.lazycat.app.matomo
+services:
+  matomo:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_PROXY_IP=host.lzcapp
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://matomo.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://matomo.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=matomo.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.matomo.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/org.piwik.cloudronapp:20211201-013958-382af3fe3
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 1.30.10

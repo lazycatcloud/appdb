@@ -1,0 +1,5 @@
+FROM node:16.15
+
+RUN apt update
+RUN apt install -y git yarn vim libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libgtk-3-0 libgbm1 libasound2 wget libxss1 desktop-file-utils ttf-wqy-zenhei libnotify4 xdg-utils libsecret-common libsecret-1-0 libindicator3-7 libdbusmenu-glib4 libdbusmenu-gtk3-4 libappindicator3-1 procps
+RUN apt install -y tightvncserver dbus-x11

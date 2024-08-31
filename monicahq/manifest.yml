@@ -1,0 +1,102 @@
+application:
+  routes:
+  - /=http://monicahq.cloud.lazycat.app.monicahq.lzcapp:8000
+  subdomain: monicahq
+description: 'This app packages MonicaHQ <upstream>3.5.0</upstream>.
+
+
+  Monica is an open-source web application to organize the
+
+  interactions with your loved ones. I call it a PRM, or
+
+  Personal Relationship Management. Think of it as a CRM
+
+  (a popular tool used by sales teams in the corporate world)
+
+  for your friends or family.
+
+
+  ## Purpose
+
+
+  Monica allows people to keep track of everything that''s important about their friends
+  and family. Like the activities done with them. When you last called someone. What
+  you talked about. It will help you remember the name and the age of the kids. It
+  can also remind you to call someone you haven''t talked to in a while.
+
+
+  ## Features
+
+
+  * Add and manage contacts
+
+  * Add significant others and children
+
+  * Auto reminders for birthdays
+
+  * Reminders are sent by email
+
+  * Management of debts
+
+  * Ability to add notes to a contact
+
+  * Ability to indicate how you''ve met someone
+
+  * Management of activities done with a contact
+
+  * Management of tasks
+
+  * Management of gifts
+
+  * Management of addresses and all the different ways to contact someone
+
+  * Management of contact field types
+
+  * Management of contact pets
+
+  * Basic journal
+
+  * Ability to indicate how the day went
+
+  * Export and import of data
+
+  * Export a contact as vCard
+
+  * Ability to set custom genders
+
+  * Multi users
+
+  * Labels to organize contacts
+
+  * Multi currencies
+
+  * Multi languages
+
+  * An API that covers most of the data
+
+
+  '
+lzc-sdk-version: '0.1'
+name: MonicaHQ
+package: cloud.lazycat.app.monicahq
+services:
+  monicahq:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.monicahq.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    image: cloudron/com.monicahq.cloudronapp:20211119-191432-175bd2b64
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 1.33.10

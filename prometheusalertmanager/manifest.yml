@@ -1,0 +1,22 @@
+application:
+  routes:
+  - /=http://prometheusalertmanager.cloud.lazycat.app.prometheusalertmanager.lzcapp:9093
+  subdomain: prometheusalertmanager
+description: "This app packages Prometheus Alertmanager <upstream>0.23.0</upstream>\n\
+  \nThe Alertmanager handles alerts sent by client applications such as the Prometheus\
+  \ server. \nIt takes care of deduplicating, grouping, and routing them to the correct\
+  \ receiver \nintegration such as email, PagerDuty, or OpsGenie. \nIt also takes\
+  \ care of silencing and inhibition of alerts.\n\n## Features\n\n* Grouping categorizes\
+  \ alerts of similar nature into a single notification.\n* Inhibition is a concept\
+  \ of suppressing notifications for certain alerts if certain other alerts are already\
+  \ firing.\n* Silences are a straightforward way to simply mute alerts for a given\
+  \ time.\n* Alertmanager supports configuration to create a cluster for high availability.\n"
+lzc-sdk-version: '0.1'
+name: Prometheus Alertmanager
+package: cloud.lazycat.app.prometheusalertmanager
+services:
+  prometheusalertmanager:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/io.prometheus.alertmanager.cloudronapp:20210825-203013-5287a2c00
+version: 1.3.10

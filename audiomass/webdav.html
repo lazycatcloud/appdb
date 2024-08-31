@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>AudioMass for WebDav</title>
+    <script>
+     function GetLocationData() {
+         const result = {};
+         const params = window.location.search.slice(1).split('&');
+         for (var i = 0; i < params.length; i++) {
+             const idx = params[i].indexOf('=');
+             if (idx > 0) {
+                 result[decodeURIComponent(params[i].substring(0, idx))] = decodeURIComponent(params[i].substring(idx + 1));
+             }
+         }
+         return result;
+     }
+
+     function AppendElement(elt) {
+         return document.body.appendChild(elt);
+     }
+
+     function GetFileUrl() {
+         const file = GetLocationData()['file'];
+         if (file === undefined) {
+             const p = document.createElement("p");
+             p.textContent = "file not specified";
+             AppendElement(p);
+         }
+         return file;
+     }
+
+     function CreateFrame(src) {
+         const frame = document.createElement("iframe");
+         frame.style.width = "100%";
+         frame.style.height = "100%";
+         frame.style.border = 0;
+         frame.src = src;
+         return AppendElement(frame);
+     }
+
+     function main() {
+         const file = GetFileUrl();
+         if (file === undefined) {
+             return;
+         }
+
+         document.body.style.margin = 0;
+         const frame = CreateFrame("/");
+         frame.onload = function() {
+             const PKAudioEditor = frame.contentWindow.PKAudioEditor
+             PKAudioEditor.engine.LoadURL(file)
+         }
+     }
+    </script>
+  </head>
+
+  <body onload="main()"/>
+</html>

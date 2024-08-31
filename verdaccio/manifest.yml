@@ -1,0 +1,47 @@
+application:
+  routes:
+  - /=http://verdaccio.cloud.lazycat.app.verdaccio.lzcapp:6823
+  subdomain: verdaccio
+description: 'This app packages Verdaccio <upstream>5.2.2</upstream>
+
+
+  ### About
+
+
+  Verdaccio is a private/caching npm repository server
+
+
+  Verdaccio allows you to have a local npm registry with zero configuration. You don''t
+  have to install and replicate an entire CouchDB database. Verdaccio keeps its own
+  small database and, if a package doesn''t exist there, it asks npmjs.org for it
+  keeping only those packages you use.
+
+
+  - [Verdaccio Git](https://github.com/verdaccio/verdaccio)
+
+  - [Package maintainer](https://www.eggertsson.org)
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Verdaccio
+package: cloud.lazycat.app.verdaccio
+services:
+  verdaccio:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_PROXY_IP=host.lzcapp
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://verdaccio.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://verdaccio.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=verdaccio.${LAZYCAT_BOX_DOMAIN}
+    image: cloudron/org.eggertsson.verdaccio:20211108-101722-095920e93
+version: 1.38.12

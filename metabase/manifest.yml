@@ -1,0 +1,48 @@
+application:
+  routes:
+  - /=http://metabase.cloud.lazycat.app.metabase.lzcapp:3000
+  subdomain: metabase
+description: 'This app packages Metabase <upstream>0.41.3.1</upstream>.
+
+
+  ## About
+
+
+  Metabase is the easy, open source way for everyone in your company to ask questions
+  and learn from data.
+
+
+  ### Ask your own questions
+
+
+  * Explore on your own - Easily summarize and visualize your data without ever writing
+  a line of SQL or having to wait on a coworker.
+
+
+  * Quick and easy lookup - Browse or search through your tables, then filter things
+  down to find just what you need.
+
+
+  * Visualize results - Move from your data to beautiful graphs and charts with just
+  a few clicks.
+
+
+  ### Features
+
+
+  * Pulses - Schedule and send charts or results to your team via email or Slack
+
+  * Dashboards - Let everyone on your team create, organize, and share beautiful collections
+  of visualizations and data.
+
+  * Open source and constantly improving.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Metabase
+package: cloud.lazycat.app.metabase
+services:
+  metabase:
+    image: cloudron/com.metabase.cloudronapp:20211203-080353-112ca7a15
+version: 1.11.14

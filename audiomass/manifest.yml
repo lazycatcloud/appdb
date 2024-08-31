@@ -1,0 +1,18 @@
+application:
+  routes:
+  - /=http://duplicati.cloud.lazycat.app.audiomass.lzcapp:80
+  - /webdav=file:///lzcapp/pkg/webdav.html
+  subdomain: audiomass
+  file_handler:
+    mime:
+      - audio/mpeg
+    actions:
+      open: /webdav?file=/_lzc/files/home/%u
+description: Free full-featured web-based audio & waveform editing tool
+lzc-sdk-version: '0.1'
+name: Audio Mass
+package: cloud.lazycat.app.audiomass
+services:
+  duplicati:
+    image: azrikahar/audiomass
+version: 0.0.15

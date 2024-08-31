@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://cash_warden.cloud.lazycat.app.cash_warden.lzcapp:80
+  subdomain: cash_warden
+description: An open source asset management system
+lzc-sdk-version: '0.1'
+name: Cash Warden
+package: cloud.lazycat.app.cash_warden
+services:
+  cash_warden:
+    image: hailin/cashwarden-web:latest
+version: 0.0.11

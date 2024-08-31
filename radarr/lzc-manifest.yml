@@ -1,0 +1,20 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.radarr
+version: 0.0.2
+name: Radarr
+description: Sonarr 的一个分支，可以像 Couchpotato 一样处理电影
+license: https://choosealicense.com/licenses/gpl-3.0
+homepage: https://github.com/Radarr/Radarr/
+author: Radarr
+application:
+  subdomain: radarr
+  user_app: true
+  routes:
+    - /=http://server.cloud.lazycat.app.radarr.lzcapp:7878
+services:
+  server:
+    image: registry.lazycat.cloud/radarr:4.6.4.7568-2
+    binds:
+      - /lzcapp/run/mnt/home:/home
+      - /lzcapp/var/conf:/config
+      - /lzcapp/run/mnt/home/下载:/downloads

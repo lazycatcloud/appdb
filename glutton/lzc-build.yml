@@ -1,0 +1,3 @@
+pkgout: ./
+contentdir: ./glutton/dist
+icon: ./icon.png

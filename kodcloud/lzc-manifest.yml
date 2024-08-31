@@ -1,0 +1,23 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.kodexplorer
+version: 0.0.1
+name: KodExplorer
+description: 云端文档管理，在企业网盘内也可以像在电脑上操作一般熟悉而流畅，熟悉框选、拖拽、快捷键，从来没有这么简单方便。
+license: https://choosealicense.com/licenses/gpl-3.0/
+homepage: https://github.com/kalcaddle/KodExplorer
+application:
+  subdomain: kodexplorer
+  routes:
+    # - /=http://pc.lan:8000/
+    # - /=file:///lzcapp/pkg/content/
+    - /=http://web.cloud.lazycat.app.kodexplorer.lzcapp:80
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/kodexplorer:202307131
+    environment:
+      - DATA_PATH=/data
+    binds:
+      - /lzcapp/var/db:/data
+      - /lzcapp/pkg/content/user.class.php:/var/www/html/app/controller/user.class.php
+      - /lzcapp/pkg/content/config.php:/var/www/html/app/controller/config/config.php

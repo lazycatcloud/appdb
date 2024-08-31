@@ -1,0 +1,31 @@
+application:
+  routes:
+  - /=http://dolibarr.cloud.lazycat.app.dolibarr.lzcapp:8000
+  subdomain: dolibarr
+description: "This app packages Dolibarr <upstream>14.0.4</upstream>\n\n## About\n\
+  \nThere are several feature modules that can be enabled or disabled, as needed.\
+  \ This software is free under GNU General Public License 3.0. It is a web-based\
+  \ application, and can therefore be used wherever an internet service is available.\
+  \ Dolibarr aims to offer free open source ERP and CRM features for people with no\
+  \ technical knowledge, by providing a simple solution.\n\nDolibarr includes all\
+  \ the important features of an ERP CRM suite. It is modular and is thus characterized\
+  \ by its ease of installation and use, despite the large number of features.\n\n\
+  \n## Features\n\nMain modules:\n * Sales Management\n * Purchase Management\n *\
+  \ Customer Relationship Management\n * Products-and-services catalog\n * Stock Management\n\
+  \ * Calendar\n * Event Management\n * Bank account management\n * Address book\n\
+  \ * Foundation-members management\n * Payments management\n * Donations management\n\
+  \ * Commercial actions management\n * Commercial proposals management\n * Contracts\
+  \ management\n * Orders management\n * Standing orders management\n * Shipping management\n\
+  \ * Point of sale\n * Electronic document management\n * Project Management\n *\
+  \ Surveys\n * PDF and OpenDocument generation\n * Reporting\n * Wizard to help to\
+  \ export/import data\n * LDAP connectivity\n\nMiscellaneous:\n * Multi-user, with\
+  \ several permissions levels for each feature.\n * Multi-language\n * Multi-currency\n\
+  \ * User-friendly\n * Assorted skins\n * Code is highly customizable (modular).\n\
+  \ * Works with MySQL 4.1 or higher, or PostgreSQL\n * Works with PHP\n\n"
+lzc-sdk-version: '0.1'
+name: Dolibarr
+package: cloud.lazycat.app.dolibarr
+services:
+  dolibarr:
+    image: cloudron/org.dolibarr.cloudronapp:20211121-124848-303425a37
+version: 1.1.14

@@ -1,0 +1,63 @@
+application:
+  routes:
+  - /=http://sogo.cloud.lazycat.app.sogo.lzcapp:3000
+  subdomain: sogo
+description: "This app packages SOGo <upstream>5.3.0</upstream>\n\n### Overview\n\n\
+  SOGo offers multiple ways to access the calendaring, address book data and is integrated\
+  \ with Cloudron email.\nYour users can either use a web browser, Microsoft Outlook,\
+  \ Mozilla Thunderbird, Apple iCal, or a mobile device to access the same information.\n\
+  \n### Features\n\n * Setup for Cloudron email usage\n * CardDav and CalDav synchronisation\
+  \ server\n * Calendar and address book sharing\n * Recurring Events\n * Reminders\n\
+  \ * Free/Busy time\n * Notifications\n * Resource Reservation\n * Categories\n *\
+  \ Material Design Webinterface\n\n### Desktop Clients\n\nSOGo provides perfect integration\
+  \ with desktop clients such as:\n\n * Mozilla Thunderbird\n * Microsoft Outlook\n\
+  \ * Apple iCal and AddressBook\n\n### Mobile Clients\n\nWith SOGo, data access goes\
+  \ beyond the Web and native interfaces. SOGo supports virtually every mobile devices\
+  \ such as:\n\n * Apple iPhone/iPad and BlackBerry 10 devices are supported natively\
+  \ through the use of the CalDAV and CardDAV protocols, which are well supported\
+  \ by SOGo\n * Windows Phone and Android devices can use 3rdparty CalDAV and CardDAV\
+  \ apps\n"
+lzc-sdk-version: '0.1'
+name: SOGo
+package: cloud.lazycat.app.sogo
+services:
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+  sogo:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_PROXY_IP=host.lzcapp
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://sogo.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://sogo.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=sogo.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.sogo.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/nu.sogo.cloudronapp2:20211207-005036-83822fa29
+version: 2.7.10

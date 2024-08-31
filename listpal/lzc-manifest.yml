@@ -1,0 +1,32 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.listpal
+version: 0.0.1
+name: List共享清单
+description: ListPal是一个网络应用，让你轻松创建可共享的待办事项清单，并自动保持同步和实时显示更新。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/aschmelyun/listpal
+application:
+  subdomain: listpal
+  routes:
+    - /=http://web.cloud.lazycat.app.listpal.lzcapp:80
+services:
+  web:
+    # Build FROM Dockerfile
+    image: registry.lazycat.cloud/appdb/listpal:202305151730
+    environment:
+      - DB_DATABASE=listpal
+      - DB_CONNECTION=mysql
+      - DB_HOST=db.cloud.lazycat.app.listpal.lzcapp
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
+    binds:
+      - /lzcapp/var/env/:/host_var/env/
+  db:
+    image: registry.lazycat.cloud/mariadb:10.2
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=listpal
+    binds:
+      - /lzcapp/pkg/content/mysql_conf.d:/etc/mysql/conf.d
+      - /lzcapp/var/db/mysql:/var/lib/mysql

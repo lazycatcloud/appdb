@@ -1,0 +1,5 @@
+#buildscript: ./build.sh all v1.19.0-lzc1-1
+
+pkgout: ./
+
+icon: ./icon.png

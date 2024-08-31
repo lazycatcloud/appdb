@@ -1,0 +1,21 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.frigate
+version: 0.0.2
+name: Frigate 
+description: Frigate 是一款围绕实时 AI 对象检测构建的开源 NVR
+license: https://choosealicense.com/licenses/mit
+homepage: https://github.com/blakeblackshear/frigate
+application:
+  subdomain: frigate
+  gpu_accel: true
+  routes:
+    - /=http://server.cloud.lazycat.app.frigate.lzcapp:5000
+services:
+  server:
+    image: registry.lazycat.cloud/blakeblackshear/frigate:stable
+    binds:
+      - /lzcapp/var/config:/config
+      - /lzcapp/pkg/content/init:/init
+      - /lzcapp/var/media:/media/frigate
+  mqtt:
+    image: registry.lazycat.cloud/eclipse-mosquitto:1.6

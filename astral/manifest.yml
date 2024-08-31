@@ -1,0 +1,34 @@
+application:
+  routes:
+  - /=http://astral.cloud.lazycat.app.astral.lzcapp:8000
+  subdomain: astral
+description: "This app packages Astral Version <upstream>0e225d6ec4</upstream>.\n\n\
+  ## Organize Your GitHub Stars With Ease\n\nAstral is the best way to manage your\
+  \ starred repositories on GitHub using tags, filters, notes and a powerful search\
+  \ feature. \n\n### Your GitHub Stars. Organized.\n\nAstral pulls down all of your\
+  \ starred repositories from GitHub, and allows you to organize them using a simple\
+  \ & intuitive tagging system.\n\n### Features\n\n* Simple tagging system\n* Rule-based\
+  \ filters\n* Lightning-fast search\n* Readmes at a glance\n* Jot down notes\n* Free\
+  \ & open source\n"
+lzc-sdk-version: '0.1'
+name: Astral
+package: cloud.lazycat.app.astral
+services:
+  astral:
+    environment:
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.astral.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    image: cloudron/com.astralapp.cloudronapp:20210217-203408-02932f9ce
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 1.1.10

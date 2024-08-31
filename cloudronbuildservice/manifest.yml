@@ -1,0 +1,16 @@
+application:
+  routes:
+  - /=http://cloudronbuildservice.cloud.lazycat.app.cloudronbuildservice.lzcapp:3000
+  subdomain: cloudronbuildservice
+description: 'The Cloudron Build Service App allows you to build and install
+
+  custom app packages.
+
+  '
+lzc-sdk-version: '0.1'
+name: Cloudron Build Service
+package: cloud.lazycat.app.cloudronbuildservice
+services:
+  cloudronbuildservice:
+    image: cloudron/io.cloudron.buildservice:20201028-171229-749e1f270
+version: 1.4.14

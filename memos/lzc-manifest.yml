@@ -1,0 +1,18 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.memos
+version: 0.0.2
+name: Memos
+description: 开源的、自托管的备忘录中心，具有知识管理和社交网络
+license: https://choosealicense.com/licenses/mit/
+homepage: https://usememos.com
+author: usememons
+application:
+  subdomain: memos
+  routes:
+    - /=http://$uid.web.cloud.lazycat.app.memos.lzcapp:5230
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/memos:0.11.2.3
+    binds:
+      - /lzcapp/var/db/memos:/var/opt/memos # 每个用户的数据持久化, app 之间的间隔已经由 /lzcapp/var 处理

@@ -1,0 +1,39 @@
+application:
+  routes:
+  - /=http://ackee.cloud.lazycat.app.ackee.lzcapp:3000
+  subdomain: ackee
+description: 'This app packages Ackee <upstream>3.3.0</upstream>
+
+
+  Ackee is a self-hosted analytics tool that cares about privacy. We believe that
+  you don''t need to track every aspect of your visitors. Ackee keeps tracked data
+  anonymized to avoid that users are identifiable, while still providing helpful insights.
+  It''s the right tool for everyone who doesn''t need a full-featured marketing analytics
+  platform like Google Analytics or Matomo.
+
+
+  ## Features
+
+
+  * Self-hosted: Ackee runs on your own server and is 100% open-source
+
+  * Modern technologies: Lightweight Node.js and MongoDB architecture
+
+  * Beautiful: Minimal and focused interface
+
+  * No cookies: No unique user tracking and therefore no required cookie message
+
+  * Events: Track button clicks, newsletter subscriptions and more
+
+  * GraphQL API: Fully documented GraphQL API that allows you to build new tools upon
+  Ackee
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Ackee
+package: cloud.lazycat.app.ackee
+services:
+  ackee:
+    image: cloudron/com.electerious.ackee:20211205-203229-208284bd4
+version: 1.3.10

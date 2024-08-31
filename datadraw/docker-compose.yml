@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/datadraw:202305161
+    environment:
+      - APP_TIME_ZONE=Asia/Shanghai
+      - APP_LANGUAGE=zh-CN
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=datadraw
+      - TABLE_PREFIX=sd_
+      - DEBUG_MODE=1
+    ports:
+      - 80:80
+    volumes:
+      - ./srv:/var/www/html
+  db:
+    image: mariadb:10.2
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=datadraw
+    # volumes:
+    #   - ./contentdir/mysql_conf.d:/etc/mysql/conf.d

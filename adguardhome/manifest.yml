@@ -1,0 +1,58 @@
+application:
+  routes:
+  - /=http://adguardhome.cloud.lazycat.app.adguardhome.lzcapp:3000
+  subdomain: adguardhome
+description: 'This app packages AdGuard Home <upstream>0.106.3</upstream>.
+
+
+  ## About
+
+
+  AdGuard Home is a network-wide software for blocking ads & tracking. After you set
+  it up, it''ll cover ALL your home devices, and you don''t need any client-side software
+  for that.
+
+
+  It operates as a DNS server that re-routes tracking domains to a "black hole," thus
+  preventing your devices from connecting to those servers. It''s based on software
+  we use for our public AdGuard DNS servers -- both share a lot of common code.
+
+
+  ### Features
+
+
+  * Blocking ads and trackers
+
+  * Customizing blocklists
+
+  * Built-in DHCP server
+
+  * HTTPS for the Admin interface
+
+  * Encrypted DNS upstream servers (DNS-over-HTTPS, DNS-over-TLS, DNSCrypt)
+
+  * Cross-platform
+
+  * Running as a DNS-over-HTTPS or DNS-over-TLS server
+
+  * Blocking phishing and malware domains
+
+  * Parental control (blocking adult domains)
+
+  * Force Safe search on search engines
+
+  * Per-client (device) configuration
+
+  * Access settings (choose who can use AGH DNS)
+
+
+  '
+lzc-sdk-version: '0.1'
+name: AdGuard Home
+package: cloud.lazycat.app.adguardhome
+services:
+  adguardhome:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/com.adguard.home.cloudronapp:20210520-012400-751398389
+version: 1.3.13

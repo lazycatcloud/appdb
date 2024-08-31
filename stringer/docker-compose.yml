@@ -1,0 +1,33 @@
+version: "3.9"
+x-lazycat-app:
+  quality: high
+  id: stringer
+  icon: icon.png
+  title: Stringer
+  upstream: https://github.com/swanson/stringer
+  summary: A self-hosted, anti-social RSS reader.
+  screenshots:
+    - screenshot.png
+  categories:
+    - reading
+services:
+  postgres:
+    image: postgres:9.5-alpine
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=super_secret_password
+      - POSTGRES_USER=db_user
+      - POSTGRES_DB=stringer
+  web:
+    image: mdswanson/stringer
+    depends_on:
+      - postgres
+    environment:
+      - SECRET_TOKEN=fb87ec175fbcd206043c15d9cd2b7b00f7c74ccb
+      - PORT=8080
+      - DATABASE_URL=postgres://db_user:super_secret_password@postgres:5432/stringer
+    labels:
+      ingress-8080: stringer
+volumes:
+  db: {}

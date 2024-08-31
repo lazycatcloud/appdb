@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.ddd.cashbook
+version: 1.0.6-lzc1-1
+name: CashBook
+license: https://opensource.org/license/mit/
+homepage: https://github.com/dingdangdog/cashbook-desktop
+application:
+  subdomain: ddd-cashbook
+  routes:
+    - /=http://ddd-cashbook.cloud.lazycat.app.ddd.cashbook.lzcapp:80
+    - /api/=http://ddd-cashbook.cloud.lazycat.app.ddd.cashbook.lzcapp:13303/api/
+  user_app: true
+services:
+  ddd-cashbook:
+    image: registry.lazycat.cloud/appdb/ddd-cashbook:v1.0.6-lzc1-1

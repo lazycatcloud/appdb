@@ -1,0 +1,29 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.awebdav
+version: 0.1.11
+
+name: Nginx WebDAV
+description: WebDAV
+
+author: admin@linakesi.com
+
+application:
+  subdomain: webdav
+  background_task: true
+  user_app: true
+  routes:
+    - /=http://webdav.cloud.lazycat.app.awebdav.lzcapp:8080
+
+  image: registry.lazycat.cloud/alpine:3.16
+
+  basic_auth_path:
+    - /
+
+  depends_on:
+    - webdav
+
+services:
+  webdav:
+    image: registry.lazycat.cloud/d1y/nginx-webdav:4.0
+    binds:
+      - /lzcapp/run/mnt/home:/share

@@ -1,0 +1,47 @@
+application:
+  routes:
+  - /=http://openvpn.cloud.lazycat.app.openvpn.lzcapp:3000
+  subdomain: openvpn
+description: '# OpenVPN
+
+
+  This is an OpenVPN server, packaged with a very simple key manager.
+
+
+  This app is based on OpenVPN <upstream>2.4.4</upstream>
+
+
+  ## Features
+
+
+  * TCP based VPN tunnel with AES-256-CBC encryption
+
+  * Pre-shared static key (PSK) for "extra protection" to the the TLS channel
+
+  * Devices connected to the VPN can reach each other through the domain `device.user.vpn.mydomain.com`
+  or simply `device.user`
+
+  * Client connection status indicator
+
+  * Prevents DNS leaks using a private DNS server that is run as part of the app
+
+  * Issue and revoke per-device client certificates
+
+  * This app can be installed multiple times to create independent OpenVPN instances
+
+
+  ## Usage
+
+
+  The key management interface is available under the `/` location. Each Cloudron-authenticated
+  user can create and download keys for themself.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: OpenVPN
+package: cloud.lazycat.app.openvpn
+services:
+  openvpn:
+    image: cloudron/io.cloudron.openvpn:20211103-163901-950352c98
+version: 1.12.11

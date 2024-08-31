@@ -1,0 +1,24 @@
+version: '2'
+services:
+    wp:
+        image: registry.lazycat.cloud/appdb/wordpress_sqlite:6.4.2.2
+        build: ./
+        environment:
+            WORDPRESS_DB_HOST: mysql
+            WORDPRESS_DB_USER: wordpress
+            WORDPRESS_DB_PASSWORD: wordpress
+            WORDPRESS_DB_NAME: wordpress
+            WORDPRESS_URL: http://localhost:8080
+            WORDPRESS_TITLE: My.WordPress
+            WORDPRESS_ADMINNAME: admin
+            WORDPRESS_ADMINPASS: admin
+            WORDPRESS_EMAIL: admin@example.com
+        volumes:
+            - db:/var/www/db
+            - uploads:/var/www/html/wp-content/uploads
+        restart: always
+        ports:
+            - "8080:80"
+volumes:
+    db:
+    uploads:

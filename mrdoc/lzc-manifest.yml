@@ -1,0 +1,21 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.mrdoc
+version: 0.0.1
+name: MrDoc觅思文档
+description: 自托管、私有部署的在线文档管理系统和知识库
+homepage: https://mrdoc.pro/
+author: admin@linakesi.com
+application:
+  user_app: true
+  routes:
+    - /=http://doc.cloud.lazycat.app.mrdoc.lzcapp:10086
+  depends_on:
+    - doc
+  subdomain: mrdoc
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  doc:
+    image: registry.lazycat.cloud/d1y/mrdoc:0.1
+    binds:
+      - /lzcapp/var/db/config:/app/MrDoc/config
+      - /lzcapp/var/db/media:/app/MrDoc/media

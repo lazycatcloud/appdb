@@ -1,0 +1,70 @@
+application:
+  routes:
+  - /=http://redmine.cloud.lazycat.app.redmine.lzcapp:3000
+  subdomain: redmine
+description: "This app packages Redmine version <upstream>4.2.3</upstream>\n\nRedmine\
+  \ is a flexible project management web application written using Ruby on Rails framework.\n\
+  \n## Features\n\nSome of the main features of Redmine are:\n  * Multiple projects\
+  \ support\n  * Flexible role based access control\n  * Flexible issue tracking system\n\
+  \  * Gantt chart and calendar\n  * News, documents & files management\n  * Feeds\
+  \ & email notifications\n  * Per project wiki\n  * Per project forums\n  * Time\
+  \ tracking\n  * Custom fields for issues, time-entries, projects and users\n  *\
+  \ SCM integration (SVN, CVS, Git, Mercurial and Bazaar)\n  * Issue creation via\
+  \ email\n  * Multiple LDAP authentication support\n  * User self-registration support\n\
+  \  * Multilanguage support\n  * Multiple databases support\n\nRead more about [Redmine\
+  \ features](https://redmine.org/projects/redmine/wiki/Features).\n\n## Documentation\n\
+  \nYou can read the [Redmine guide](https://redmine.org/projects/redmine/wiki/Guide).\n\
+  \nOther resources:\n  * [Changelog](https://redmine.org/projects/redmine/wiki/Changelog)\n\
+  \  * [Frequently Asked Questions](https://redmine.org/projects/redmine/wiki/FAQ)\n\
+  \  * [HowTos](https://redmine.org/projects/redmine/wiki/HowTos)\n  * [Plugins](https://redmine.org/projects/redmine/wiki/Plugins)\n\
+  \  * [Themes](https://redmine.org/projects/redmine/wiki/Themes)\n  * [Logo and Icon](https://redmine.org/projects/redmine/wiki/Logo)\n\
+  \  * [Third Party Tools](https://redmine.org/projects/redmine/wiki/ThirdPartyTools)\n\
+  \n## Support & getting help\n\nFor getting help or discussing about Redmine, you\
+  \ can browse the [Redmine forums](http://www.redmine.org/projects/redmine/boards)\
+  \ hosted right here in Redmine. We also have a fairly [active chatroom](https://redmine.org/projects/redmine/wiki/IRC)\
+  \ - join #redmine on the freenode IRC network.\n\nBefore submitting a bug report,\
+  \ a patch or a feature request here, please read the [Submission guidelines](https://redmine.org/projects/redmine/wiki/Submissions).\n"
+lzc-sdk-version: '0.1'
+name: Redmine
+package: cloud.lazycat.app.redmine
+services:
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+  redmine:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_PROXY_IP=host.lzcapp
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://redmine.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://redmine.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=redmine.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.redmine.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/org.redmine.coudronapp:20211110-195941-8399629a9
+version: 2.0.10

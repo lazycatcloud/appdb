@@ -1,0 +1,18 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.wireflow
+version: 0.0.2
+name: WireFlow
+description: Wireflow - 用户流程图实时协作工具。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://wireflow.co
+application:
+  subdomain: wireflow
+  routes:
+    - /=file:///lzcapp/pkg/content/
+    # - /=http://pc.lan:8080/
+    # - /=http://${LocalIP}:8080
+  # file_handler: # 声明本app支持操作的文件类型，mime至少存在一条记录，actions至少要支持open
+  #   mime:  #按照mime类型注册到系统
+  #     - x-lzc-extension/md          # app支持.md
+  #   actions:  #打开对应文件的url路径,由文件管理器等app调用
+  #     open: /?file=%u   #%u是某个webdav上的具体文件路径，一定存在文件名后缀

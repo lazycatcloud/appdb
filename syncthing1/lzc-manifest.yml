@@ -1,0 +1,20 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.syncthing
+version: 0.0.1
+name: Syncthing
+description: 数据同步工具
+license: https://www.mozilla.org/en-US/MPL/2.0/
+homepage: https://syncthing.net/
+author: Syncthing Foundation
+application:
+  subdomain: syncthing
+  routes:
+    - /=http://syncthing.cloud.lazycat.app.syncthing.lzcapp:8384
+  user_app: true
+  ingress:
+    - protocol: tcp
+      port: 22000
+      service: syncthing
+services:
+  syncthing:
+    image: registry.lazycat.cloud/appdb/syncthing:v0.0.1

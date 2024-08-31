@@ -1,0 +1,15 @@
+application:
+  routes:
+  - /=http://duplicati.cloud.lazycat.app.duplicati.lzcapp:8200
+  subdomain: duplicati
+description: Duplicati是一套备份客户端
+lzc-sdk-version: '0.1'
+name: Duplicati
+package: cloud.lazycat.app.duplicati
+services:
+  duplicati:
+    environment:
+    - PUID=1000
+    - PGID=1000
+    image: linuxserver/duplicati:2.0.6
+version: 0.0.11

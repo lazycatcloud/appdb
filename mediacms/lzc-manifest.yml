@@ -1,0 +1,61 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.mediacms
+version: 0.0.1
+name: MediaCMS
+description: MediaCMS是一个现代化的，功能齐全的开源视频和媒体CMS。它的开发是为了满足现代网络平台查看和共享媒体的需求。它可用于在几分钟内构建中小型视频和媒体门户。
+license: https://github.com/mediacms-io/mediacms/blob/main/LICENSE.txt
+homepage: https://github.com/mediacms-io/mediacms
+application:
+  subdomain: mediacms
+  routes:
+    - /=http://web.cloud.lazycat.app.mediacms.lzcapp
+    - /site.webmanifest=file:///lzcapp/pkg/content/site.webmanifest
+    # - /adminer/=http://admin.cloud.lazycat.app.mediacms.lzcapp:8080
+  user_app: true
+services:
+  migrations:
+    image: mediacms/mediacms:latest
+    environment:
+      - ENABLE_UWSGI='no'
+      - ENABLE_NGINX='no'
+      - ENABLE_CELERY_SHORT='no'
+      - ENABLE_CELERY_LONG='no'
+      - ENABLE_CELERY_BEAT='no'
+      - ADMIN_USER=admin
+      - ADMIN_EMAIL=admin@heiyu.space
+      - ADMIN_PASSWORD=administrator
+      - LAZYCAT_USER_ID=${LAZYCAT_USER_ID}
+      - ISMIGRATION=1
+    binds:
+      - /lzcapp/pkg/content/prestart.sh:/home/mediacms.io/mediacms/deploy/docker/prestart.sh
+      - /lzcapp/pkg/content/local_settings.py:/home/mediacms.io/mediacms/deploy/docker/local_settings.py
+    command: "./deploy/docker/prestart.sh"
+    depends_on:
+      - db
+      - redis
+  web:
+    image: mediacms/mediacms:latest
+    binds:
+      - /lzcapp/pkg/content/login.html:/home/mediacms.io/mediacms/templates/account/login.html
+      - /lzcapp/pkg/content/local_settings.py:/home/mediacms.io/mediacms/deploy/docker/local_settings.py
+    environment:
+      - ENABLE_CELERY_BEAT='no'
+      - ENABLE_CELERY_SHORT='no'
+      - ENABLE_CELERY_LONG='no'
+      - ENABLE_MIGRATIONS='no'
+      - LAZYCAT_USER_ID=${LAZYCAT_USER_ID}
+    depends_on:
+      - migrations
+  db:
+    image: postgres:15.2-alpine
+    binds:
+      - /lzcapp/var/postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=mediacms
+      - POSTGRES_PASSWORD=mediacms
+      - POSTGRES_DB=mediacms
+      - TZ=Europe/London
+  redis:
+    image: "redis:alpine"
+  # admin:
+  #   image: "adminer:4.8.1"

@@ -1,0 +1,44 @@
+application:
+  routes:
+  - /=http://snipe-it.cloud.lazycat.app.snipe-it.lzcapp:3000
+  subdomain: snipe-it
+description: 'This app packages Snipe-IT <upstream>5.3.3</upstream>.
+
+
+  ## About
+
+
+  Snipe-IT is a FOSS project for asset management in IT Operations. Knowing who has
+  which laptop, when
+
+  it was purchased in order to depreciate it correctly, handling software licenses,
+  etc.
+
+
+  ## Features
+
+
+  * Open Source - Snipe-IT is open source software. Transparency, security and oversight
+  is at the heart of everything we do. No vendor lock-in again, ever.
+
+
+  * App & Platform Security - Both Snipe-IT as a software product and our cloud-hosting
+  infrastructure were designed with security at the forefront.
+
+
+  * Frequent Updates - Snipe-IT is improved constantly, with new releases every few
+  weeks. Bug-fixes and new features ship daily.
+
+
+  * Powerful REST API - Our simple and intuitive developer JSON REST API allows you
+  to develop custom automations based on your own individual needs.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Snipe-IT
+package: cloud.lazycat.app.snipe-it
+services:
+  snipe-it:
+    image: cloudron/com.snipeitapp.cloudronapp:20211125-112219-562341796
+version: 1.3.13

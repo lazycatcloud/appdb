@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  onenav:
+    image: registry.lazycat.cloud/appdb/onenav:202307201
+    build: ./
+    # environment:
+    #   - __TYPECHO_DYNAMIC_SITE_URL__=https://typecho.lhbox.heiyu.space/
+    volumes:
+      # - ./srv:/var/www/html
+      - ./data:/var/www/html/data
+      # - ./srv/var/Typecho/Request.php:/var/www/html/var/Typecho/Request.php
+      # - ./srv/install.php:/var/www/html/install.php
+      # - ./srv/var/Widget/Security.php:/var/www/html/var/Widget/Security.php
+      # - ./Options.php:/var/www/html/var/Widget/Options.php
+      # - ./login.php:/var/www/html/admin/login.php
+    ports:
+      - "8000:80"

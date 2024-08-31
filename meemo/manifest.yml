@@ -1,0 +1,39 @@
+application:
+  routes:
+  - /=http://meemo.cloud.lazycat.app.meemo.lzcapp:3000
+  subdomain: meemo
+description: "This app packages Meemo <upstream>1.14.0</upstream>.\n\n### Overview\n\
+  \nMeemo is a personal data manager. It lets you simply input any kind of information\
+  \ like notes, thoughts, ideas as well as acts as a bookmarkmanager and todo list.\n\
+  The user interface resembles a news feed organized with tags. Full text search further\
+  \ allows you to quickly find information in your pile of accumulated data.\n\n###\
+  \ Features\n * Hashtag style categories\n * Full text search\n * Markdown support\n\
+  \ * Data import and export\n\n### Email\n\nMeemo will automatically add notes if\
+  \ you send it email!\n"
+lzc-sdk-version: '0.1'
+name: Meemo
+package: cloud.lazycat.app.meemo
+services:
+  meemo:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_PROXY_IP=host.lzcapp
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=${LAZYCAT_AUTH_LDAP_BASE_DN}
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://meemo.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://meemo.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=meemo.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_MONGODB_USERNAME=${LAZYCAT_MONGO_USER}
+    - CLOUDRON_MONGODB_PASSWORD=${LAZYCAT_MONGO_PASSWORD}
+    - CLOUDRON_MONGODB_HOST=${LAZYCAT_MONGO_HOST}
+    - CLOUDRON_MONGODB_PORT=27017
+    - CLOUDRON_MONGODB_DATABASE=meemo
+    image: cloudron/de.nebulon.guacamoly:20210224-131921-77541d7a7
+version: 1.13.12

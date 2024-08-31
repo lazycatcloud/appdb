@@ -1,0 +1,12 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.koreader
+version: 0.0.2
+name: Koodo Reader
+description: 一个跨平台的电子书阅读器
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/troyeguo/koodo-reader
+author: d1y
+application:
+  subdomain: koreader
+  routes: # todo: support build frontend assets
+    - /=file:///lzcapp/pkg/content

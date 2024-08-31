@@ -1,0 +1,20 @@
+application:
+  routes:
+  - /=http://hugo.cloud.lazycat.app.hugo.lzcapp:1313
+  subdomain: hugo
+description: 世界上最快的网站构建框架
+lzc-sdk-version: '0.1'
+name: HUGO
+package: cloud.lazycat.app.hugo
+services:
+  hugo:
+    binds:
+    - /lzcapp/cache:/src
+    - /lzcapp/pkg/./start.sh:/start.sh
+    - /lzcapp/pkg/./hyde.tar.gz:/hyde.tar.gz
+    - /lzcapp/pkg/./caddy_linux_amd64:/usr/bin/caddy
+    entrypoint: bash /start.sh
+    environment:
+    - APP_ORIGIN=${LAZYCAT_APP_ORIGIN}
+    image: klakegg/hugo:0.95.0-ubuntu
+version: 0.0.11

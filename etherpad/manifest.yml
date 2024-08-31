@@ -1,0 +1,18 @@
+application:
+  file_handler:
+    actions:
+      open: /webdav?file=/_lzc/files/home/%u
+    mime:
+    - text/plain
+  routes:
+  - /=http://etherpad.cloud.lazycat.app.etherpad1.lzcapp:9001
+  - /webdav=file:///lzcapp/pkg/webdav.html
+  subdomain: etherpad
+description: 一个基于Web的在线文档协作工具
+lzc-sdk-version: '0.1'
+name: Etherpad
+package: cloud.lazycat.app.etherpad1
+services:
+  etherpad:
+    image: registry.lazycat.cloud/etherpad/etherpad:1.8.14
+version: 0.0.17

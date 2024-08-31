@@ -1,0 +1,45 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.photoview
+version: 0.0.2
+name: PhotoView
+description: Photoview是一个简单和用户友好的照片库，它是为摄影师制作的，旨在提供一个简单和快速的方式来浏览目录，有成千上万的高分辨率照片。
+license: https://choosealicense.com/licenses/agpl-3.0/
+homepage: https://github.com/photoview/photoview
+application:
+  subdomain: photoview
+  routes:
+    # - /=file:///lzcapp/pkg/content/
+    # - /=http://192.168.2.175:8000/
+    - /=http://web.cloud.lazycat.app.photoview.lzcapp:80
+    - /account=http://account.cloud.lazycat.app.photoview.lzcapp:80
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/photoview:202306212
+    binds:
+      - /lzcapp/run/mnt/home:/home
+      - /lzcapp/cache:/app/cache
+    depends_on:
+      - db
+
+    environment:
+      - PHOTOVIEW_DATABASE_DRIVER=mysql
+      - PHOTOVIEW_MYSQL_URL=photoview:photosecret@tcp(${LAZYCAT_USER_ID}.db.cloud.lazycat.app.photoview.lzcapp)/photoview
+      - PHOTOVIEW_LISTEN_IP=photoview
+      - PHOTOVIEW_LISTEN_PORT=80
+      - PHOTOVIEW_MEDIA_CACHE=/app/cache
+  account:
+    image: php:8.2.7-cli-alpine3.18
+    command: php -S 0.0.0.0:80 -t /app
+    binds:
+      - /lzcapp/pkg/content/account:/app
+  db:
+    image: mariadb:10.5
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=photoview
+      - MYSQL_USER=photoview
+      - MYSQL_PASSWORD=photosecret
+    binds:
+      - /lzcapp/pkg/content/mysql_conf.d:/etc/mysql/conf.d
+      - /lzcapp/var/db/mysql:/var/lib/mysql

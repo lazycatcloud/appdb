@@ -1,0 +1,32 @@
+diff --git a/Dockerfile b/Dockerfile
+index 09d59f9..82f85be 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -1,4 +1,4 @@
+-FROM node:18-alpine AS base
++FROM node:18-buster AS base
+ 
+ LABEL maintainer "Davenchy <firon1222@gmail.com>"
+ LABEL description "Build LiveTorrent"
+@@ -6,7 +6,7 @@ LABEL version "4.0"
+ 
+ FROM base AS deps
+ 
+-RUN apk add --no-cache libc6-compat
++RUN apt install libc6 -y
+ WORKDIR /app
+ 
+ COPY package*.json ./
+diff --git a/core/utils/torrent/help_functions.ts b/core/utils/torrent/help_functions.ts
+index 583a44d..702cd61 100644
+--- a/core/utils/torrent/help_functions.ts
++++ b/core/utils/torrent/help_functions.ts
+@@ -16,7 +16,7 @@ export const torrentToJson = (torrent: WebTorrent.Torrent): TorrentInfo => ({
+ 	size: Math.max(torrent.length, 0),
+ 	peers: torrent.numPeers,
+ 	downloaded: Math.max(torrent.downloaded, 0),
+-	files: torrent.files.map(file => ({
++	files: (torrent.files ?? []).map(file => ({
+ 		name: file.name,
+ 		path: '/' + file.path,
+ 		size: Math.max(file.length, 0),

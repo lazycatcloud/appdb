@@ -1,0 +1,33 @@
+listen: :8089
+db:
+  type: sqlite
+  name: data.db
+data-dir: /app/data
+temp-dir: ""
+web-dir: ./web
+lang-dir: ./lang
+default-lang: zh-CN
+max-concurrent-task: 100
+free-fs: true
+
+thumbnail:
+  ttl: 720h
+  handlers:
+    - type: image
+      tags:
+      file-types: jpg,jpeg,png,gif
+    - type: text
+      tags:
+      file-types: txt,md,xml,html,css,scss,js,json,jsx,properties,yml,yaml,ini,c,h,cpp,go,java,kt,gradle,ps1
+auth:
+  validity: 2h
+  auto-refresh: true
+web-dav:
+ enabled: true
+ prefix: /dav
+ allow-anonymous: true
+search:
+  enabled: false
+  type: bleve
+api-path: ""
+web-path: ""

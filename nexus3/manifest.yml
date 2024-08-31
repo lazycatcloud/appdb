@@ -1,0 +1,14 @@
+application:
+  routes:
+  - /=http://nexus3.cloud.lazycat.app.nexus3.lzcapp:8081
+  subdomain: nexus3
+description: Repository Manager 3
+lzc-sdk-version: '0.1'
+name: Nexus3
+package: cloud.lazycat.app.nexus3
+services:
+  nexus3:
+    binds:
+    - /lzcapp/var:/nexus-data
+    image: sonatype/nexus3:3.37.0
+version: 0.0.11

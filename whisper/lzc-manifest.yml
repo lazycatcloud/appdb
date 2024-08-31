@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.whisper
+version: 0.0.1
+name: Whisper Webui
+description: OpenAI 的 Whisper AI 模型的 HTML WebUI，可以转录和翻译音频
+license: https://choosealicense.com/licenses/apache-2.0/
+homepage: https://gitlab.com/aadnk/whisper-webui
+author: Kristian Stangeland
+application:
+  subdomain: whisper
+  routes:
+    - /=http://serv.cloud.lazycat.app.whisper.lzcapp:7860
+services:
+  serv:
+    image: dockerproxy.com/squarefong/whisper-webui:23.6.29-1

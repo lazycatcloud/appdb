@@ -1,0 +1,6 @@
+buildscript: ./build.sh
+
+pkgout: ./
+
+contentdir: ./jsoncrack/out
+icon: ./logo.png

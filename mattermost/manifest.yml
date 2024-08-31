@@ -1,0 +1,122 @@
+application:
+  routes:
+  - /=http://mattermost.cloud.lazycat.app.mattermost.lzcapp:8065
+  subdomain: mattermost
+description: 'This app packages Mattermost <upstream>6.1.0</upstream>
+
+
+  ### About
+
+
+  Mattermost is an open source, on-prem Slack-alternative.
+
+
+  It offers modern communication from behind your firewall, including messaging and
+  file sharing across PCs and phones with archiving and instant search.
+
+
+  **All team communication in one place, searchable and accessible anywhere**
+
+
+  Please see the [features pages of the Mattermost website](http://www.mattermost.org/features/)
+  for images and further description of the functionality listed below:
+
+
+  #### Sharing Messaging and Files
+
+
+  - Send messages, comments, files and images across public, private and 1-1 channels
+
+  - Personalize notifications for unreads and mentions by channel and keyword
+
+  - Use #hashtags to tag and find messages, discussions and files
+
+
+  #### Archiving and Search
+
+
+  - Import Slack user accounts and channel archives
+
+  - Search public and private channels for historical messages and comments
+
+  - View recent mentions of your name, username, nickname, and custom search terms
+
+
+  #### Anywhere Access
+
+
+  - Use Mattermost from web-enabled PCs and phones
+
+  - Attach sound, video and image files from mobile devices
+
+  - Define team-specific branding and color themes across your devices
+
+
+  #### Discuss
+
+
+  - Visit the [Mattermost Forum](http://forum.mattermost.org/) for technical questions
+  and answers.
+
+
+  ### Learn More
+
+
+  - [Product Vision and Target Audiences](http://www.mattermost.org/vision/) - What
+  we''re solving and for whom are we building
+
+  - [Mattermost Forum](http://forum.mattermost.org/) - For technical questions and
+  answers
+
+  - [Troubleshooting Forum](https://forum.mattermost.org/t/how-to-use-the-troubleshooting-forum/150)
+  - For reporting bugs
+
+  - [Issue Tracker](http://www.mattermost.org/filing-issues/) - For reporting bugs
+
+  - [Feature Ideas Forum](http://www.mattermost.org/feature-requests/) - For sharing
+  ideas for future versions
+
+  - [Contribution Guidelines](https://github.com/mattermost/platform/blob/master/CONTRIBUTING.md)
+  - For contributing code or feedback to the project
+
+
+  Follow us on Twitter at [@MattermostHQ](https://twitter.com/mattermosthq), or talk
+  to the core team on our [daily builds server](https://pre-release.mattermost.com/core)
+  via [this invite link](https://pre-release.mattermost.com/signup_user_complete/?id=rcgiyftm7jyrxnma1osd8zswby).
+
+  '
+lzc-sdk-version: '0.1'
+name: Mattermost
+package: cloud.lazycat.app.mattermost
+services:
+  mattermost:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_API_ORIGIN=https://mattermost.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://mattermost.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=mattermost.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.mattermost.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/org.mattermost.cloudronapp:20211115-182121-12723de52
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 1.55.10

@@ -1,0 +1,14 @@
+application:
+  routes:
+  - /=http://bludit.cloud.lazycat.app.bludit.lzcapp:80
+  subdomain: bludit
+description: A web application to build your own website or blog in seconds
+lzc-sdk-version: '0.1'
+name: Bludit
+package: cloud.lazycat.app.bludit
+services:
+  bludit:
+    binds:
+    - /lzcapp/cache:/usr/share/nginx/html/bl-content
+    image: bludit/docker:3.13.1
+version: 0.0.11

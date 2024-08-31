@@ -1,0 +1,31 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.peertube
+version: 5.2.1-lzc1-4
+name: PeerTube
+description: "PeerTube 是一个免费、去中心化和联合的视频平台。 单独托管 PeerTube 的组织可能没有足够的钱来支付其服务器的带宽和视频存储费用，PeerTube 的所有服务器都可以作为联合网络进行互操作，并且通过我们的 ActivityPub 实现，非 PeerTube 服务器可以成为更大的 Vidiverse（联合视频网络）的一部分 。 由于网络浏览器中使用 WebTorrentor p2p-media-loader 进行 P2P，视频负载得以减少。只需上传您的视频，并确保它们可以在任何地方进行流式传输。 添加描述、一些标签，您的视频将被整个视频联盟发现，而不仅仅是您的实例。 您甚至可以在您最喜欢的网站上嵌入播放器！与视频创作者保持联系 - 从 PeerTube 或任何其他地方关注您最喜欢的频道。您无需在观看视频的实例上拥有帐户即可关注其作者，您可以这样做 所有这些都来自 Fediverse（Mastodon、Pleroma 和许多其他），或者只是使用良好的 ol' RSS。没有用户体验黑暗模式，没有挖掘您的数据，没有视频推荐废话。不再有伤害访问者并激励改变创造力的按次付费广告和广告。"
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://joinpeertube.org/
+application:
+  subdomain: peertube
+  routes:
+    - /=http://peertube.cloud.lazycat.app.peertube.lzcapp:80
+  depends_on:
+    - peertube
+services:
+  peertube-postgres:
+    image: postgres:15.4-alpine3.18
+    environment:
+      - POSTGRES_USER=peertube
+      - POSTGRES_DB=peertube
+      - POSTGRES_PASSWORD=peertube
+      - PGDATA=/lzcapp/var/pgdata
+  peertube-redis:
+    image: redis:7.2.0-alpine3.18
+  peertube:
+    image: registry.lazycat.cloud/appdb/peertube:v5.2.1-lzc1-4
+    depends_on:
+      - peertube-postgres
+      - peertube-redis
+    environment:
+      - PEERTUBE_WEBSERVER_HOSTNAME=peertube.${LAZYCAT_BOX_DOMAIN}
+      - PEERTUBE_SECRET=c0230d3ed55464c2f3ff2e08d5b8953293f9024be048ed07b0a0ba4456c7c783

@@ -1,0 +1,19 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.jsnes
+version: 0.0.1
+name: Nes模拟器
+description: Nes模拟器
+homepage: ""
+author: admin@lnks.com
+application:
+  background_task: true
+  user_app: true
+  routes:
+    - /=http://nes.cloud.lazycat.app.jsnes.lzcapp:80
+  depends_on:
+    - nes
+  subdomain: jsnes
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  nes:
+    image: zouyq/jsnes-web

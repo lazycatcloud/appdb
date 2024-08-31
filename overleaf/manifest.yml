@@ -1,0 +1,31 @@
+application:
+  routes:
+  - /=http://sharelatex.cloud.lazycat.app.overleaf.lzcapp:80
+  subdomain: overleaf
+description: 基于云的协作式LaTeX编辑器
+lzc-sdk-version: '0.1'
+name: Overleaf
+package: cloud.lazycat.app.overleaf
+services:
+  mongo:
+    binds:
+    - /lzcapp/var:/data/db
+    image: mongo:4.0
+  redis:
+    binds:
+    - /lzcapp/var:/data
+    image: redis:5
+  sharelatex:
+    binds:
+    - /lzcapp/var:/var/lib/sharelatex
+    environment:
+    - SHARELATEX_APP_NAME=Overleaf Community Edition
+    - SHARELATEX_MONGO_URL=mongodb://mongo/sharelatex
+    - SHARELATEX_REDIS_HOST=redis
+    - REDIS_HOST=redis
+    - ENABLED_LINKED_FILE_TYPES=url,project_file
+    - ENABLE_CONVERSIONS=true
+    - EMAIL_CONFIRMATION_DISABLED=true
+    - TEXMFVAR=/var/lib/sharelatex/tmp/texmf-var
+    image: sharelatex/sharelatex
+version: 0.0.11

@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.halo
+version: 2.8.0-lzc1-1
+name: Halo
+description:
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://halo.run/
+application:
+  subdomain: halo
+  routes:
+    - /=http://halo.cloud.lazycat.app.halo.lzcapp:8090
+services:
+  halo:
+    image: registry.lazycat.cloud/appdb/halo:v2.8.0-lzc1-1
+    command: --halo.external-url=https://halo.${LAZYCAT_BOX_DOMAIN}/ --halo.security.initializer.disabled=true

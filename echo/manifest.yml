@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://echo.cloud.lazycat.app.echo.lzcapp:9000
+  subdomain: echo
+description: echo server
+lzc-sdk-version: '0.1'
+name: echo
+package: cloud.lazycat.app.echo
+services:
+  echo:
+    image: istio/tcp-echo-server:1.2
+version: 0.0.11

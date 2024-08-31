@@ -1,0 +1,31 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.datadraw
+version: 0.0.4
+name: 数字绘DataDraw
+description: 数字绘——支持云存储的在线框图、流程图、网络图、组织结构图、UML、BPMN绘制。
+license: https://choosealicense.com/licenses/gpl-3.0/
+homepage: https://github.com/zxhm001/DataDraw
+application:
+  subdomain: datadraw
+  routes:
+    - /=http://web.cloud.lazycat.app.datadraw.lzcapp:80
+services:
+  web:
+    # Build FROM Dockerfile
+    image: registry.lazycat.cloud/appdb/datadraw:202305161
+    environment:
+      - APP_TIME_ZONE=Asia/Shanghai
+      - APP_LANGUAGE=zh-CN
+      - MYSQL_HOST=db.cloud.lazycat.app.datadraw.lzcapp
+      - MYSQL_DATABASE=datadraw
+      - TABLE_PREFIX=sd_
+    binds:
+      - /lzcapp/var/upload:/var/www/html/public/uploads
+  db:
+    image: registry.lazycat.cloud/mariadb:10.2
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=datadraw
+    binds:
+      - /lzcapp/pkg/content/mysql_conf.d:/etc/mysql/conf.d
+      - /lzcapp/var/db/mysql:/var/lib/mysql

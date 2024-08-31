@@ -1,0 +1,14 @@
+application:
+  routes:
+  - /=http://zentao.cloud.lazycat.app.zentao.lzcapp:80
+  subdomain: zentao
+description: 项目管理软件开源版
+lzc-sdk-version: '0.1'
+name: 禅道
+package: cloud.lazycat.app.zentao
+services:
+  zentao:
+    binds:
+    - /lzcapp/var:/var/lib/mysql
+    image: easysoft/zentao:16.0
+version: '16.10'

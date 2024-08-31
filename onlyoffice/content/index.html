@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <title>Onlyoffice</title>
+    <script type="text/javascript" src="/web-apps/apps/api/documents/api.js"></script>
+    <script>
+     function GetLocationData() {
+         const result = {};
+         const params = window.location.search.slice(1).split('&');
+         for (var i = 0; i < params.length; i++) {
+             const idx = params[i].indexOf('=');
+             if (idx > 0) {
+                 result[decodeURIComponent(params[i].substring(0, idx))] = decodeURIComponent(params[i].substring(idx + 1));
+             }
+         }
+         return result;
+     }
+
+     function AppendElement(elt) {
+         return document.body.appendChild(elt);
+     }
+
+     function GetFileUrl() {
+         const file = GetLocationData()['file'];
+         if (file === undefined) {
+             const p = document.createElement("p");
+             p.textContent = "file not specified";
+             AppendElement(p);
+         }
+         return file;
+     }
+
+     function GetKey(file) {
+         return `${file}.${Math.random().toString(36).slice(2)}`;
+     }
+
+     window.Ext = {
+         "word": new Set([".doc", ".docm", ".docx", ".docxf", ".dot",
+                          ".dotm", ".dotx", ".epub", ".fodt", ".fb2",
+                          ".htm", ".html", ".mht", ".odt", ".oform", ".ott",
+                          ".oxps", ".pdf", ".rtf", ".txt", ".djvu", ".xml",
+                          ".xps"]),
+
+         "cell": new Set([".csv", ".fods", ".ods", ".ots", ".xls", ".xlsb",
+                          ".xlsm", ".xlsx", ".xlt", ".xltm", ".xltx"]),
+
+
+         "slide": new Set([".fodp", ".odp", ".otp", ".pot", ".potm",
+                           ".potx", ".pps", ".ppsm", ".ppsx", ".ppt",
+                           ".pptm", ".pptx"]),
+     }
+     function ExtToType(suffix) {
+         for (const t in window.Ext) {
+             if (!window.Ext[t].has(suffix)) {
+                 continue
+             }
+             return t
+         }
+     }
+
+     async function GetToken() {
+         return await (await fetch("/file")).text();
+     }
+
+     async function main() {
+         const file = GetFileUrl();
+         if (file === undefined) {
+             return;
+         }
+
+         document.body.style.margin = 0;
+
+         const key = btoa(encodeURIComponent(GetKey(file)));
+         const token = await GetToken();
+         const ext = file.split(".").pop()
+         o = {
+             "document": {
+                 "fileType": ext,
+                 "key": key,
+                 "title": `${file.split("/").pop()} - Onlyoffice`,
+                 "url": `http://127.0.0.1:8001?file=${file}&token=${token}`,
+             },
+             "documentType": ExtToType(ext),
+             "editorConfig": {
+                 "callbackUrl": `http://127.0.0.1:8002?token=${token}`,
+                 "customization": {
+                     "forcesave": true
+                 }
+             }
+         };
+         console.log(o);
+
+         return new DocsAPI.DocEditor("placeholder", o);
+     }
+    </script>
+  </head>
+  <div id="placeholder"></div>
+  <body onload="main()">
+
+</html>

@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.threedxf
+version: 0.0.1
+name: three-dxf
+description:
+license: https://opensource.org/license/mit/
+homepage: https://github.com/gdsestimating/three-dxf
+application:
+  subdomain: three-dxf
+  routes:
+    - /=http://three-dxf.cloud.lazycat.app.threedxf.lzcapp:80
+  user_app: true
+services:
+  three-dxf:
+    image: registry.lazycat.cloud/appdb/three-dxf:v0.0.1

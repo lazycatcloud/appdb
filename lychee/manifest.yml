@@ -1,0 +1,92 @@
+application:
+  routes:
+  - /=http://lychee.cloud.lazycat.app.lychee.lzcapp:8000
+  subdomain: lychee
+description: 'This app packages Lychee <upstream>4.4.0</upstream>
+
+
+  ### Overview
+
+
+  Lychee is a free photo-management tool. Upload, manage and share photos like from
+  a native application. Lychee comes with everything you need and all your photos
+  are stored securely.
+
+
+  ### Features
+
+
+  **Manage**
+
+
+  Managing your photos has never been easier. Upload, move, rename, describe, delete
+  or search your photos in seconds. All in one place, right from your browser.
+
+
+  **Share**
+
+
+  Sharing like it should be. One click and every photo and album is ready for the
+  public. You can also protect albums with passwords if you want. It''s under your
+  control.
+
+
+  **View**
+
+
+  Look at all your images in full-screen mode, navigate forward and backward by using
+  your keyboard or let others enjoy your photos by making them public.
+
+
+  **Beautiful**
+
+
+  Our goal was to create a web app everyone can use. Lychee works intuitive and comes
+  with a stunning, beautiful interface.
+
+
+  **EXIF**
+
+
+  Get the most out of our photos. Lychee supports EXIF and IPTC Metadata. Always available
+  one click away. Clearly listed next to all other information.
+
+
+  **Import**
+
+
+  Import your photos from various sources. From you local computer, server, via URL
+  or even from your Dropbox.
+
+
+  **Tag**
+
+
+  Never lose one of your photos in the depth of your albums. Tag them or mark them
+  as important. Every single photo or all selected photos at once.
+
+  '
+lzc-sdk-version: '0.1'
+name: Lychee
+package: cloud.lazycat.app.lychee
+services:
+  lychee:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.lychee.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    image: cloudron/com.electerious.lychee.cloudronapp:20211205-144728-73273ed2c
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 2.6.13

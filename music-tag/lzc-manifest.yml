@@ -1,0 +1,21 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.musictag
+version: 0.0.3
+name: Music Tag Web
+description: 『音乐标签』Web版是一款可以编辑歌曲的标题，专辑，艺术家，歌词，封面等信息的应用程序， 支持FLAC, APE, WAV,
+  AIFF, WV, TTA, MP3, MP4, M4A, OGG, MPC, OPUS, WMA, DSF, DFF等音频格式。
+homepage: ""
+author: admin@linakesi.com
+application:
+  routes:
+    - /=http://mt.cloud.lazycat.app.musictag.lzcapp:8001
+  depends_on:
+    - mt
+  subdomain: music-tag
+  image: registry.lazycat.cloud/alpine:3.16
+  user_app: true
+services:
+  mt:
+    image: registry.lazycat.cloud/charles0519/music_tag_web:1.2.0
+    binds:
+      - /lzcapp/run/mnt/home/music-tag:/app/media

@@ -1,0 +1,23 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.bazarr
+version: 0.0.1
+name: Bazarr
+description: Bazarr 是 Sonarr 和 Radarr 的配套应用程序。它根据您的要求管理和下载字幕。
+license: https://choosealicense.com/licenses/gpl-3.0
+homepage: https://github.com/morpheus65535/bazarr
+author: morpheus65535
+application:
+  subdomain: bazarr
+  user_app: true
+  routes:
+    - /=http://server.cloud.lazycat.app.bazarr.lzcapp:6767
+services:
+  server:
+    image: registry.lazycat.cloud/bazarr:v1.2.4
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Asia/Shanghai
+    binds:
+      - /lzcapp/run/mnt/home:/home
+      - /lzcapp/var/conf:/config

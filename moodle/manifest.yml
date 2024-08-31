@@ -1,0 +1,62 @@
+application:
+  routes:
+  - /=http://moodle.cloud.lazycat.app.moodle.lzcapp:8000
+  subdomain: moodle
+description: 'This app packages Moodle <upstream>3.11.4</upstream>
+
+
+  ## About
+
+
+  Moodle is the world''s most popular learning management system. Start creating your
+  online learning site in minutes!
+
+
+  With hundreds of millions of users worldwide, more organisations choose us to support
+  their education and training
+
+  needs than any other platform around the world.
+
+
+  ## Features
+
+
+  * Open Source - You’re in control. From data ownership, privacy and security to
+  setting up the look & feel of your Moodle site and adding extra functionality to
+  it. Open source means you decide what happens, and how, in your platform.
+
+
+  * Flexible Learning - Blended learning, fully remote, collaborative group activities,
+  self-paced courses… Moodle supports all types of teaching and provides tools to
+  measure and recognise progress for you and for your learners.
+
+
+  * Mobile Learning - With the Moodle App, learners can access all your content, submit
+  activities and complete assignments from their mobile devices - and can continue
+  learning even if they are offline.
+
+
+  * Accessible for all - We develop Moodle following WCAG 2.1 accessibility standards.
+  Our integrated content accessibility checkers help you build courses with full support
+  for all learners.
+
+
+  * Security & Privacy - As an open source project, we have many people looking at
+  our code and making it completely secure. When it comes to privacy, our built-in
+  tools allow you to manage privacy policies and data to meet your local legislation
+  requirements, including GDPR compliance.
+
+
+  * Easy Integration - The Moodle LMS connects seamlessly with third-party platforms
+  and services; from plagiarism detection to content repositories. We follow open
+  standards like SCORM and AICC, IMS-LTI for external apps, RSS, LDAP, and more.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Moodle
+package: cloud.lazycat.app.moodle
+services:
+  moodle:
+    image: cloudron/org.moodle.cloudronapp:20211106-171544-867683847
+version: 1.4.11

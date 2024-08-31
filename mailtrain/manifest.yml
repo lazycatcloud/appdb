@@ -1,0 +1,107 @@
+application:
+  routes:
+  - /=http://mailtrain.cloud.lazycat.app.mailtrain.lzcapp:3000
+  subdomain: mailtrain
+description: 'This app packages mailtrain version <upstream>1.24.1</upstream>
+
+
+  Mailtrain is a newsletter and mail campaign application.
+
+
+  ## Features
+
+
+  ### List management
+
+
+  Mailtrain allows you to easily manage even very large lists. Million subscribers?
+  Not a problem. You can add subscribers manually, through the API or import from
+  a CSV file. All lists come with support for custom fields and merge tags as well.
+
+
+  ### Custom fields
+
+
+  Text fields, numbers, drop downs or checkboxes, Mailtrain has them all. Every custom
+  field can be included in the generated newsletters through merge tags.
+
+
+  ### List segmentation
+
+
+  Send messages only to list subscribers that match predefined segmentation rules.
+  No need to create separate lists with small differences.
+
+
+  ### RSS Campaigns
+
+
+  Setup Mailtrain to track RSS feeds and if a new entry is detected in a feed then
+  Mailtrain auto-generates a new campaign using entry data as message contents and
+  sends it to selected subscribers.
+
+
+  ### GPG Encryption
+
+
+  If a list has a custom field for a GPG Public Key set then subscribers can upload
+  their GPG public key to receive encrypted messages from the list.
+
+
+  ### Click stats
+
+
+  After a campaign is sent, check individual click statistics for every link included
+  in the message.
+
+
+  ### Trigger based automation
+
+
+  Define automation triggers to send specific messages when a user activates the trigger.
+
+  '
+lzc-sdk-version: '0.1'
+name: Mailtrain
+package: cloud.lazycat.app.mailtrain
+services:
+  mailtrain:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_PROXY_IP=host.lzcapp
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://mailtrain.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://mailtrain.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=mailtrain.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.mailtrain.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/org.mailtrain.cloudronapp:20211008-114434-953a93cc6
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 1.8.11

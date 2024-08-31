@@ -1,0 +1,20 @@
+application:
+  routes:
+  - /=http://surfer.cloud.lazycat.app.surfer.lzcapp:3000
+  subdomain: surfer
+description: "This app packages Surfer <upstream>5.16.6</upstream>\n\n### Overview\n\
+  \nSurfer is a Simple static file server. It comes with a webinterface and commandline\
+  \ tooling to manage files.\n\nAny `index.html` file in a directory will be served\
+  \ up automatically.\n\nAdditionaly, the public site can be password or user protected.\n\
+  \n### Webinterface\n\n * Upload files\n * Create directories\n * Remove files and\
+  \ directories\n\n### Commandline tool\n\nFirst, install the surfer cli tool using\
+  \ npm.\n\n    sudo npm -g install cloudron-surfer\n\n\nLogin using your Cloudron\
+  \ credentials:\n\n    surfer login <appurl>\n\n\nPut some files:\n\n    surfer put\
+  \ [file]\n"
+lzc-sdk-version: '0.1'
+name: Surfer
+package: cloud.lazycat.app.surfer
+services:
+  surfer:
+    image: cloudron/io.cloudron.surfer:20211026-074317-559583136
+version: 5.16.16

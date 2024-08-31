@@ -1,0 +1,14 @@
+application:
+  routes:
+  - /=http://navidrome.cloud.lazycat.app.navidrome.lzcapp:4533
+  subdomain: navidrome
+description: ''
+lzc-sdk-version: '0.1'
+name: Navidrome
+package: cloud.lazycat.app.navidrome
+services:
+  navidrome:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/org.navidrome.cloudronapp:20211119-174416-639a1e661
+version: 1.10.10

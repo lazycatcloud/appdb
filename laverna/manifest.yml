@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://duplicati.cloud.lazycat.app.laverna.lzcapp:80
+  subdomain: laverna
+description: a simple and robust markdown editor
+lzc-sdk-version: '0.1'
+name: Laverna
+package: cloud.lazycat.app.laverna
+services:
+  duplicati:
+    image: olegfiksel/laverna:0.7.54
+version: 0.0.11

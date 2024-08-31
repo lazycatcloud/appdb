@@ -1,0 +1,4 @@
+contentdir: scripts
+manifest: manifest.yml
+icon: ./logo.png
+pkgout: ./

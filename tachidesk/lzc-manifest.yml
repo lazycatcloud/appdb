@@ -1,0 +1,16 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.tachidesk
+version: 0.0.1
+name: TachiDesk
+description: 一个兼容 Tachiyomi 插件的漫画阅读软件
+license: https://www.mozilla.org/en-US/MPL/2.0/
+homepage: https://github.com/Suwayomi
+author: Aria Moradi et al.
+application:
+  subdomain: tachidesk
+  routes:
+    - /=http://$uid.tachidesk.cloud.lazycat.app.tachidesk.lzcapp:4567
+  user_app: true
+services:
+  tachidesk:
+    image: registry.lazycat.cloud/appdb/tachidesk:v0.0.1

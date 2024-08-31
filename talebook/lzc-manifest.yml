@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.talebook
+version: 0.0.2
+name: TaleBook
+description: 一个简洁但强大的私人书籍管理系统
+license: https://opensource.org/license/bsd-2-clause/
+homepage: https://talebook.org
+author: Rex
+application:
+  subdomain: talebook
+  routes:
+    - /=http://talebook.cloud.lazycat.app.talebook.lzcapp:80
+services:
+  talebook:
+    image: registry.lazycat.cloud/appdb/talebook:v0.0.2

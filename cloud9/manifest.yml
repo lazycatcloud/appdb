@@ -1,0 +1,14 @@
+application:
+  routes:
+  - /=http://cloud9.cloud.lazycat.app.cloud9.lzcapp:8000
+  subdomain: cloud9
+description: 在线集成开发环境
+lzc-sdk-version: '0.1'
+name: AWS Cloud9
+package: cloud.lazycat.app.cloud9
+services:
+  cloud9:
+    binds:
+    - /lzcapp/var:/code
+    image: linuxserver/cloud9:1.29.2
+version: 0.0.11

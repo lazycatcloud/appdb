@@ -1,0 +1,30 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.wplite
+version: 0.0.1
+name: WordPress(SQLite)
+description: WordPress是一个自由开源的博客软件和内容管理系统(SQLite)。 WordPress具有插件架构和模板系统。 截至2018年4月，排名前1000万的网站中超过30.6%使用WordPress。 WordPress是最受欢迎的网站内容管理系统。
+license: https://choosealicense.com/licenses/gpl-2.0/
+homepage: https://github.com/WordPress/WordPress/
+application:
+  subdomain: wplite
+  routes:
+    # - /=http://pc.lan:8000/
+    # - /=file:///lzcapp/pkg/content/
+    - /=http://web.cloud.lazycat.app.wplite.lzcapp:80
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/wordpress_sqlite:6.4.2.2
+    environment:
+      - WORDPRESS_DB_HOST=${LAZYCAT_USER_ID}.db.cloud.lazycat.app.wordpress.lzcapp
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_URL=https://wplite.$LAZYCAT_BOX_DOMAIN
+      - WORDPRESS_TITLE=My.WordPress
+      - WORDPRESS_ADMINNAME=admin
+      - WORDPRESS_ADMINPASS=admin
+      - WORDPRESS_EMAIL=admin@example.com
+    binds:
+      - /lzcapp/var/sqlite:/var/www/db
+      - /lzcapp/var/uploads:/var/www/html/wp-content/uploads

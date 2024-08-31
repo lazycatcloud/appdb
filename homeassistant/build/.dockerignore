@@ -1,0 +1,26 @@
+# General files
+core/.github
+core/config
+core/docs
+
+# Development
+core/.devcontainer
+
+# Test related files
+core/tests
+
+# Other virtualization methods
+core/venv
+core/.vagrant
+
+# Temporary files
+**/__pycache__
+
+core/build
+core/config
+core/homeassistant.egg-info
+
+frontend/node_modules
+frontend/hass_frontend
+frontend/build
+frontend/translations

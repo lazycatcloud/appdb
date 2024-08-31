@@ -1,0 +1,16 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.molview
+version: 0.0.1
+name: Molview
+description: MolView 是一个直观的，在线开源化学分子结构式查看、编辑工具，包含化合物、蛋白质、光谱数据库，能看到 3D 样式的化学分子结构式。
+license: https://choosealicense.com/licenses/agpl-3.0/
+homepage: https://github.com/molview/molview
+application:
+  subdomain: molview
+  routes:
+    # - /=file:///lzcapp/pkg/content/
+    # - /=http://192.168.2.175:8080/
+    - /=http://web.cloud.lazycat.app.molview.lzcapp:80
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/molview:202306163

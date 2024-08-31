@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>MiniPaint for WebDav</title>
+    <script>
+     function xhr(verb, url, data, callback) {
+         const req = new XMLHttpRequest();
+         req.onreadystatechange = function() {
+             if (req.readyState == 4) {
+                 callback(req);
+             }
+         }
+         req.open(verb, url, true);
+         req.send(data);
+     }
+
+     function GetLocationData() {
+         const result = {};
+         const params = window.location.search.slice(1).split('&');
+         for (var i = 0; i < params.length; i++) {
+             const idx = params[i].indexOf('=');
+             if (idx > 0) {
+                 result[decodeURIComponent(params[i].substring(0, idx))] = decodeURIComponent(params[i].substring(idx + 1));
+             }
+         }
+         return result;
+     }
+
+     function Load() {
+         var Layers = document.getElementById('myFrame').contentWindow.Layers;
+         Layers.insert({
+             type: 'image',
+             data: GetLocationData()['file'],
+         });
+     }
+
+     function Save() {
+         var Layers = document.getElementById('myFrame').contentWindow.Layers;
+         var tempCanvas = document.createElement("canvas");
+         var tempCtx = tempCanvas.getContext("2d");
+         var dim = Layers.get_dimensions();
+         tempCanvas.width = dim.width;
+         tempCanvas.height = dim.height;
+         Layers.convert_layers_to_canvas(tempCtx);
+
+         // update image using blob (faster)
+         tempCanvas.toBlob(function(blob) {
+             xhr("PUT", GetLocationData()['file'], blob, function(req) { })
+         }, 'image/png');
+     }
+    </script>
+  </head>
+
+  <body style="margin:0;" onload="Load()">
+    <div style="margin:10px;">
+      <button onclick="Load()">Load</button>
+      <button onclick="Save()">Save</button>
+    </div>
+    <iframe id="myFrame" style="width:100%;height:100vh;border:0;" src="../" allow="camera"></iframe>
+  </body>
+</html>

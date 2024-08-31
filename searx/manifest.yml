@@ -1,0 +1,84 @@
+application:
+  routes:
+  - /=http://searx.cloud.lazycat.app.searx.lzcapp:8888
+  subdomain: searx
+description: 'This app packages searx version <upstream>1.0.0</upstream>.
+
+
+  ### About
+
+
+  Searx is a [metasearch engine](https://en.wikipedia.org/wiki/Metasearch_engine),
+  aggregating the results of other [search engines]({{ url_for(''preferences'') }})
+  while not storing information about its users.
+
+
+  ### Why use searx?
+
+
+  *   searx may not offer you as personalised results as Google, but it doesn''t generate
+  a profile about you
+
+  *   searx doesn''t care about what you search for, never shares anything with a
+  third party, and it can''t be used to compromise you
+
+  *   searx is free software, the code is 100% open and you can help to make it better.
+  See more on [github](https://github.com/asciimoo/searx)
+
+
+  If you do care about privacy, want to be a conscious user, or otherwise believe
+  in digital freedom, make searx your default search engine or run it on your own
+  server
+
+
+  ### Technical details - How does it work?
+
+
+  Searx is a [metasearch engine](https://en.wikipedia.org/wiki/Metasearch_engine),
+  inspired by the [seeks project](https://beniz.github.io/seeks/).
+
+  It provides basic privacy by mixing your queries with searches on other platforms
+  without storing search data. Queries are made using a POST request on every browser
+  (except chrome*). Therefore they show up in neither our logs, nor your url history.
+  In case of Chrome* users there is an exception, searx uses the search bar to perform
+  GET requests.
+
+  Searx can be added to your browser''s search bar; moreover, it can be set as the
+  default search engine.
+
+
+  ### How can I make it my own?
+
+
+  Searx appreciates your concern regarding logs, so take the [code](https://github.com/asciimoo/searx)
+  and run it yourself!
+
+  Add your Searx to this [list](https://github.com/asciimoo/searx/wiki/Searx-instances)
+  to help other people reclaim their privacy and make the Internet freer!
+
+  The more decentralized the Internet is, the more freedom we have!
+
+
+  ### More about searx
+
+
+  *   [github](https://github.com/asciimoo/searx)
+
+  *   [ohloh](https://www.ohloh.net/p/searx/)
+
+  *   [twitter](https://twitter.com/Searx_engine)
+
+  *   IRC: #searx @ freenode ([webclient](https://kiwiirc.com/client/irc.freenode.com/searx))
+
+  *   [transifex](https://www.transifex.com/projects/p/searx/)
+
+  '
+lzc-sdk-version: '0.1'
+name: searx
+package: cloud.lazycat.app.searx
+services:
+  searx:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/io.github.ascimoo.searx:20210328-090717-545297b2c
+version: 1.6.10

@@ -1,0 +1,70 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.penpot1
+version: 0.0.7
+name: Penpot
+description: Penpot 是一个开源的设计工具，可用于创建各种数字设计，如用户界面、图标、插图等。它类似于Sketch和Figma，通过组合和操作基本形状，可以创建复杂的设计。
+license: https://www.mozilla.org/en-US/MPL/2.0/
+homepage: https://penpot.app
+application:
+  subdomain: penpot
+  routes:
+    - /=http://penpot-frontend.cloud.lazycat.app.penpot1.lzcapp:80
+  authcallback: /api/auth/oauth/oidc/callback
+services:
+  penpot-redis:
+    image: redis:7.2-bookworm
+  penpot-postgres:
+    image: postgres:16.3-bookworm
+    environment:
+      - POSTGRES_DB=penpot
+      - POSTGRES_USER=penpot
+      - POSTGRES_PASSWORD=penpot
+      - PGDATA=/lzcapp/var/pgdata
+    health_check:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+  penpot-backend:
+    image: "penpotapp/backend:2.0.3"
+    depends_on:
+      penpot-redis:
+        condition: service_healthy
+      penpot-postgres:
+        condition: service_healthy
+    environment:
+      - PENPOT_PUBLIC_URI=https://penpot.${LAZYCAT_BOX_DOMAIN}
+      - >-
+        PENPOT_DATABASE_URI=postgresql://penpot-postgres.cloud.lazycat.app.penpot1.lzcapp/penpot
+      - PENPOT_DATABASE_USERNAME=penpot
+      - PENPOT_DATABASE_PASSWORD=penpot
+      - PENPOT_REDIS_URI=redis://penpot-redis.cloud.lazycat.app.penpot1.lzcapp/0
+      - PENPOT_ASSET_STORAGE_BACKEND=assets-fs
+      - PENPOT_STORAGE_ASSETS_FS_DIRECTORY=/lzcapp/var/assets
+      - PENPOT_TELEMETRY_ENABLED=false
+      - PENPOT_SMTP_ENABLED=false
+      - PENPOT_OIDC_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - PENPOT_OIDC_CLIENT_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - PENPOT_OIDC_BASE_URI=${LAZYCAT_AUTH_OIDC_ISSUER_URL}/
+      - PENPOT_FLAGS=enable-login-with-oidc
+  penpot-frontend:
+    image: "penpotapp/frontend:2.0.3"
+    environment:
+      - >-
+        PENPOT_BACKEND_URI=http://penpot-backend.cloud.lazycat.app.penpot1.lzcapp:6060
+      - >-
+        PENPOT_EXPORTER_URI=http://penpot-exporter.cloud.lazycat.app.penpot1.lzcapp:6061
+      - PENPOT_FLAGS=enable-login-with-oidc
+    depends_on:
+      - penpot-backend
+      - penpot-exporter
+    health_check:
+      test:
+        - CMD-SHELL
+        - "curl -f http://localhost:80/api/rpc/command/get-profile || exit 1"
+      start_period: 90s
+  penpot-exporter:
+    image: "penpotapp/exporter:2.0.3"
+    environment:
+      - >-
+        PENPOT_PUBLIC_URI=http://penpot-frontend.cloud.lazycat.app.penpot1.lzcapp
+      - PENPOT_REDIS_URI=redis://penpot-redis.cloud.lazycat.app.penpot1.lzcapp/0
+    depends_on:
+      - penpot-redis

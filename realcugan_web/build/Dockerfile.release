@@ -1,0 +1,7 @@
+FROM golang:1.20
+
+COPY ./release /root/app
+WORKDIR /root/app
+
+EXPOSE 8000/tcp
+ENTRYPOINT ["go", "run", "local_server.go"]

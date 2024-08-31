@@ -1,0 +1,79 @@
+#!/bin/bash
+# FROM: https://github.com/koel/docker/blob/master/koel-entrypoint
+# Add Something with comment
+
+LOG="`date +%Y-%m-%d_%H:%M:%S` $*"
+SCRIPT=$(readlink -f $0)
+SCRIPT_NAME=$(basename $SCRIPT)
+SCRIPT_NAME=$(basename $0)
+SCRIPT_COMMAND="$0 $*"
+USER_NAME=$(whoami)
+USER_ID=$(id -u)
+DATABASE_DIR=$(dirname $DB_DATABASE)
+echo ""
+echo "============================================================="
+echo $LOG
+echo "\$0     : $0"
+echo "command: $SCRIPT_COMMAND"
+echo "\$@     : $@"
+echo "user   : $USER_NAME $USER_ID"
+echo "databse   : $DB_DATABASE"
+set -e
+
+# Change to program root directory.
+cd /var/www/html
+
+if [ ! -d "$DATABASE_DIR" ]; then
+    mkdir -p "$DATABASE_DIR"
+fi
+
+if [ -f "/var/www/html/database/data.db" ]; then
+    # 迁移旧数据
+    echo "发现旧版本数据，开始迁移旧数据……"
+    mv -f /var/www/html/database/data.db "$DB_DATABASE"
+fi
+
+ls -lah "$DATABASE_DIR"
+
+if [ ! -f "$DB_DATABASE" ]; then
+  echo "未发现持久化数据，正在初始化到持久化卷……"
+  # echo -e ".databases\n.quit" | sqlite3 $DATABASE_DIR/data.db
+  ls -lah /var/www/koelmnt/
+  tar -xvzf /var/www/koelmnt/database.tar.gz -C "$DATABASE_DIR"
+  ls -lah "$DATABASE_DIR"
+  echo -e "\n\n"
+else
+  echo "发现持久化数据，开始数据迁移……"
+  # php artisan migrate --force --quiet
+fi
+
+chown -Rf www-data:www-data /var/www/html/public/build
+chown -Rf www-data:www-data /var/www/html/storage
+chown -Rf www-data:www-data "$DATABASE_DIR"
+chown -Rf www-data:www-data /music
+
+# 处理音乐播放是报错权限问题（不知道为啥 php 里读取其他音乐会没有权限）
+chmod -R 777 /music
+
+# 处理封面图缓存路径
+mv -n /var/www/html/public/img /var/www/html/database_user/img
+rm -rf /var/www/html/public/img/ && ln -s /var/www/html/database_user/img /var/www/html/public/img
+
+# koel init
+php artisan koel:init --no-assets
+
+# koel scan 后台执行，避免阻塞应用启动
+php artisan koel:scan -n -F >/dev/null 2>&1 &
+
+ls -lah /var/www/html/storage/logs/
+LOGFILE=/var/www/html/storage/logs/laravel.log
+if [ -f "$LOGFILE" ]; then
+  cat $LOGFILE
+  echo > $LOGFILE
+else
+  echo "no log now."
+fi
+
+# Run the next entrypoint in the chain.
+echo "running docker-php-entrypoint with arguments $@"
+docker-php-entrypoint "$@"

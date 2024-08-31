@@ -1,0 +1,82 @@
+services:
+  mariadb:
+    image: lscr.io/linuxserver/mariadb:10.5.13
+    volumes:
+      - db--config:/config
+    environment:
+      - MYSQL_ROOT_PASSWORD=hedgedoc_mariadb_passwd
+      - MYSQL_DATABASE=hedgedoc
+      - MYSQL_USER=hedgedoc
+      - MYSQL_PASSWORD=hedgedoc_mariadb_passwd
+      - PGID=1000
+      - PUID=1000
+      - TZ=Asia/Shanghai
+  hedgedoc:
+    image: lscr.io/linuxserver/hedgedoc:1.9.2
+    depends_on:
+      - mariadb
+    volumes:
+      - normal--data:/config
+    environment:
+      - DB_HOST=mariadb
+      - DB_USER=hedgedoc
+      - DB_PASS=hedgedoc_mariadb_passwd
+      - DB_NAME=hedgedoc
+      - DB_PORT=3306
+      - PGID=1000
+      - PUID=1000
+      - TZ=Asia/Shanghai
+    labels:
+      ingress-3000: hedgedoc
+volumes:
+  normal--data: {}
+  db--config: {}
+version: '3.9'
+x-lazycat-app:
+  quality: normal
+  addons:
+    ldap: {}
+    localstorage: {}
+    postgresql: {}
+  categories:
+  - markdown
+  - wiki
+  - document
+  - collaboration
+  - notes
+  description: 'This app packages HedgeDoc <upstream>1.9.2</upstream>
+
+
+    HedgeDoc lets you create realtime collaborative markdown notes on all
+
+    platforms. Inspired by Hackpad, with more focus on speed and flexibility.
+
+
+    ## Features
+
+
+    * Documentation Collaborated
+
+    * Context Captured
+
+    * Native Markdown
+
+    * Knowledge Net
+
+    * Technical Sharing and Presentation
+
+    * Turn Notes into Slides
+
+    * Better Conference Experience
+
+    * Questions Polling
+
+
+    '
+  icon: icon_hedgedoc.png
+  id: hedgedoc
+  screenshots:
+  - screenshot_hedgedoc0.png
+  summary: The best platform to write and share markdown
+  title: HedgeDoc
+  version: 1.15.1

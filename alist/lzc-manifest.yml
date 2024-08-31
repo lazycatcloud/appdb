@@ -1,0 +1,13 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.alist
+version: 0.0.2
+name: Alist
+description: 一个支持多存储的文件列表程序，使用 Gin 和 Solidjs
+license: https://choosealicense.com/licenses/mit/
+homepage:
+author:
+application:
+  subdomain: alist
+  user_app: true
+  routes:
+    - /=exec://5244,/lzcapp/pkg/content/alist server --data /lzcapp/var/

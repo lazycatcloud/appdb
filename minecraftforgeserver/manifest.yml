@@ -1,0 +1,22 @@
+application:
+  routes:
+  - /=http://minecraftforgeserver.cloud.lazycat.app.minecraftforgeserver.lzcapp:3000
+  subdomain: minecraftforgeserver
+description: "### Overview\nIMPORTANT NOTE - Please consider supporting the maintainer\
+  \ of Forge here: https://www.patreon.com/LexManos\n\nThis app packages the Minecraft\
+  \ Java Edition Forge server <upstream>36.1.0</upstream> for minecraft <upstream>1.16.5</upstream>.\n\
+  \nThis package \n\nMinecraft is a game about breaking and placing blocks. At first,\
+  \ people built structures to protect against nocturnal monsters, but as the game\
+  \ grew players worked together to create wonderful, imaginative things.\n\nMods\
+  \ can be added by downloading the appropriate .jar files and uploading them to /app/data/mods.\
+  \ This step requires a re-load.\n\nCompatible Mods: https://www.curseforge.com/minecraft/mc-mods?filter-game-version=2020709689%3A7498&filter-sort=4\n\
+  Adding Mods to your Minecraft Client: https://mcforge.readthedocs.io/en/latest/\n\
+  \n### User Management\n\nThe Cloudron user management options only apply to the\
+  \ server dashboard. Minecraft clients login through the Minecraft accounts.\n"
+lzc-sdk-version: '0.1'
+name: Minecraft Forge Server
+package: cloud.lazycat.app.minecraftforgeserver
+services:
+  minecraftforgeserver:
+    image: cloudron/net.minecraftforge.cloudronapp:20210317-104001-446c5de09
+version: 0.6.10

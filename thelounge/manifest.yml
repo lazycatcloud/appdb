@@ -1,0 +1,32 @@
+application:
+  routes:
+  - /=http://thelounge.cloud.lazycat.app.thelounge.lzcapp:9000
+  subdomain: thelounge
+description: 'This app packages lounge <upstream>4.3.0</upstream>
+
+
+  The Lounge is a web IRC client that you host on your own server.
+
+
+  ### Features
+
+
+  * Multiple user support
+
+  * Stays connected even when you close the browser
+
+  * Connect from multiple devices at once
+
+  * Responsive layout — works well on your smartphone
+
+  * .. and more!
+
+
+  '
+lzc-sdk-version: '0.1'
+name: The Lounge
+package: cloud.lazycat.app.thelounge
+services:
+  thelounge:
+    image: cloudron/io.github.thelounge:20211123-170350-434b11379
+version: 1.15.10

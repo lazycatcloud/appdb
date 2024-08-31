@@ -1,0 +1,82 @@
+application:
+  routes:
+  - /=http://matrixsynapse.cloud.lazycat.app.matrixsynapse.lzcapp:8008
+  subdomain: matrixsynapse
+description: 'This app packages Synapse <upstream>1.48.0</upstream>.
+
+
+  **This package only provides the Matrix backend. A variety of clients are available
+
+  [here](https://matrix.org/clients/). Riot is a popular web frontend for Matrix and
+
+  is available as a separate app.**
+
+
+  Matrix is an ambitious new ecosystem for open federated Instant Messaging and VoIP.
+
+
+  ## Matrix
+
+
+  Matrix specifies a set of pragmatic RESTful HTTP JSON APIs as an open standard,
+  which handle:
+
+
+  * Creating and managing fully distributed chat rooms with no single points of control
+  or failure
+
+  * Eventually-consistent cryptographically secure synchronisation of room state across
+  a global open network of federated servers and services
+
+  * Sending and receiving extensible messages in a room with (optional) end-to-end
+  encryption[1]
+
+  * Inviting, joining, leaving, kicking, banning room members
+
+  * Managing user accounts (registration, login, logout)
+
+  * Using 3rd Party IDs (3PIDs) such as email addresses, phone numbers, Facebook accounts
+  to authenticate, identify and discover users on Matrix.
+
+  * Placing 1:1 VoIP and Video calls
+
+
+  ## Synapse
+
+
+  Synapse is a reference "homeserver" implementation of Matrix from the core development
+
+  team at matrix.org, written in Python/Twisted.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Matrix Synapse
+package: cloud.lazycat.app.matrixsynapse
+services:
+  matrixsynapse:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_PROXY_IP=host.lzcapp
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://matrixsynapse.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://matrixsynapse.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=matrixsynapse.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/org.matrix.synapse:20211130-151228-855afc614
+version: 1.37.10

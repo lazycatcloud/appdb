@@ -1,0 +1,17 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.freshrss
+version: 0.0.3
+name: FreshRSS
+description: FreshRSS 是一个自托管的 RSS 提要聚合器。它重量轻、易于使用、功能强大且可定制。 是一个具有匿名阅读模式的多用户应用程序，支持自定义标签。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/FreshRSS/FreshRSS
+application:
+  subdomain: freshrss
+  routes:
+    - /=http://$uid.web.cloud.lazycat.app.freshrss.lzcapp:80
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/freshrss:1.20.2.4
+    # binds:
+    #   - /lzcapp/run/mnt/home/Music:/music

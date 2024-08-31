@@ -1,0 +1,63 @@
+application:
+  routes:
+  - /=http://statping.cloud.lazycat.app.statping.lzcapp:8080
+  subdomain: statping
+description: 'This app packages Statping <upstream>0.90.74</upstream>
+
+
+  ### Overview
+
+
+  An easy to use Status Page for your websites and applications.
+
+  Statping will automatically fetch the application and render a beautiful status
+  page with tons of features for you to build an even better status page
+
+
+  ### A Future-Proof Status Page
+
+
+  Statping strives to remain future-proof and remain intact if a failure is created.
+
+  Your Statping service should not be running on the same instance you''re trying
+  to monitor.
+
+  If your server crashes your Status Page should still remaining online to notify
+  your users of downtime.
+
+
+  ### Mobile App is Gorgeous
+
+
+  The Statping app is available on the App Store and Google Play for free.
+
+  The app will allow you to view services, receive notifications when a service is
+  offline, update groups, users, services, messages, and more!
+
+  Start your own Statping server and then connect it to the app by scanning the QR
+  code in settings.
+
+
+  ### Custom SASS Styling
+
+
+  Statping will allow you to completely customize your Status Page using SASS styling
+  with easy to use variables.
+
+
+  ### Easy to use Dashboard
+
+
+  Having a straight forward dashboard makes Statping that much better.
+
+  Monitor your websites and applications with a basic HTTP GET request, or add a POST
+  request with your own JSON to post to the endpoint.
+
+  '
+lzc-sdk-version: '0.1'
+name: Statping
+package: cloud.lazycat.app.statping
+services:
+  statping:
+    image: cloudron/com.statping.cloudronapp:20210304-052258-505b2138d
+version: 1.1.10

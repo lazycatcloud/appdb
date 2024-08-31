@@ -1,0 +1,88 @@
+application:
+  routes:
+  - /=http://kopanomeet.cloud.lazycat.app.kopanomeet.lzcapp:8000
+  subdomain: kopanomeet
+description: 'This app packages KopanoMeet <upstream>2.3.1</upstream>
+
+
+  To introduce Meet in Cloudron there will be no user account limits in the beginning.
+  An update that enforces user limits will be pushed in the second half of 2020.
+
+
+  ## Meet In A Nutshell
+
+
+  Kopano Meet is a secure, open-source and easy-to-use solution for video conferencing.
+  It is peer-to-peer and end-to-end encrypted which means that a conversation always
+  takes place directly between the people in the call, with no other parties in between.
+  Kopano Meet was developed as a progressive web app so interaction with Meet feels
+  exactly the same, no matter the device that is used.
+
+
+  ### Top Features
+
+
+  * One-on-one calls and video group meetings
+
+  * Guests can join group meetings with just one click on a link (if configured/enabled)
+
+  * Secure and easy sign-in your Cloudron account through Kopano Konnect
+
+  * Hassle-free installation through Cloudron
+
+  * Screensharing directly from your browser
+
+
+  For more information on the features and capabilities, check out the Meet website:
+  [https://meet-app.io/](https://meet-app.io/)
+
+
+  ### Things you should know
+
+
+  * The Meet app in Cloudron offers the same functionalities as provided by the official
+  [free, unsupported Meet package](https://meet-app.io/#pricing).
+
+  * Starting with Cloudron 5.1.0 Meet uses the TURN server provided through Cloudron.
+
+  * Want to upgrade to Meet Starter or Enterprise? Just buy [the desired package](https://meet-app.io/#pricing)
+  and follow our upgrade instructions.
+
+
+  ### More Kopano products
+
+
+  Meet can be used as a standalone product, but can also be integrated into the Kopano
+  groupware stack. [Let us know](mailto:sales@kopano.com?subject="I want Kopano on
+  Cloudron!") if you also want to see an app for [Kopano Groupware](https://kopano.com/)
+  on Cloudron.
+
+  '
+lzc-sdk-version: '0.1'
+name: Kopano Meet
+package: cloud.lazycat.app.kopanomeet
+services:
+  kopanomeet:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_API_ORIGIN=https://kopanomeet.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://kopanomeet.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=kopanomeet.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_STUN_SERVER=xxx.heiyu.space
+    - CLOUDRON_STUN_PORT=3478
+    - CLOUDRON_STUN_TLS_PORT=5349
+    - CLOUDRON_TURN_SERVER=xxx.heiyu.space
+    - CLOUDRON_TURN_PORT=3478
+    - CLOUDRON_TURN_TLS_PORT=5349
+    - CLOUDRON_TURN_SECRET=66666
+    image: cloudron/com.kopano.meet.cloudronapp:20210302-120136-622562f32
+version: 1.2.14

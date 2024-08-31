@@ -1,0 +1,38 @@
+application:
+  routes:
+  - /=http://simpletorrent.cloud.lazycat.app.simpletorrent.lzcapp:3000
+  subdomain: simpletorrent
+description: 'This app packages Simple Torrent <upstream>1.3.9</upstream>
+
+
+  ### Overview
+
+
+  Simple Torrent (was Cloud Torrent) is a remote torrent client, written in Go (golang).
+  It starts torrents on the server, which are downloaded as sets of files on the local
+  disk of the server, which are then retrievable or streamable via HTTP.
+
+
+  ### Features
+
+
+  * Single binary
+
+  * Cross platform
+
+  * Embedded torrent search
+
+  * Real-time updates
+
+  * Mobile-friendly
+
+  '
+lzc-sdk-version: '0.1'
+name: Simple Torrent
+package: cloud.lazycat.app.simpletorrent
+services:
+  simpletorrent:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/com.github.cloudtorrent:20211012-100805-514a31189
+version: 2.6.19

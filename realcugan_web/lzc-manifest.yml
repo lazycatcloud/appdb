@@ -1,0 +1,14 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.realcuganwasm
+version: 0.0.2
+name: Real-CUGAN WASM
+description: 基于WASM的动漫图片超分辨率处理
+license: https://choosealicense.com/licenses/mit
+homepage: https://github.com/hanFengSan/realcugan-ncnn-webassembly
+application:
+  subdomain: realcuganwasm
+  routes:
+    - /=http://server.cloud.lazycat.app.realcuganwasm.lzcapp:8000
+services:
+  server:
+    image: registry.lazycat.cloud/realcuganwasm:0.0.2

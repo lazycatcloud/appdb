@@ -1,0 +1,42 @@
+application:
+  routes:
+  - /=http://minecraftbedrockserver.cloud.lazycat.app.minecraftbedrockserver.lzcapp:3000
+  subdomain: minecraftbedrockserver
+description: 'This app packages the Minecraft Bedrock (previously Pocket) Edition
+  server <upstream>1.18.1.02</upstream>
+
+
+  ### Overview
+
+
+  Minecraft is a game about breaking and placing blocks. At first, people built structures
+  to protect against nocturnal monsters, but as the game grew players worked together
+  to create wonderful, imaginative things.
+
+
+  ### User Management
+
+
+  The Cloudron user management options only apply to the server dashboard. Minecraft
+  clients login through the Minecraft accounts.
+
+  '
+lzc-sdk-version: '0.1'
+name: Minecraft Bedrock Server
+package: cloud.lazycat.app.minecraftbedrockserver
+services:
+  minecraftbedrockserver:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - BEDROCK_PORT_V4_TCP=3000
+    image: cloudron/net.minecraft.bedrock.cloudronapp:20211208-084409-5565c28fc
+version: 2.7.11

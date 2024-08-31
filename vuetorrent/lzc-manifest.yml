@@ -1,0 +1,21 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.vuetorrent
+version: 0.0.4
+name: VueTorrent
+description: 用 Vuejs 制作的 qBittorrent 最时尚的 WEBUI！
+license: https://choosealicense.com/licenses/gpl-3.0/
+homepage: https://github.com/qbittorrent/qBittorrent
+author: WDaan
+application:
+  subdomain: vuetorrent
+  user_app: true
+  routes:
+    - /=http://$uid.bt.cloud.lazycat.app.vuetorrent.lzcapp:3044
+services:
+  bt:
+    image: registry.lazycat.cloud/vuetorrent:0.0.3
+    binds:
+      - /lzcapp/cache:/root/.cache/qBittorrent
+      - /lzcapp/var/config:/root/.config/qBittorrent/
+      - /lzcapp/var/data:/root/.local/share/data/qBittorrent/
+      - /lzcapp/run/mnt/home/下载:/root/Downloads/

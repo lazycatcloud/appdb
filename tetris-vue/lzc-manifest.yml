@@ -1,0 +1,11 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.tetrisvue
+version: 0.0.2
+name: 俄罗斯方块
+description: 经典的俄罗斯方块游戏。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/Binaryify/vue-tetris.git
+application:
+  subdomain: tetrisvue
+  routes:
+    - /=file:///lzcapp/pkg/content/

@@ -1,0 +1,9 @@
+lzc-sdk-version: '0.1'
+version: 0.0.1
+name: char-dust
+package: cloud.lazycat.app.chardust
+description: 在线图片转字符画～
+application:
+  routes:
+  - /=file:///lzcapp/pkg/content/
+  subdomain: chardust

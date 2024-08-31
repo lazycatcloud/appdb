@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.jp1016.markdown
+version: 0.0.6
+name: Markdown Editor
+description: 所见即所得的 Markdown 编辑器
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/JP1016/Markdown
+author: Jithin Pariyarath
+application:
+  subdomain: jp1016-markdown
+  routes:
+    - /=http://jp1016-markdown.cloud.lazycat.app.jp1016.markdown.lzcapp:80
+services:
+  jp1016-markdown:
+    image: registry.lazycat.cloud/appdb/jp1016-markdown:v0.0.5

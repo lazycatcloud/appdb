@@ -1,0 +1,26 @@
+diff --git a/src/main/resources/templates/fragments/navbar.html b/src/main/resources/templates/fragments/navbar.html
+index 2f760d3..4a8412b 100644
+--- a/src/main/resources/templates/fragments/navbar.html
++++ b/src/main/resources/templates/fragments/navbar.html
+@@ -76,6 +76,7 @@
+ 							<i class="bi bi-globe2"></i>
+ 						</a>
+ 						<div class="dropdown-menu" aria-labelledby="languageDropdown">
++							<a class="dropdown-item lang_dropdown-item" href="" data-language-code="zh_CN">简体中文</a>
+ 							<a class="dropdown-item lang_dropdown-item" href="" data-language-code="en_US">English (US)</a>
+ 							<a class="dropdown-item lang_dropdown-item" href="" data-language-code="en_GB">English (UK)</a>
+ 							<a class="dropdown-item lang_dropdown-item" href="" data-language-code="ar_AR">العربية</a>
+@@ -91,6 +92,13 @@
+ 						// Get the dropdown items
+ 						var dropdownItems = document.querySelectorAll('.lang_dropdown-item');
+ 
++            // 默认显示中文语言
++            let currentUrl = window.location.href;
++            if (currentUrl.indexOf('?lang=') === -1) {
++              console.log("currentUrl:", currentUrl)
++              window.location.href = currentUrl + '?lang=zh_CN';
++            }
++
+ 						// Loop through the dropdown items
+ 						for (var i = 0; i < dropdownItems.length; i++) {
+ 							dropdownItems[i].classList.remove('active');

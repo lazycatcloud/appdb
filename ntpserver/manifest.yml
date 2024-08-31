@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://ntpserver.cloud.lazycat.app.ntpserver.lzcapp:123
+  subdomain: ntpserver
+description: ntp server
+lzc-sdk-version: '0.1'
+name: ntp server
+package: cloud.lazycat.app.ntpserver
+services:
+  ntpserver:
+    image: cturra/ntp:latest
+version: 0.0.11

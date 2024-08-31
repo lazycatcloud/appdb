@@ -1,0 +1,16 @@
+application:
+  routes:
+  - /=http://gitea.cloud.lazycat.app.docker-registry.lzcapp:5000
+  subdomain: docker-registry
+description: 存储和分发 Docker 镜像的服务器
+lzc-sdk-version: '0.1'
+name: docker-registry
+package: cloud.lazycat.app.docker-registry
+services:
+  gitea:
+    binds:
+    - /lzcapp/var:/var/lib/registry
+    environment:
+    - REGISTRY_STORAGE_DELETE_ENABLED=true
+    image: registry:2.7.1
+version: '2.337'

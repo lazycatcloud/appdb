@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.lidarr
+version: 0.0.1
+name: Lidarr
+description: 音乐订阅管理
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://lidarr.audio/
+application:
+  subdomain: lidarr
+  routes:
+    - /=http://lidarr.cloud.lazycat.app.lidarr.lzcapp:8686
+  user_app: true
+services:
+  lidarr:
+    image: registry.lazycat.cloud/appdb/lidarr:v0.0.1

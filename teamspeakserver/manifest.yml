@@ -1,0 +1,48 @@
+application:
+  routes:
+  - /=http://teamspeakserver.cloud.lazycat.app.teamspeakserver.lzcapp:8000
+  subdomain: teamspeakserver
+description: 'This app packages Teamspeak <upstream>3.13.6</upstream>
+
+
+  ### Overview
+
+
+  TeamSpeak is a proprietary voice-over-Internet Protocol (VoIP) application for audio
+  communication between users on a chat channel, much like a telephone conference
+  call. Users typically use headphones with a microphone. The client software connects
+  to a TeamSpeak server of the user''s choice, from which the user may join chat channels.
+
+
+  ### License
+
+
+  By default this package uses free license, which includes a maximum of 32 concurrent
+  users. Game or Commercial licenses can be obtained via the [TeamSpeak website](https://teamspeak.com/en/features/licensing/)
+  and the app can then be configured to use the license key.
+
+  '
+lzc-sdk-version: '0.1'
+name: Teamspeak Server
+package: cloud.lazycat.app.teamspeakserver
+services:
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+  teamspeakserver:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.teamspeakserver.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    image: cloudron/com.teamspeak.cloudronapp:20210614-093722-5317b490a
+version: 1.2.13

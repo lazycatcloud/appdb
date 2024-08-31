@@ -1,0 +1,17 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.upsnap
+version: 0.0.2
+name: UpSnap
+description: 使用 SvelteKit、Go 和 PocketBase 编写的简单局域网唤醒 Web 应用程序。
+license: https://choosealicense.com/licenses/mit
+homepage: https://github.com/seriousm4x/UpSnap
+application:
+  subdomain: upsnap
+  user_app: true
+  routes:
+    - /=http://server.cloud.lazycat.app.upsnap.lzcapp:8090
+services:
+  server:
+    image: registry.lazycat.cloud/upsnap:3.3.2
+    binds:
+      - /lzcapp/var/data:/app/pb_data

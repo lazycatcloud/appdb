@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://speedtest.cloud.lazycat.app.librespeed.lzcapp:80
+  subdomain: librespeed
+description: 网速测试
+lzc-sdk-version: '0.1'
+name: LibreSpeed
+package: cloud.lazycat.app.librespeed
+services:
+  speedtest:
+    image: registry.lazycat.cloud/librespeed:23.5.12
+version: 0.0.2

@@ -1,0 +1,63 @@
+diff --git a/Dockerfile b/Dockerfile
+index 4b091c6..285de58 100644
+--- a/Dockerfile
++++ b/Dockerfile
+@@ -45,6 +45,8 @@ COPY --from=backend-builder /opt/app/dist ./dist
+ COPY --from=backend-builder /opt/app/prisma ./prisma
+ COPY --from=backend-builder /opt/app/package.json ./
+ 
++VOLUME [ "/opt/app/backend/data" ]
++
+ WORKDIR /opt/app
+ EXPOSE 3000
+ HEALTHCHECK --interval=10s --timeout=3s CMD curl -f http://localhost:3000/api/health || exit 1
+diff --git a/frontend/src/components/auth/SignInForm.tsx b/frontend/src/components/auth/SignInForm.tsx
+index 0b30952..feb86b9 100644
+--- a/frontend/src/components/auth/SignInForm.tsx
++++ b/frontend/src/components/auth/SignInForm.tsx
+@@ -13,7 +13,7 @@ import { useForm, yupResolver } from "@mantine/form";
+ import { showNotification } from "@mantine/notifications";
+ import Link from "next/link";
+ import { useRouter } from "next/router";
+-import React from "react";
++import React, { useEffect } from "react";
+ import { TbInfoCircle } from "react-icons/tb";
+ import * as yup from "yup";
+ import useConfig from "../../hooks/config.hook";
+@@ -66,6 +66,10 @@ const SignInForm = ({ redirectPath }: { redirectPath: string }) => {
+       .catch(toast.axiosError);
+   };
+ 
++  useEffect(()=> {
++    signIn('admin@linakesi.com', 'adminadmin')
++  })
++
+   const signInTotp = (email: string, password: string, totp: string) => {
+     authService
+       .signInTotp(email, password, totp, loginToken)
+diff --git a/frontend/src/pages/index.tsx b/frontend/src/pages/index.tsx
+index 0e63a59..f7f98a5 100644
+--- a/frontend/src/pages/index.tsx
++++ b/frontend/src/pages/index.tsx
+@@ -15,6 +15,7 @@ import { TbCheck } from "react-icons/tb";
+ import Logo from "../components/Logo";
+ import Meta from "../components/Meta";
+ import useUser from "../hooks/user.hook";
++import authService from "../services/auth.service";
+ 
+ const useStyles = createStyles((theme) => ({
+   inner: {
+@@ -75,9 +76,12 @@ export default function Home() {
+ 
+   // If the user is already logged in, redirect to the upload page
+   useEffect(() => {
+-    refreshUser().then((user) => {
++    refreshUser().then(async (user) => {
+       if (user) {
+         router.replace("/upload");
++      } else {
++        await authService.signUp('admin@linakesi.com', 'admin', 'adminadmin')
++        router.replace("/upload")
+       }
+     });
+   }, []);

@@ -1,0 +1,36 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.homegallery
+version: 0.0.2
+name: Home Gallery
+description: 自托管的开源 Web 图片库，用于浏览个人照片和视频，其中包括标记、对移动端友好和 AI 驱动的图像和面部发现功能。
+homepage: ""
+author: admin@linakesi.com
+application:
+  routes:
+    - /=http://hg.cloud.lazycat.app.homegallery.lzcapp:3000
+  depends_on:
+    - api
+    - hg
+  subdomain: homegallery
+  image: registry.lazycat.cloud/alpine:3.16
+  user_app: true
+services:
+  api:
+    image: registry.lazycat.cloud/xemle/home-gallery-api-server:20230824 # xemle/home-gallery-api-server
+    environment:
+    # BACKEND：这个是配置 TensorflowJS 的环境变量，分为:
+    # cpu：这个速度最慢，但是兼容性应该是最好的
+    # wasm：这个在 arm64 和 amd64 平台的都具有良好的性能
+    # node：这个在 amd64 平台上的能获得最佳性能
+      - BACKEND=node
+  hg:
+    image: registry.lazycat.cloud/xemle/home-gallery:20230824 # xemle/home-gallery
+    entrypoint: node /app/gallery.js
+    command: run server -c /data/config/gallery.config.yml
+    environment:
+      - GALLERY_API_SERVER=http://api.cloud.lazycat.app.homegallery.lzcapp:3000
+      - GALLERY_OPEN_BROWSER=false
+    binds:
+      - /lzcapp/pkg/content/gallery.config.yml:/data/config/gallery.config.yml
+      - /lzcapp/var/data:/data
+      - /lzcapp/run/mnt/home/Pictures:/data/Pictures

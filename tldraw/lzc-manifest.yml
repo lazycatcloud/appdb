@@ -1,0 +1,13 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.tldraw
+version: 0.0.2
+name: tldraw
+license: https://opensource.org/license/mit/
+homepage: https://tldraw.dev/
+application:
+  subdomain: tldraw
+  routes:
+    - /=http://tldraw.cloud.lazycat.app.tldraw.lzcapp:3000
+services:
+  tldraw:
+    image: registry.lazycat.cloud/appdb/tldraw:v0.0.2

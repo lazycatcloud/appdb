@@ -1,0 +1,13 @@
+application:
+  routes:
+  - /=http://jupyter.cloud.lazycat.app.jupyter.lzcapp:8888
+  subdomain: jupyter
+description: A web-based interactive computing platform
+lzc-sdk-version: '0.1'
+name: Jupyter Notebook
+package: cloud.lazycat.app.jupyter
+services:
+  jupyter:
+    command: ipython notebook --port=8888 --no-browser --ip='*'
+    image: ipython/ipython:3.x
+version: 0.0.11

@@ -1,0 +1,20 @@
+version: "3.9"
+x-lazycat-app:
+  quality: normal
+  id: hackerslides
+  icon: icon_hackerslides.jpg
+  title: hacker-slides
+  summary: A self hosted reveal.js presentations editor form markdown files.
+  screenshots:
+    - screenshot_hackerslides.png
+  categories:
+    - productivity
+  quality: normal
+services:
+  hackerslides:
+    image: msoedov/hacker-slides:1.0.3
+    volumes:
+    - /home/home-cloud/Documents:/app/slides
+    labels:
+      ingress-8080: hackerslides
+

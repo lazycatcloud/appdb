@@ -1,0 +1,18 @@
+application:
+  routes:
+  - /=http://aria2.cloud.lazycat.app.aria2.lzcapp:8080
+  subdomain: aria2
+description: 一款自由、跨平台命令行界面的下载管理器
+lzc-sdk-version: '0.1'
+name: AriaNg
+package: cloud.lazycat.app.aria2
+services:
+  aria2:
+    binds:
+    - /lzcapp/var:/sdcard
+    environment:
+    - PUID=1002
+    - PGID=1002
+    - ARIA2RPCPORT=443
+    image: hurlenko/aria2-ariang:1.2.3
+version: 0.0.17

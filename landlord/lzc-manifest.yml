@@ -1,0 +1,17 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.landlord
+version: 0.0.3
+name: 斗地主
+description: 斗地主
+homepage: https://github.com/dwg255/landlord
+author: admin@linakesi.com
+application:
+  routes:
+    - /=http://landlord.cloud.lazycat.app.landlord.lzcapp:8080
+  depends_on:
+    - landlord
+  subdomain: landlord
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  landlord:
+    image: registry.lazycat.cloud/d1y/landlord:0.2

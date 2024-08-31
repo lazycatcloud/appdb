@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://music-player.cloud.lazycat.app.music-player.lzcapp:264
+  subdomain: music-player
+description: 在线音乐播放器
+lzc-sdk-version: '0.1'
+name: Music Player
+package: cloud.lazycat.app.music-player
+services:
+  music-player:
+    image: oldiy/music-player-docker
+version: 0.0.11

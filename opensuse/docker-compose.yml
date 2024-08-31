@@ -1,0 +1,23 @@
+version: "3.9"
+x-lazycat-app:
+  id: opensuse
+  version: 0.0.1
+  summary: openSUSE Leap
+  title: openSUSE Leap
+  confdir: /opt/lzcapp/conf
+  datadir:
+    shared: /opt/lzcapp/data
+  ingress:
+    - service: opensuse
+      subdomain: opensuse
+      port: 22
+      proto: tcp
+services:
+  opensuse:
+    image: registry.lazycat.cloud/homecloud/opensuse-leap:latest
+    privileged: true
+    hostname: opensuse
+    volumes:
+      - opensuse-ssh-dir:/etc/ssh
+volumes:
+  opensuse-ssh-dir: {}

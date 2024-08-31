@@ -1,0 +1,13 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.glutton
+version: 0.0.1
+name: glutton
+description: 支持字幕下载的现代 aria2 客户端 [Web]
+homepage: https://github.com/NemoAlex/glutton
+author: admin@linakesi.com
+application:
+  routes:
+    - /=file://lzcapp/pkg/content
+  depends_on: []
+  subdomain: glutton
+  image: registry.lazycat.cloud/alpine:3.16

@@ -1,0 +1,19 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.navidromeng
+version: 0.0.2
+name: Navidrome
+description: 与Subsonic/Airsonic兼容的现代音乐服务器和串流器。
+license: https://choosealicense.com/licenses/gpl-3.0/
+homepage: https://github.com/navidrome/navidrome
+application:
+  subdomain: navidrome
+  routes:
+    - /=http://$uid.web.cloud.lazycat.app.navidromeng.lzcapp:4533/
+    # - /=exec://4533,/lzcapp/pkg/content/navidrome --datafolder=/lzcapp/var/data --musicfolder=/lzcapp/run/mnt/home/Music
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/navidrome:20230602
+    binds:
+      - /lzcapp/run/mnt/home/Music:/app/music
+      - /lzcapp/var/data:/app/data

@@ -1,0 +1,18 @@
+version: "3.9"
+x-lazycat-app:
+  id: heimdall
+  icon: icon_heimdall.png
+  title: heimdall
+  summary: A dashboard for all your web applications.
+  screenshots:
+    - screenshot_heimdall.png
+  quality: normal
+services:
+  heimdall:
+    image: linuxserver/heimdall:2.2.2
+    volumes:
+    - heimdall--config--config:/config
+    labels:
+      ingress-80: heimdall
+volumes:
+  heimdall--config--config: {}

@@ -1,0 +1,44 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.funkwhale
+version: 1.3.1-lzc2-1
+name: Funkwhale
+description:
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://funkwhale.audio/
+application:
+  subdomain: funkwhale
+  routes:
+    - /=http://funkwhale-frontend.cloud.lazycat.app.funkwhale.lzcapp:80
+services:
+  funkwhale-frontend:
+    image: registry.lazycat.cloud/appdb/funkwhale-frontend:v1.3.1-lzc2-1
+    depends_on:
+      - funkwhale-api
+  funkwhale-postgres:
+    image: registry.lazycat.cloud/postgres:15-alpine
+    environment:
+      - POSTGRES_DB=funkwhale
+      - POSTGRES_USER=funkwhale
+      - POSTGRES_PASSWORD=funkwhale
+      - PGDATA=/lzcapp/var/pgdata
+  funkwhale-redis:
+    image: registry.lazycat.cloud/redis:7-alpine
+  funkwhale-celery-worker:
+    image: registry.lazycat.cloud/appdb/funkwhale-api:v1.3.1-lzc2-1
+    depends_on:
+      - funkwhale-postgres
+      - funkwhale-redis
+    command: celery --app=funkwhale_api.taskapp worker --loglevel=INFO --concurrency=4
+    environment:
+      - C_FORCE_ROOT=true
+  funkwhale-celery-beat:
+    image: registry.lazycat.cloud/appdb/funkwhale-api:v1.3.1-lzc2-1
+    depends_on:
+      - funkwhale-postgres
+      - funkwhale-redis
+    command: celery --app=funkwhale_api.taskapp beat --loglevel=INFO
+  funkwhale-api:
+    image: registry.lazycat.cloud/appdb/funkwhale-api:v1.3.1-lzc2-1
+    depends_on:
+      - funkwhale-postgres
+      - funkwhale-redis

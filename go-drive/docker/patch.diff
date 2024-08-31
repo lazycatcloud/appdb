@@ -1,0 +1,65 @@
+diff --git a/Makefile b/Makefile
+index 7bdcd8b..d033069 100644
+--- a/Makefile
++++ b/Makefile
+@@ -18,7 +18,7 @@ $(build_dir)/$(target_name): $(build_dir)/go-drive $(build_dir)/web $(build_dir)
+ 
+ $(build_dir)/go-drive: $(build_dir)
+ 	CGO_CFLAGS="-Wno-return-local-addr" \
+-	go build -o $(build_dir) -ldflags \
++	/usr/local/go/bin/go build -o $(build_dir) -ldflags \
+ 		"-w -s \
+ 		-X 'go-drive/common.Version=${BUILD_VERSION}' \
+ 		-X 'go-drive/common.RevHash=$(shell git rev-parse HEAD)' \
+diff --git a/web/src/App.vue b/web/src/App.vue
+index 51ccd77..93da582 100644
+--- a/web/src/App.vue
++++ b/web/src/App.vue
+@@ -6,10 +6,19 @@
+ <script setup lang="ts">
+ import { alert } from '@/utils/ui-utils'
+ import { useAppStore } from './store'
++import { login } from './api'
+ 
+ const store = useAppStore()
+ 
+-store.init().catch((e) => {
++store.init()
++.then(async u=> {
++  if (!u) {
++    await login('admin', '123456')
++    location.reload()
++  } else {
++    console.log('[debug] user has login', u)
++  }
++}).catch((e) => {
+   alert(e.message)
+ })
+ </script>
+diff --git a/web/src/store/index.ts b/web/src/store/index.ts
+index 2f87b3d..7a9cc0e 100644
+--- a/web/src/store/index.ts
++++ b/web/src/store/index.ts
+@@ -66,8 +66,9 @@ export const useAppStore = defineStore('app', {
+     },
+     async init() {
+       await this.getConfig()
+-      await this.getUser()
++      const u = await this.getUser()
+       this.inited = true
++      return u
+     },
+     destroy() {
+       this.user = undefined
+diff --git a/web/vite.config.ts b/web/vite.config.ts
+index 1993bd1..309d902 100644
+--- a/web/vite.config.ts
++++ b/web/vite.config.ts
+@@ -40,6 +40,7 @@ export default defineConfig(({ mode }) => ({
+     },
+   },
+   build: {
++    sourcemap: true,
+     cssCodeSplit: false,
+     rollupOptions: {
+       plugins: [visualizer()],

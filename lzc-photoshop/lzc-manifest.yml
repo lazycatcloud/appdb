@@ -1,0 +1,18 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.ps
+version: 0.1.1
+name: Photopea
+description: Photopea online
+
+homepage: https://git.nixnet.services/DUOLabs333/Photopea-Offline/src/branch/main
+author: admin@linakesi.com
+
+application:
+  subdomain: ps
+  background_task: false
+  user_app: true
+
+  routes:
+    - /=file:///lzcapp/pkg/content/
+
+  image: registry.lazycat.cloud/alpine:3.16

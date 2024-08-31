@@ -1,0 +1,14 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.snapdrop
+version: 0.0.1
+name: Snapdrop
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://github.com/RobinLinus/snapdrop
+application:
+  subdomain: snapdrop
+  routes:
+    - /=file:///lzcapp/pkg/content/
+    - /server/=http://snapdrop-server.cloud.lazycat.app.snapdrop.lzcapp:3000/server/
+services:
+  snapdrop-server:
+    image: registry.lazycat.cloud/appdb/snapdrop-server:v0.0.1

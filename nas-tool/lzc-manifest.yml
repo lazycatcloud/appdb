@@ -1,0 +1,44 @@
+lzc-sdk-version: 0.1
+
+package: cloud.lazycat.app.nas.tool
+version: 0.1.1
+
+name: NasTool
+description: nas-tool
+
+license: https://github.com/royzheng/nas-tools/blob/master/LICENSE.md
+homepage: https://github.com/royzheng/nas-tools
+author: admin@linakesi.com
+
+application:
+  subdomain: nastool
+  background_task: true
+  routes:
+    - /=http://nas.cloud.lazycat.app.nas.tool.lzcapp:3000
+
+  image: registry.lazycat.cloud/alpine:3.16
+
+  depends_on:
+    - nas
+
+services:
+  nas:
+    # 目前使用: https://github.com/royzheng/nas-tools
+    #
+    # https://github.com/fzlzl/nas-tools-Docker
+    # https://github.com/carolcoral/jxxghp-nas-tools
+    # https://github.com/receyuki/nas-tools
+    #
+    # 官方已经废弃
+    #
+    # https://github.com/NAStool/nas-tools 
+
+    image: registry.lazycat.cloud/royzheng/nas-tools:3.2.2
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK=000
+      - NASTOOL_AUTO_UPDATE=false
+      - NASTOOL_CN_UPDATE=false
+    binds:
+      - /lzcapp/var/config:/config

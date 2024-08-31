@@ -1,0 +1,28 @@
+application:
+  routes:
+  - /=http://wbo.cloud.lazycat.app.wbo.lzcapp:8080
+  subdomain: wbo
+description: 'This app packages WBO <upstream>1.16.0</upstream>
+
+
+  ## About
+
+
+  WBO is a free and open-source online collaborative whiteboard that allows many users
+  to draw simultaneously on a large virtual board. The board is updated in real time
+  for all connected users, and its state is always persisted. It can be used for many
+  different purposes, including art, entertainment, design and teaching.
+
+
+  To collaborate on a drawing in real time with someone, just send them its URL.
+
+  '
+lzc-sdk-version: '0.1'
+name: WBO
+package: cloud.lazycat.app.wbo
+services:
+  wbo:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/dev.ophir.wbo.cloudronapp:20210925-233305-38262c4db
+version: 1.10.10

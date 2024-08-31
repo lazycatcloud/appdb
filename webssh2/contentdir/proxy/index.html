@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSSH2</title>
+</head>
+<script>
+    function proxy() {
+        // 如果没有，则延迟 2 秒钟后重定向到带参数的 URL
+        setTimeout(function() {
+            window.location.href = './ssh/host/localhost';
+        }, 1000);
+    }
+</script>
+</head>
+
+<body onload="proxy();" style="background-color: black;">
+    <!-- 页面内容 -->
+</body>
+
+</html>

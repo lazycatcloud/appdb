@@ -1,0 +1,16 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.webssh2
+version: 0.0.1
+name: WebSSH2
+description: 一个基于 Web 的 SSH 客户端。可以用来做各种技术实验。也可以用来做 linux 入门虚拟机。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/billchurch/webssh2
+application:
+  subdomain: webssh2
+  routes:
+    - /=file:///lzcapp/pkg/content/proxy/
+    - /ssh/=http://web.cloud.lazycat.app.webssh2.lzcapp:2222/ssh/
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/webssh2:202306291

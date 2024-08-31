@@ -1,0 +1,19 @@
+lzc-sdk-version: '0.1'
+version: 0.0.2
+name: Tautulli
+package: cloud.lazycat.app.tautulli
+description: 一个基于 Python 的 Plex 媒体服务器监控和跟踪工具
+application:
+  routes:
+  - /=http://server.cloud.lazycat.app.tautulli.lzcapp:8181
+  subdomain: tautulli
+  user_app: true
+services:
+  server:
+    image: registry.lazycat.cloud/tautulli/tautulli:v2.13.1
+    binds:
+    - /lzcapp/var/config:/config
+    environment:
+    - PUID=0
+    - PGID=0
+    - TZ=Asia/Shanghai

@@ -1,0 +1,35 @@
+application:
+  routes:
+  - /=http://rainloop.cloud.lazycat.app.rainloop.lzcapp:8000
+  subdomain: rainloop
+description: "This app packages RainLoop <upstream>1.16.0</upstream>.\n\nRainLoop\
+  \ is a simple, modern & fast web-based email client.\n\n### Features\n * Modern\
+  \ user interface.\n * Complete support of IMAP and SMTP protocols including SSL\
+  \ and STARTTLS.\n * Sieve scripts (Filters and vacation message).\n * Minimalistic\
+  \ resources requirements.\n * Direct access to mail server is used (mails are not\
+  \ stored locally on web server).\n * Allows for adding multiple accounts to primary\
+  \ one, simultaneous access to different accounts in different browser tabs is supported.\
+  \ Additional identities.\n * Administrative panel for configuring main options.\n\
+  \ * Really simple installation and update (the product is updated from admin panel).\n\
+  \ * Managing folders list.\n * Simple look'n'feel customization.\n * Extending functionality\
+  \ with plugins installed through admin panel.\n * Perfect rendering of complex HTML\
+  \ mails.\n * Drag'n'drop for mails and attachments.\n * Keyboard shortcuts support.\n\
+  \ * Autocompletion of e-mail addresses.\n"
+lzc-sdk-version: '0.1'
+name: RainLoop
+package: cloud.lazycat.app.rainloop
+services:
+  rainloop:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/net.rainloop.cloudronapp:20210510-163654-63474a402
+version: 1.14.10

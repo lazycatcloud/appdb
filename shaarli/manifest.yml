@@ -1,0 +1,31 @@
+application:
+  routes:
+  - /=http://shaarli.cloud.lazycat.app.shaarli.lzcapp:8000
+  subdomain: shaarli
+description: 'This app packages Shaarli <upstream>0.12.1</upstream>
+
+
+  ### About
+
+
+  Shaarli is a personal, minimalist, super-fast, database free, bookmarking service.
+
+
+  Do you want to share the links you discover? Shaarli is a minimalist delicious clone
+
+  that you can install on your own server.
+
+
+  It is designed to be personal (single-user), fast and handy.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Shaarli
+package: cloud.lazycat.app.shaarli
+services:
+  shaarli:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/com.github.shaarli:20210221-022254-0121942e3
+version: 2.10.10

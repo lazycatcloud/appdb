@@ -1,0 +1,17 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.minimalnotepad
+version: 0.0.1
+name: 记事本
+description: 带密码保护的最小 PHP 网络记事本。所有笔记均保存为文本文件。
+license: https://choosealicense.com/licenses/mit
+homepage: https://github.com/domOrielton/minimal-web-notepad
+application:
+  subdomain: minimalnotepad
+  user_app: true
+  routes:
+    - /=http://$uid.server.cloud.lazycat.app.minimalnotepad.lzcapp:80
+services:
+  server:
+    image: registry.lazycat.cloud/minimal-web-notepad:201230
+    binds:
+      - /lzcapp/var/notes:/var/www/html/_notes/

@@ -1,0 +1,62 @@
+application:
+  routes:
+  - /=http://guacamole.cloud.lazycat.app.guacamole.lzcapp:8080
+  subdomain: guacamole
+description: "This app packages Guacamole <upstream>1.3.0</upstream>.\n\nApache Guacamole\
+  \ is a clientless remote desktop gateway. It supports standard protocols like VNC,\
+  \ RDP, and SSH.\n\nWe call it clientless because no plugins or client software are\
+  \ required.\n\nThanks to HTML5, once Guacamole is installed on a server, all you\
+  \ need to access your desktops is a web browser.\n\n## Features\n\n* Access your\
+  \ computers from anywhere - Because the Guacamole client is an HTML5 web application,\
+  \ use of your computers is not tied to any one device or location. As long as you\
+  \ have access to a web browser, you have access to your machines.\n\n\n* Keep your\
+  \ desktop in the cloud - Desktops accessed through Guacamole need not physically\
+  \ exist. With both Guacamole and a desktop operating system hosted in the cloud,\
+  \ you can combine the convenience of Guacamole with the resilience and flexibility\
+  \ of cloud computing.\n\n\n* Free and open source - Apache Guacamole is and will\
+  \ always be free and open source software. It is licensed under the Apache License,\
+  \ Version 2.0, and is actively maintained by a community of developers that use\
+  \ Guacamole to access their own development environments. We feel this sets us apart\
+  \ from other remote desktop solutions, and gives us a distinct advantage.\n\n* Built\
+  \ on a well-documented API - Apache Guacamole is built on its own stack of core\
+  \ APIs which are thoroughly documented, including basic tutorials and conceptual\
+  \ overviews in the online manual. These APIs allow Guacamole to be tightly integrated\
+  \ into other applications, whether they be open source or proprietary.\n\n* Commercially\
+  \ supported - For enterprises, dedicated commercial support is also available through\
+  \ third party companies.\n\n## Supported Protocols\n\n * VNC protocol\n * RDP protocol\
+  \ (Remote Desktop)\n * SSH\n * Telnet\n\n"
+lzc-sdk-version: '0.1'
+name: Guacamole
+package: cloud.lazycat.app.guacamole
+services:
+  guacamole:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://guacamole.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://guacamole.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=guacamole.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.guacamole.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    image: cloudron/org.apache.guacamole.cloudronapp:20210917-055526-477a283db
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 1.5.10

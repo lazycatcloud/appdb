@@ -1,0 +1,47 @@
+version: "3.9"
+x-lazycat-app:
+  quality: low
+  id: iredmail
+  icon: icon.png
+  title: iRedMail
+  upstream: https://github.com/iredmail/dockerized
+  summary: An email server
+  screenshots:
+    - screenshot.png
+  categories:
+    - files
+services:
+  iredmail:
+    image: iredmail/mariadb:stable
+    environment:
+      - HOSTNAME=localhost.linakesi.cn # TODO 改成可变参数
+      - FIRST_MAIL_DOMAIN=localhost.linakesi.cn
+      - FIRST_MAIL_DOMAIN_ADMIN_PASSWORD=my-secret-password
+      - MLMMJADMIN_API_TOKEN=qfFe1ijYVFLvJeaqOadDBDE5sraD9wt1/IbT/2lOpK4=
+      - ROUNDCUBE_DES_KEY=X6iqF8ylZelQLH66CoWM7KzmKQD4Qwjr
+    volumes:
+      - iredmail_backup-mysql:/var/vmail/backup/mysql
+      - iredmail_mailboxes:/var/vmail/vmail1
+      - iredmail_mlmmj:/var/vmail/mlmmj
+      - iredmail_mlmmj_archive:/var/vmail/mlmmj-archive
+      - iredmail_imapsieve_copy:/var/vmail/imapsieve_copy
+      - iredmail_custom:/opt/iredmail/custom
+      - iredmail_ssl:/opt/iredmail/ssl
+      - iredmail_mysql:/var/lib/mysql
+      - iredmail_clamav:/var/lib/clamav
+      - iredmail_sa_rules:/var/lib/spamassassin
+      - iredmail_postfix_queue:/var/spool/postfix
+    labels:
+      ingress-80: iredmail # TODO 需要https开启443
+volumes:
+  iredmail_backup-mysql:           # Backup copies
+  iredmail_mailboxes:        # All users' mailboxes
+  iredmail_mlmmj:            # mailing list data
+  iredmail_mlmmj_archive:    # mailing list archive
+  iredmail_imapsieve_copy:   # Used by Dovecot plugin 'imapsieve'
+  iredmail_custom:           # custom config files
+  iredmail_ssl:              # SSL cert/key files
+  iredmail_mysql:            # MySQL databases
+  iredmail_clamav:           # ClamAV database
+  iredmail_sa_rules:         # SpamAssassin rules
+  iredmail_postfix_queue:    # Postfix queues

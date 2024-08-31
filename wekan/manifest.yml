@@ -1,0 +1,16 @@
+application:
+  routes:
+  - /=http://wekan.cloud.lazycat.app.wekan.lzcapp:8080
+  subdomain: wekan
+description: An completely Open Source and Free software collaborative kanban board
+lzc-sdk-version: '0.1'
+name: Wekan
+package: cloud.lazycat.app.wekan
+services:
+  wekan:
+    environment:
+    - ROOT_URL=http://wekan.{{ .public.main_host }}
+    - MONGO_URL=mongodb://root:root@mongodb
+    - DEBUG=true
+    image: wekanteam/wekan:v5.71
+version: 0.0.11

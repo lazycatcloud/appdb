@@ -1,0 +1,51 @@
+application:
+  routes:
+  - /=http://prometheusserver.cloud.lazycat.app.prometheusserver.lzcapp:9090
+  subdomain: prometheusserver
+description: 'This app packages Prometheus <upstream>2.31.1</upstream>
+
+
+  Prometheus, a Cloud Native Computing Foundation project, is a systems and service
+  monitoring system.
+
+  It collects metrics from configured targets at given intervals, evaluates rule expressions,
+  displays
+
+  the results, and can trigger alerts when specified conditions are observed.
+
+
+  ## Features
+
+
+  The features that distinguish Prometheus from other metrics and monitoring systems
+  are:
+
+
+  * A multi-dimensional data model (time series defined by metric name and set of
+  key/value dimensions)
+
+  * PromQL, a powerful and flexible query language to leverage this dimensionality
+
+  * No dependency on distributed storage; single server nodes are autonomous
+
+  * An HTTP pull model for time series collection
+
+  * Pushing time series is supported via an intermediary gateway for batch jobs
+
+  * Targets are discovered via service discovery or static configuration
+
+  * Multiple modes of graphing and dashboarding support
+
+  * Support for hierarchical and horizontal federation
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Prometheus Server
+package: cloud.lazycat.app.prometheusserver
+services:
+  prometheusserver:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/io.prometheus.cloudronapp:20211105-232644-4536b8ea8
+version: 1.9.16

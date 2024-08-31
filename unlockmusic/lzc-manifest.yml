@@ -1,0 +1,17 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.unlockmusic
+version: 0.0.2
+name: Unlock Music 音乐解锁
+description: 在浏览器中解锁加密的音乐文件
+homepage: ""
+author: admin@linakesi.com
+application:
+  routes:
+    - /=http://unlock.cloud.lazycat.app.unlockmusic.lzcapp:80
+  depends_on:
+    - unlock
+  subdomain: unlock-music
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  unlock:
+    image: registry.lazycat.cloud/webapp/unlockmusic:0.1

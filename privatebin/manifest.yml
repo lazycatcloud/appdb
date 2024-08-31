@@ -1,0 +1,21 @@
+lzc-sdk-version: '0.1'
+name: PrivateBin
+package: cloud.lazycat.app.privatebin
+description: 'PrivateBin docker image based on Nginx, php-fpm & Alpine Linux stack'
+version: 1.5.2
+application:
+  subdomain: privatebin
+  routes:
+    - /=http://privatebin.cloud.lazycat.app.privatebin.lzcapp:8080
+    - /__not_use=exec://80,/lzcapp/pkg/content/init.sh
+  public_path:
+    - /
+services:
+  privatebin:
+    binds:
+      - /lzcapp/var/privatebin-data:/srv/data
+    environment:
+      - DEBIAN_FRONTEND=noninteractive
+      - UID=65534
+      - GID=82
+    image: registry.lazycat.cloud/privatebin/nginx-fpm-alpine:1.5.1

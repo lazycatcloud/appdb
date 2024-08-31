@@ -1,0 +1,6 @@
+buildscript: ./build.sh
+
+pkgout: ./
+
+contentdir: ./snapdrop/client
+icon: ./logo.png

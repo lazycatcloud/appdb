@@ -1,0 +1,14 @@
+application:
+  routes:
+  - /=http://dzzoffice.cloud.lazycat.app.dzzoffice.lzcapp:80
+  subdomain: dzzoffice
+description: 大桌子办公,是一套开源办公套件
+lzc-sdk-version: '0.1'
+name: Dzzoffice
+package: cloud.lazycat.app.dzzoffice
+services:
+  dzzoffice:
+    binds:
+    - /lzcapp/var:/var/www/html/data
+    image: imdevops/dzzoffice
+version: 0.0.11

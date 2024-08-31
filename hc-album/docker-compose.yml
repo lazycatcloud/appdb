@@ -1,0 +1,22 @@
+version: '3.9'
+x-lazycat-app:
+  id: hc-album
+  title: hc-album
+  version: 0.0.1
+  description: 
+  icon: icon.svg
+  categories: 
+  screenshots:
+    - screenshot.png
+  ingress:
+    - service: hc-album
+      port: 3000
+      subdomain: hc-album
+      auth: auto
+services:
+  hc-album:
+    image: registry.lazycat.cloud/hc-album:0.0.1
+    volumes:
+      - lzcapis-lzcapp:/lzcapp
+volumes:
+  lzcapis-lzcapp: 

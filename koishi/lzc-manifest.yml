@@ -1,0 +1,21 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.koishi
+version: 0.0.3
+name: koishi
+description: koishi
+homepage: ""
+author: admin@linakesi.com
+application:
+  background_task: true
+  routes:
+    - /=http://ks.cloud.lazycat.app.koishi.lzcapp:5140
+  depends_on:
+    - ks
+  subdomain: koishi
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  ks:
+    image: registry.lazycat.cloud/nodejs/koishi:1.0 # koishijs/koishi:latest # registry.lazycat.cloud/nodejs/koishi:0.1
+    binds:
+      - /lzcapp/pkg/koishi:/koishi
+    # entrypoint: sh /lzcapp/pkg/content/entrypoint.sh

@@ -1,0 +1,13 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.svgdrawing
+version: 0.2.2-dev-lzc1-1
+name: SVG Drawing
+license: https://opensource.org/license/mit/
+homepage: https://github.com/CatsJuice/svg-drawing
+application:
+  subdomain: svg-drawing
+  routes:
+    - /=http://svg-drawing.cloud.lazycat.app.svgdrawing.lzcapp:80
+services:
+  svg-drawing:
+    image: registry.lazycat.cloud/appdb/svg-drawing:v0.2.2-dev-lzc1-1

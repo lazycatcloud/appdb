@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/sokoban/static/css/main.9f6ce801.css",
+    "main.js": "/sokoban/static/js/main.44baaade.js",
+    "static/media/key.svg": "/sokoban/static/media/key.8f0aae101b2fbb69f392.svg",
+    "index.html": "/sokoban/index.html",
+    "main.9f6ce801.css.map": "/sokoban/static/css/main.9f6ce801.css.map",
+    "main.44baaade.js.map": "/sokoban/static/js/main.44baaade.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9f6ce801.css",
+    "static/js/main.44baaade.js"
+  ]
+}

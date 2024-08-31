@@ -1,0 +1,12 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.editor.canvas
+version: 0.9.51-lzc1-1
+name: canvas-editor
+description: 在线文档编辑器，支持打印和导出为图片
+license: https://opensource.org/license/mit/
+homepage: https://hufe.club/canvas-editor-docs/
+author: hufe
+application:
+  subdomain: canvas-editor
+  routes:
+    - /=file:///lzcapp/pkg/content/

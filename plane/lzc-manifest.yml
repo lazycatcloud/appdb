@@ -1,0 +1,28 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.plane
+version: 0.0.1
+name: Plane
+description: 项目管理工具
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://plane.so/
+author: Plane authors
+application:
+  subdomain: plane
+  routes:
+    - /=http://plane.cloud.lazycat.app.plane.lzcapp:80
+services:
+  plane-redis:
+    image: registry.lazycat.cloud/redis:alpine
+  plane-postgres:
+    image: registry.lazycat.cloud/postgres:alpine
+    environment:
+      - PGDATA=/lzcapp/var/pgdata
+      - POSTGRES_DB=plane
+      - POSTGRES_PASSWORD=password
+  plane:
+    image: registry.lazycat.cloud/appdb/plane:v0.0.1
+    environment:
+      - NEXT_PUBLIC_API_BASE_URL=https://plane.${LAZYCAT_BOX_DOMAIN}
+      - REDIS_URL=redis://plane-redis.cloud.lazycat.app.plane.lzcapp:6379
+      - DATABASE_URL=postgres://postgres:password@plane-postgres.cloud.lazycat.app.plane.lzcapp:5432/plane
+      - SECRET_KEY=NdzZi9mAhfT2rVlnJQ8I0Qj+vtcP9xCmFaZTzXxIAXowvKvv

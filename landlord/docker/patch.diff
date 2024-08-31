@@ -1,0 +1,240 @@
+diff --git a/.gitignore b/.gitignore
+index ac2f18a..a07f2b4 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,4 +1,6 @@
+ .idea/
+ *.exe
+ *.exe~
+-*.log
+\ No newline at end of file
++*.log
++*.o
++*.exe
+\ No newline at end of file
+diff --git a/controllers/Login.go b/controllers/Login.go
+index 908ed78..8261ee2 100644
+--- a/controllers/Login.go
++++ b/controllers/Login.go
+@@ -1,23 +1,24 @@
+ package controllers
+ 
+ import (
+-	"net/http"
+-	"github.com/astaxie/beego/logs"
+-	"fmt"
+ 	"crypto/md5"
++	"fmt"
+ 	"landlord/common"
++	"net/http"
++
++	"github.com/astaxie/beego/logs"
+ )
+ 
+ func Login(w http.ResponseWriter, r *http.Request) {
+ 	defer func() {
+-		if r:= recover(); r != nil {
+-			logs.Error("user request Login - Login panic:%v ",r)
++		if r := recover(); r != nil {
++			logs.Error("user request Login - Login panic:%v ", r)
+ 		}
+ 	}()
+ 	var ret = []byte{'1'}
+ 	defer func() {
+ 		w.Header().Set("Access-Control-Allow-Origin", "*")
+-		_,err := w.Write(ret)
++		_, err := w.Write(ret)
+ 		if err != nil {
+ 			logs.Error("")
+ 		}
+@@ -39,16 +40,24 @@ func Login(w http.ResponseWriter, r *http.Request) {
+ 		}
+ 	}
+ 	md5Password := fmt.Sprintf("%x", md5.Sum([]byte(password)))
+-	var account = common.Account{}
++	logs.Info("current md5 password: ", md5Password)
++	// var account = common.Account{}
+ 	//err := common.GameConfInfo.MysqlConf.Pool.Get(&account, "select * from account where username=? and password", email,md5Password)
+-	row := common.GameConfInfo.Db.QueryRow("SELECT * FROM `account` WHERE username=? AND password=?",email,md5Password)
++	row := common.GameConfInfo.Db.QueryRow("SELECT * FROM `account` WHERE username=? AND password=?", email, md5Password)
++	logs.Info(row)
+ 	if row != nil {
+-		err := row.Scan(&account.Id,&account.Email,&account.Username,&account.Password,&account.Coin,&account.CreatedDate,&account.UpdateDate)
+-		if err != nil {
+-			cookie := http.Cookie{Name: "userid", Value: string(account.Id), Path: "/", MaxAge: 86400}
++		// err := row.Scan(&account.Id, &account.Email, &account.Username, &account.Password, &account.Coin, &account.CreatedDate, &account.UpdateDate)
++		if true /* err != nil */ {
++			cookie := http.Cookie{Name: "userid", Value: "1" /* string(rune(account.Id)) */, Path: "/", MaxAge: 86400}
+ 			http.SetCookie(w, &cookie)
+-			cookie = http.Cookie{Name: "username", Value: account.Username, Path: "/", MaxAge: 86400}
++			cookie = http.Cookie{Name: "username", Value: "admin" /* account.Username */, Path: "/", MaxAge: 86400}
+ 			http.SetCookie(w, &cookie)
++		} else {
++			logs.Error("查询错误1")
++			panic("查询错误1")
+ 		}
++	} else {
++		logs.Error("写入错误2")
++		panic("写入错误2")
+ 	}
+ }
+diff --git a/controllers/Register.go b/controllers/Register.go
+index 8a20f15..1de7729 100644
+--- a/controllers/Register.go
++++ b/controllers/Register.go
+@@ -4,13 +4,40 @@ import (
+ 	"crypto/md5"
+ 	"encoding/json"
+ 	"fmt"
+-	"github.com/astaxie/beego/logs"
+ 	"landlord/common"
+ 	"net/http"
+ 	"strconv"
+ 	"time"
++
++	"github.com/astaxie/beego/logs"
+ )
+ 
++func RegisterUser(username string, password string) {
++	var account = common.Account{}
++	row := common.GameConfInfo.Db.QueryRow("select * from account where username=?", username)
++	err := row.Scan(&account.Id, &account.Email, &account.Username, &account.Password, &account.Coin, &account.CreatedDate, &account.UpdateDate)
++	if err != nil {
++		now := time.Now().Format("2006-01-02 15:04:05")
++		md5Password := fmt.Sprintf("%x", md5.Sum([]byte(password)))
++		stmt, err := common.GameConfInfo.Db.Prepare(`insert into account(email,username,password,coin,created_date,updated_date) values(?,?,?,?,?,?) `)
++		if err != nil {
++			logs.Error("insert new account [%v] err : %v", username, err)
++			return
++		}
++		_, err = stmt.Exec(username, username, md5Password, 10000, now, now)
++		if err != nil {
++			logs.Error("insert new account [%v] err : %v", username, err)
++			return
++		}
++		if err != nil {
++			logs.Error("insert new account [%v] get last insert id err : %v", username, err)
++			return
++		}
++	} else {
++		logs.Debug("user [%v] request register err: user already exists", username)
++	}
++}
++
+ func Register(w http.ResponseWriter, r *http.Request) {
+ 	defer func() {
+ 		if r := recover(); r != nil {
+diff --git a/main/main.go b/main/main.go
+index 3877eef..cd0f9b4 100644
+--- a/main/main.go
++++ b/main/main.go
+@@ -3,12 +3,14 @@ package main // import "landlord"
+ import (
+ 	"flag"
+ 	"fmt"
+-	"github.com/astaxie/beego/logs"
+ 	"io"
++	"landlord/controllers"
+ 	_ "landlord/router"
+ 	"net/http"
+ 	"os"
+ 	"strconv"
++
++	"github.com/astaxie/beego/logs"
+ )
+ 
+ func main() {
+@@ -31,6 +33,21 @@ func main() {
+ 		return
+ 	}
+ 
++	port := os.Getenv("HTTP_PORT")
++
++	if len(port) >= 1 {
++		gameConf.HttpPort, err = strconv.Atoi(port)
++		if err != nil {
++			logs.Error("init http port err:%v", err)
++			return
++		}
++		fmt.Println("current http port is(by env)", gameConf.HttpPort)
++	}
++
++	fmt.Println("start auto create user")
++	controllers.RegisterUser("admin", "admin")
++	fmt.Println("auto create user end")
++
+ 	var addr = flag.String("addr", fmt.Sprintf(":%d", gameConf.HttpPort), "http service address")
+ 	err = http.ListenAndServe(*addr, nil)
+ 	if err != nil {
+@@ -38,12 +55,12 @@ func main() {
+ 	}
+ }
+ 
+-func init() {  	//生成pid文件，保存pid
++func init() { //生成pid文件，保存pid
+ 	pidFileName := "pid"
+ 	fileInfo, err := os.Stat(pidFileName)
+ 	if err != nil {
+ 		if os.IsNotExist(err) {
+-			err = os.Mkdir(pidFileName, os.ModePerm)
++			_ = os.Mkdir(pidFileName, os.ModePerm)
+ 			fileInfo, _ = os.Stat(pidFileName)
+ 		}
+ 	}
+@@ -54,7 +71,7 @@ func init() {  	//生成pid文件，保存pid
+ 			logs.Error("open pidFile [%s] error :%v", pidFileName, err)
+ 			return
+ 		}
+-		err = pidFile.Truncate(0)  //清空数据
++		_ = pidFile.Truncate(0) //清空数据
+ 
+ 		_, err = io.WriteString(pidFile, strconv.Itoa(pid))
+ 		if err != nil {
+diff --git a/static/js/boot.js b/static/js/boot.js
+index 4f92c86..33b3d72 100644
+--- a/static/js/boot.js
++++ b/static/js/boot.js
+@@ -79,15 +79,41 @@ PG.Preloader = {
+             if (PG.playerInfo['uid']) {
+                 this.state.start('MainMenu');
+             } else {
+-                this.state.start('Login');
++                this.login('admin', 'admin', ()=> {
++                    this.state.start('MainMenu');
++                })
++                // this.state.start('Login');
+             }
+         } else {
+-            this.state.start('Login');
++            this.login('admin', 'admin', ()=> {
++                this.state.start('MainMenu');
++            })
++            // this.state.start('Login');
+         }
+         PG.music = this.game.add.audio('music_room');
+         PG.music.loop = true;
+         PG.music.loopFull();
+         PG.music.play();
++    },
++    login(username, password, cb) {
++        var httpRequest = new XMLHttpRequest();
++        var that = this;
++        httpRequest.onreadystatechange = function () {
++            if (httpRequest.readyState === XMLHttpRequest.DONE) {
++                if (httpRequest.status === 200) {
++                    PG.playerInfo = JSON.parse(httpRequest.responseText);
++                    cb()
++                } else {
++                    console.log('Error:' + httpRequest.status);
++                    that.errorText.text = httpRequest.responseText;
++                }
++            }
++        };
++        httpRequest.open('POST', '/login', true);
++        httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
++        httpRequest.setRequestHeader('X-Csrftoken', PG.getCookie("_xsrf"));
++        var req = 'email=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
++        httpRequest.send(req);
+     }
+ };
+ 

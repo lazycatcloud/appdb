@@ -1,0 +1,22 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.ngx.paperless
+version: 1.17.4-lzc1-1
+name: Paperless-ngx
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://docs.paperless-ngx.com/
+application:
+  subdomain: paperless-ngx
+  routes:
+    - /=http://paperless-ngx.cloud.lazycat.app.ngx.paperless.lzcapp:8000
+services:
+  paperless-ngx-redis:
+    image: registry.lazycat.cloud/redis:7.2.1-alpine3.18
+  paperless-ngx:
+    environment:
+      - PAPERLESS_URL=https://paperless-ngx.${LAZYCAT_BOX_DOMAIN}
+      - PAPERLESS_ENABLE_UPDATE_CHECK=false
+      - PAPERLESS_REDIS=redis://paperless-ngx-redis.cloud.lazycat.app.ngx.paperless.lzcapp:6379
+      - DATABASE_BACKEND=sqlite
+    image: registry.lazycat.cloud/appdb/paperless-ngx:v1.17.4-lzc1
+    depends_on:
+      - paperless-ngx-redis

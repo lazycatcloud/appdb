@@ -1,0 +1,38 @@
+version: "3.9"
+x-lazycat-app:
+  id: mydrive
+  version: 1.0.0
+  quality: normal
+  icon: icon.png
+  title: MyDrive
+  summary: 一套用于创建网络硬盘的客户端－服务器软件
+  postInstallMessage: 默认用户密码均为admin123
+  screenshots:
+    - screenshot.png
+  ingress:
+    - service:   mydrive
+      port:      3000
+      subdomain: mydrive
+  categories:
+    - files
+services:
+  mydrive:
+    image: registry.lazycat.cloud/mydrive:latest
+    env_file:
+      - docker-variables.env
+    links:
+      - mongo
+    volumes:
+      - 'data_volume:/data'
+    labels:
+      ingress-3000: mydrive
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - 'mongodb_data_volume:/data/db'
+volumes:
+  mongodb_data_volume:
+  data_volume:

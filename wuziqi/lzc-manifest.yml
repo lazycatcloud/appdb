@@ -1,0 +1,11 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.wuziqi
+version: 0.0.3
+name: 五子棋
+description: 一款简单轻快的经典游戏，五子棋。
+license: 
+homepage: https://github.com/lihongxun945/gobang.git
+application:
+  subdomain: wuziqi
+  routes:
+    - /=file:///lzcapp/pkg/content/

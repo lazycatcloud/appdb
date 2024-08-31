@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://duplicati.cloud.lazycat.app.chineseocr.lzcapp:8089
+  subdomain: chineseocr
+description: 中文文字识别
+lzc-sdk-version: '0.1'
+name: Chinese OCR
+package: cloud.lazycat.app.chineseocr
+services:
+  duplicati:
+    image: xlight/trwebocr:xlight-hrp
+version: 0.0.11

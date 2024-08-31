@@ -1,0 +1,12 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.prologictodo
+version: 0.0.1
+name: todo
+description: todo 一个朴素简洁的待办事项清单，符合直觉的操作习惯。追求小巧，快速，极简的使用体验。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://todo.mills.io
+application:
+  subdomain: prologictodo
+  routes:
+    - /=exec://8000,/lzcapp/pkg/content/todo -dbpath /lzcapp/var/todo.db #格式与/usr/bin/lzcinit -up参数一致
+  user_app: true

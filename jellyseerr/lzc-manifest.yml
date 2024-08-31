@@ -1,0 +1,19 @@
+description: 用于管理媒体库请求的免费开源软件应用程序。
+lzc-sdk-version: '0.1'
+name: Jellyseerr
+version: 0.0.3
+package: cloud.lazycat.app.jellyseerr
+license: https://choosealicense.com/licenses/mit
+unsupported_platforms:
+    - android
+    - ios
+application:
+  routes:
+  - /=http://server.cloud.lazycat.app.jellyseerr.lzcapp:5055
+  subdomain: jellyseerr
+  user_app: true
+services:
+  server:
+    image: registry.lazycat.cloud/jellyseerr:0.1.1
+    binds:
+      - /lzcapp/var/conf:/app/config

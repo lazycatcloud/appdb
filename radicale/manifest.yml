@@ -1,0 +1,38 @@
+application:
+  routes:
+  - /=http://radicale.cloud.lazycat.app.radicale.lzcapp:5232
+  subdomain: radicale
+description: 'This app packages Radicale version <upstream>3.0.6</upstream>
+
+
+  ### The Radicale Project is a CalDAV (calendar) and CardDAV (contact) server solution.
+
+
+  Calendars and address books can be viewed, edited and synced by calendar and contact
+  clients on mobile phones or computers.
+
+
+  Officially supported clients are listed [here](https://radicale.org/2.1.html#documentation/clients),
+  other DAV compatible clients may work as well.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Radicale
+package: cloud.lazycat.app.radicale
+services:
+  radicale:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_PROXY_IP=host.lzcapp
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    image: cloudron/org.radicale.cloudronapp2:20210224-010139-772614497
+version: 2.1.10

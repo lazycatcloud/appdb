@@ -1,0 +1,10 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.jonathontoon.manifest
+version: 1.1.0-dev-1
+name: Manifest
+license: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
+homepage: https://github.com/jonathontoon/manifest
+application:
+  subdomain: jt-manifest
+  routes:
+    - /=file:///lzcapp/pkg/content/

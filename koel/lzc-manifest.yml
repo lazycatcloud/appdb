@@ -1,0 +1,37 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.koel
+version: 1.2.2
+name: Koel
+description: 为您提供更加现代的个人音乐流媒体服务
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/koel/koel
+author: koel
+application:
+  subdomain: koel
+  routes:
+    - /=http://web.cloud.lazycat.app.koel.lzcapp:80
+  user_app: true
+
+services:
+  web:
+    # Build FROM Dockerfile
+    image: registry.lazycat.cloud/appdb/koel:7.0.11-1
+    # ports:
+    #   - "80:80"
+    environment:
+      - FORCE_HTTPS=true
+      - DB_CONNECTION=sqlite-e2e
+      - DB_DATABASE=/var/www/html/database_user/data.db
+    binds:
+      - /lzcapp/pkg/content/koel-entrypoint:/usr/local/bin/koel-entrypoint
+      - /lzcapp/pkg/content/build:/var/www/html/public/build
+      - /lzcapp/pkg/content/koel:/var/www/koelmnt
+      # - /lzcapp/pkg/content/koel/app/Services/FileSynchronizer.php:/var/www/html/app/Services/FileSynchronizer.php
+      - /lzcapp/pkg/content/koel/app/Values/SongScanInformation.php:/var/www/html/app/Values/SongScanInformation.php
+      - /lzcapp/pkg/content/koel/app/Console/Commands/InitCommand.php:/var/www/html/app/Console/Commands/InitCommand.php
+      - /lzcapp/run/mnt/home/Music:/music
+      - /lzcapp/var/db/user:/var/www/html/database_user
+      # 经验证， /lzcapp/var/db 本身就区分了用户(在多实例场景下)
+      # - /lzcapp/var/db/logs:/var/www/html/storage/logs
+      # - /lzcapp/var/db/covers:/var/www/html/public/img/covers
+      # - /lzcapp/var/db/search_index:/var/www/html/storage/search-indexes

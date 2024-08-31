@@ -1,0 +1,22 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.audiobookshelf
+version: 0.0.1
+name: Audiobookshelf
+description: 自托管有声读物和播客服务器
+license: GPL-v3
+homepage: https://github.com/advplyr/audiobookshelf
+application:
+  user_app: true
+  subdomain: audiobookshelf
+  routes:
+    - /=http://server.cloud.lazycat.app.audiobookshelf.lzcapp
+services:
+  server:
+    image: registry.lazycat.cloud/audiobookshelf:2.3.3
+    binds:
+      - /lzcapp/var/config:/config
+      - /lzcapp/var/metadata:/metadata
+      - /lzcapp/var/audiobooks:/audiobooks
+      - /lzcapp/run/mnt/home:/home
+    environment:
+      - DOMAIN=${LAZYCAT_APP_ORIGIN}

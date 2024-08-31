@@ -1,0 +1,24 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.download.douyin
+version: 0.0.2
+name: Douyin_TikTok_Download_API
+description: 「Douyin_TikTok_Download_API」是一个开箱即用的高性能异步抖音|TikTok数据爬取工具，支持API调用，在线批量解析及下载。
+homepage: https://github.com/Evil0ctal/Douyin_TikTok_Download_API
+author: Evil0ctal
+application:
+  public_path:
+    - /api
+  routes:
+    - /=http://douyin.cloud.lazycat.app.download.douyin.lzcapp:80
+    - /api/=http://douyin.cloud.lazycat.app.download.douyin.lzcapp:8000
+  depends_on:
+    - douyin
+  subdomain: dydownload
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  douyin:
+    image: registry.lazycat.cloud/evil0ctal/douyin:0.1 # evil0ctal/douyin_tiktok_download_api
+    environment:
+      - TZ=Asia/Shanghai
+    binds:
+      - /lzcapp/pkg/content/config.ini:/app/config.ini

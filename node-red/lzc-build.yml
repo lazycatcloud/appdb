@@ -1,0 +1,3 @@
+manifest: ./lzc-manifest.yml
+pkgout: ./
+icon: ./node-red-icon.png

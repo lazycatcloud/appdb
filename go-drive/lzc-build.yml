@@ -1,0 +1,3 @@
+pkgout: ./
+contentdir: ./config
+icon: ./cloud.png

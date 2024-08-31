@@ -1,0 +1,53 @@
+application:
+  routes:
+  - /=http://taiga.cloud.lazycat.app.taiga.lzcapp:8000
+  subdomain: taiga
+description: 'This app packages Taiga <upstream>6.4.3</upstream>
+
+
+  ### Overview
+
+
+  Taiga is a project management platform for startups and agile developers & designers
+  who want a simple, beautiful tool that makes work truly enjoyable.
+
+
+  ### Features
+
+
+  * **Backlog** - Keeps the running list of all features and User Stories that make
+  up your project.
+
+  * **Kanban** - Fully Customizable Post-it Note type layout of your workflow.
+
+  * **Tasks** - Further define the work required to complete each User Story.
+
+  * **Sprints** - Gathers and Tracks the User Stories and Tasks that can be worked
+  on by your team within a given time frame.
+
+  * **Issues** - Track issues and bugs, assign tags, responsibility and keep traceability.
+
+
+  ### Focus on
+
+
+  * Fun to use
+
+  * Intuitive and Easy to use
+
+  * Clean to not distract
+
+  * Unobtrusive
+
+  * Keep your team in sync
+
+  * Do not rule over you
+
+  '
+lzc-sdk-version: '0.1'
+name: Taiga
+package: cloud.lazycat.app.taiga
+services:
+  taiga:
+    image: cloudron/io.taiga.cloudronapp:20211027-132958-72480f38b
+version: 2.11.11

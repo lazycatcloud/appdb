@@ -1,0 +1,23 @@
+application:
+  routes:
+  - /=http://baserow.cloud.lazycat.app.baserow.lzcapp:80
+  subdomain: baserow
+description: 'This app packages Baserow <upstream>1.7.1</upstream>
+
+
+  Baserow is an open source no-code database tool and Airtable alternative. Easily
+  create
+
+  a relational database without any technical expertise. Build a table and define
+  custom
+
+  fields like text, number, file and many more.
+
+  '
+lzc-sdk-version: '0.1'
+name: Baserow
+package: cloud.lazycat.app.baserow
+services:
+  baserow:
+    image: cloudron/io.baserow.cloudronapp:20211208-145148-419ce055b
+version: 1.0.10

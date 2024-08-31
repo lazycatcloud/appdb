@@ -1,0 +1,6 @@
+[submodule "drawio/source"]
+	path = drawio/source
+	url = git@gitee.com:lazycatcloud/drawio.git
+[submodule "excalidraw/source"]
+	path = excalidraw/source
+	url = git@gitee.com:linakesi/excalidraw.git

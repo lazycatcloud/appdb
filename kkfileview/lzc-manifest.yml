@@ -1,0 +1,26 @@
+lzc-sdk-version: 0.1
+
+package: cloud.lazycat.app.kkfileview
+version: 0.0.1
+
+name: kkFileView
+description: kkFileView为文件文档在线预览解决方案，该项目使用流行的spring boot搭建，易上手和部署，基本支持主流办公文档的在线预览，如doc,docx,xls,xlsx,ppt,pptx,pdf,txt,zip,rar,图片,视频,音频等等
+
+license: https://github.com/kekingcn/kkFileView/blob/master/LICENSE
+homepage: https://github.com/kekingcn/kkFileView
+author: admin@linakesi.com
+
+application:
+  subdomain: kkfileview
+  background_task: true
+  routes:
+    - /=http://kk.cloud.lazycat.app.kkfileview.lzcapp:8012
+
+  image: registry.lazycat.cloud/alpine:3.16
+
+  depends_on:
+    - kk
+
+services:
+  kk:
+    image: keking/kkfileview

@@ -1,0 +1,47 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.autobangumi
+version: "0.5.1"
+name: autobangumi
+description: AutoBangumi V2
+  实现了全自动化的追番场景：一次配置，永久使用。当番剧更新后，自动下载更新并整理，最终自动出现在媒体库中。而你所需要做的，就是打开媒体库，看番。
+homepage: https://github.com/EstrellaXD/Auto_Bangumi
+author: admin@linakesi.com
+application:
+  background_task: true
+  user_app: true
+  routes:
+    - /=http://web.cloud.lazycat.app.autobangumi.lzcapp:7892
+    - /qb/=http://qb.cloud.lazycat.app.autobangumi.lzcapp:8080
+  depends_on:
+    - web
+  subdomain: autobangumi
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  web:
+    image: registry.lazycat.cloud/estrellaxd/auto_bangumi:latest
+    environment:
+      - TZ=Asia/Shanghai
+      - PGID=0
+      - PUID=0
+      - AB_DOWNLOADER_HOST=http://${LAZYCAT_USER_ID}.qb.cloud.lazycat.app.autobangumi.lzcapp:8080
+      - PYTHON_QBITTORRENTAPI_DO_NOT_VERIFY_WEBUI_CERTIFICATE=1
+      - USER=admin
+      - PASSWORD=adminadmin
+    binds:
+      - /lzcapp/var/config:/app/config
+      - /lzcapp/var/data:/app/data
+    depends_on:
+      - qb
+  qb:
+    image: registry.lazycat.cloud/superng6/qbittorrent:4.6.0.10-1
+    environment:
+      - TZ=Asia/Shanghai
+      - TemPath=/downloads
+      - SavePath=/downloads
+      - PGID=0
+      - PUID=0
+      - PYTHON_QBITTORRENTAPI_DO_NOT_VERIFY_WEBUI_CERTIFICATE=1
+
+    binds:
+      - /lzcapp/run/mnt/home/autobangumi:/downloads
+      - /lzcapp/var/qBconfig:/config

@@ -1,0 +1,31 @@
+application:
+  routes:
+  - /=http://omekas.cloud.lazycat.app.omekas.lzcapp:3000
+  subdomain: omekas
+description: "This app packages Omeka S <upstream>3.1.1</upstream>\n\n### Overview\n\
+  \nOmeka S is a next-generation web publishing platform for communities and institutions\
+  \ interested in connecting digital cultural heritage collections with other resources\
+  \ online. It's a libre software that allows researchers, universities, galleries,\
+  \ libraries, archives, museums, etc. to manage their data and resources and creates\
+  \ a local network of independently curated exhibits sharing a collaboratively built\
+  \ pool of items and their metadata. \n \n### Features \n\n- **Install Once** Create\
+  \ and manage many sites with a streamlined installation of Omeka S.\n- **Connect\
+  \ to the Semantic Web** Publish items with linked open data.\n- **Share with DPLA**\
+  \ Describe items with DPLA-ready resource templates.\n- **Extend and Build** Extend\
+  \ functionality of Omeka S sites with modules to map, collect, import, and connect\
+  \ resources.\n- **Design with Ease** Style each Omeka S site with a different fully-responsive\
+  \ theme to fit any screen size.\n\n### Installation information\n\n- Cloudron user-management\
+  \ is supported by the pre-installed Ldap module where user email and name attributes\
+  \ settings with `mail` and `username`. The default user role is \"researcher\",\
+  \ the lower role. Please note that users who connect this way must login with their\
+  \ username and not their email address.\n- You can extend the functionality of Omeka\
+  \ S by installing manually in the directory `/app/data/modules` with Cloudron CLI\
+  \ or file manager UI. \n- Omeka S comes with a default theme. You can install other\
+  \ themes in `/app/data/themes` directory. \n\n"
+lzc-sdk-version: '0.1'
+name: Omeka S
+package: cloud.lazycat.app.omekas
+services:
+  omekas:
+    image: cloudron/org.omekas.cloudronapp:20211016-191609-778036c92
+version: 0.5.14

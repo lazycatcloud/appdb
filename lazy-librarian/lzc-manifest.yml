@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.librarian.lazy
+version: 0.0.1
+name: LazyLibrarian
+description:
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://lazylibrarian.gitlab.io/
+application:
+  subdomain: lazy-librarian
+  routes:
+    - /=http://lazy-librarian.cloud.lazycat.app.librarian.lazy.lzcapp:5299
+  user_app: true
+services:
+  lazy-librarian:
+    image: registry.lazycat.cloud/appdb/lazy-librarian:v0.0.1

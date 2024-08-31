@@ -1,0 +1,10 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.jsoncrack
+version: 3.1.0-lzc1-1
+name: JSON Crack
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://jsoncrack.com/
+application:
+  subdomain: jsoncrack
+  routes:
+    - /=file:///lzcapp/pkg/content/

@@ -1,0 +1,14 @@
+application:
+  routes:
+  - /=http://drawio.cloud.lazycat.app.paddle-ocr.lzcapp:80
+  subdomain: paddle-ocr
+description: 开源的文本识别
+lzc-sdk-version: '0.1'
+name: https://github.com/PaddlePaddle/PaddleOCR
+package: cloud.lazycat.app.paddle-ocr
+services:
+  drawio:
+    binds:
+    - /lzcapp/var:/paddle-ocr
+    image: jeesk/paddleocr:2.5
+version: 0.0.11

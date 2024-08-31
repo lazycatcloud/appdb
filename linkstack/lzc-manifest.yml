@@ -1,0 +1,22 @@
+description: LinkStack - 创建个性化和专业的个人资料页面的终极解决方案
+lzc-sdk-version: '0.1'
+name: LinkStack
+version: 0.0.1
+package: cloud.lazycat.app.linkstack
+license: https://choosealicense.com/licenseqs/agpl-3.0/
+application:
+  public_path:
+    - /assets
+  routes:
+  - /=http://server.cloud.lazycat.app.linkstack.lzcapp:80
+  subdomain: linkstack
+services:
+  server:
+    image: registry.lazycat.cloud/linkstack:v4.2.6
+    environment:
+      - HTTP_SERVER_NAME=${LAZYCAT_APP_DOMAIN}
+      - HTTPS_SERVER_NAME=${LAZYCAT_APP_DOMAIN}
+      - TZ=Asia/Shanghai
+      - REDIRECT_HTTPS=true
+    binds:
+      - /lzcapp/var/linkstack:/htdocs

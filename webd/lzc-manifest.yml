@@ -1,0 +1,22 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.webd
+version: 0.0.3
+name: webd
+description: webd
+homepage: ""
+author: admin@linakesi.com
+application:
+  user_app: true
+  basic_auth_path:
+    - /
+  routes:
+    - /=http://web.cloud.lazycat.app.webd.lzcapp:80
+  depends_on:
+    - web
+  subdomain: webd
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  web:
+    image: registry.lazycat.cloud/d1y/webd:0.0.3
+    binds:
+      - /lzcapp/run/mnt/home:/data

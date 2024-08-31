@@ -1,0 +1,1 @@
+console.log("my-plugin is actived");

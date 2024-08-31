@@ -1,0 +1,23 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.homarr
+version: 0.0.2
+name: homarr
+description: homarr
+author: admin@linakesi.com
+application:
+  user_app: true
+  routes:
+    - /=http://hm.cloud.lazycat.app.homarr.lzcapp:7575
+  depends_on:
+    - hm
+  subdomain: homarr
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  hm:
+    # the raw image is ghcr.io/ajnart/homarr:dev
+    image: registry.lazycat.cloud/d1y/homarr:20230804
+    environment:
+      - TZ=Asia/Shanghai
+    binds:
+      - /lzcapp/var/configs:/app/data/configs
+      - /lzcapp/var/icons:/app/public/icons

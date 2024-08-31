@@ -1,0 +1,44 @@
+application:
+  routes:
+  - /=http://nodebb.cloud.lazycat.app.nodebb.lzcapp:4567
+  subdomain: nodebb
+description: 'This app packages NodeBB Version <upstream>1.18.6</upstream>
+
+
+  ### Overview
+
+
+  A community forum allows you to engage and retain customers, keeping them interested
+
+  and up-to-date with your latest product or service.
+
+
+  NodeBB integrates into your existing website and social media networks, allowing
+  you
+
+  to maximize your outreach and establish close relationships with your users.
+
+
+  ### Features
+
+
+  * Mobile Responsive
+
+  * Internationalization
+
+  * SEO
+
+  * Social Integration
+
+  * Real-time streaming
+
+  * Analytics
+
+  '
+lzc-sdk-version: '0.1'
+name: NodeBB
+package: cloud.lazycat.app.nodebb
+services:
+  nodebb:
+    image: cloudron/org.nodebb.cloudronapp:20211110-221807-2801394a4
+version: 1.19.16

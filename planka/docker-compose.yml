@@ -1,0 +1,50 @@
+version: "3.9"
+x-lazycat-app:
+  quality: normal
+  id: planka
+  icon: icon.png
+  title: planka
+  upstream: https://github.com/plankanban/planka
+  summary: A Trello-like kanban board built with React and Redux.
+  screenshots:
+    - screenshot.gif
+  categories:
+    - kanban
+services:
+  planka:
+    image: meltyshev/planka:latest
+    command: >
+      bash -c
+        "for i in `seq 1 30`; do
+          ./start.sh &&
+          s=$$? && break || s=$$?;
+          echo \"Tried $$i times. Waiting 5 seconds...\";
+          sleep 5;
+        done; (exit $$s)"
+    volumes:
+      - user-avatars:/app/public/user-avatars
+      - project-background-images:/app/public/project-background-images
+      - attachments:/app/public/attachments
+    environment:
+      - BASE_URL=http://${LAZYCAT_APP_ORIGIN}
+      - TRUST_PROXY=0
+      - DATABASE_URL=postgresql://postgres@postgres/planka
+      - SECRET_KEY=temp_password
+    depends_on:
+      - postgres
+    labels:
+      ingress-1337: planka
+
+  postgres:
+    image: postgres:alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=planka
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+volumes:
+  user-avatars:
+  project-background-images:
+  attachments:
+  db-data:

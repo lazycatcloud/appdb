@@ -1,0 +1,35 @@
+application:
+  routes:
+  - /=http://discourse.cloud.lazycat.app.discourse.lzcapp:80
+  subdomain: discourse
+description: 'This app packages Discourse Version <upstream>2.7.11</upstream>
+
+
+  ## About
+
+
+  Discourse is the 100% open source discussion platform built for the next decade
+  of the Internet.
+
+
+  Use it as a:
+
+
+  * mailing list
+
+  * discussion forum
+
+  * long-form chat room
+
+
+  To learn more about the philosophy and goals of the project, visit discourse.org.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Discourse
+package: cloud.lazycat.app.discourse
+services:
+  discourse:
+    image: cloudron/org.discourse.cloudronapp:20211201-191930-783cb694a
+version: 1.6.18

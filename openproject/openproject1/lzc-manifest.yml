@@ -1,0 +1,19 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.openproject
+version: 0.0.1
+name: OpenProject
+description: 项目管理工具
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://www.openproject.org/
+author: OpenProject authors
+application:
+  subdomain: openproject
+  routes:
+    - /=http://openproject.cloud.lazycat.app.openproject.lzcapp:80
+services:
+  openproject:
+    image: registry.lazycat.cloud/appdb/openproject:v0.0.1
+    environment:
+      - OPENPROJECT_HOST__NAME=openproject.${LAZYCAT_BOX_DOMAIN}
+      - OPENPROJECT_AUTH__SOURCE__SSO_HEADER=X-Hc-User-Id
+      - OPENPROJECT_DISABLE__PASSWORD__LOGIN=true

@@ -1,0 +1,26 @@
+# docker-compose up
+FROM wordpress:6.4.2-php8.2-apache
+
+# 安装必要的依赖
+RUN curl -sSL https://gitee.com/clh21/sh/raw/master/mirror.sh | sh
+RUN apt-get update && \
+    apt-get install -y curl sqlite3 libsqlite3-dev default-mysql-client bash less && \
+    docker-php-ext-install pdo pdo_sqlite
+
+# # 下载和安装 WP-CLI 工具
+# RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+#     chmod +x wp-cli.phar && \
+#     mv wp-cli.phar /usr/local/bin/wp
+# https://github.com/wp-cli/wp-cli/releases/download/v2.9.0/wp-cli-2.9.0.phar
+COPY wp-cli-2.9.0.phar /usr/local/bin/wp
+RUN chmod +x /usr/local/bin/wp
+
+# Copy auto_install_wordpress.sh script to the container
+COPY auto-install-wordpress.sh /usr/local/bin/auto-install-wordpress.sh
+
+# Use sed command to insert the code to docker-entrypoint.sh
+RUN sed -i '$i # Check if auto-install-wordpress.sh exists and execute it\nif [ -f "/usr/local/bin/auto-install-wordpress.sh" ]; then\n    bash /usr/local/bin/auto-install-wordpress.sh\nfi\n' /usr/local/bin/docker-entrypoint.sh
+
+# Check that the homepage is displayed
+HEALTHCHECK --interval=2s --timeout=60s \
+  CMD curl -f http://localhost/ || exit 1

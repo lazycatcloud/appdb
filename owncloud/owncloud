@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+set -eo pipefail
+[[ "${DEBUG}" == "true" ]] && set -x
+
+if [[ -z "${OWNCLOUD_ENTRYPOINT_INITIALIZED}" ]]
+then
+  for FILE in $(find /etc/entrypoint.d -iname \*.sh | sort)
+  do
+    source ${FILE}
+  done
+fi
+
+function initPath() {
+    DIR=/userdata/$1
+    TAR=/mnt/data/files/$1\@heiyu.space
+    if [ $2 = "init" ]
+    then
+        if [ ! -d $DIR ]; then
+            mkdir $DIR
+        fi
+        mkdir $TAR/files -p
+        chown www-data -R $TAR
+    else
+        mount --bind $DIR $TAR/files
+    fi
+}
+
+case ${1} in
+  install)
+    COMMAND="occ maintenance:install --no-interaction --data-dir ${OWNCLOUD_VOLUME_FILES}"
+    [[ -n "${OWNCLOUD_DB_TYPE}" ]] && COMMAND="${COMMAND} --database ${OWNCLOUD_DB_TYPE}"
+    [[ -n "${OWNCLOUD_DB_NAME}" ]] && COMMAND="${COMMAND} --database-name ${OWNCLOUD_DB_NAME}"
+    [[ -n "${OWNCLOUD_DB_USERNAME}" ]] && COMMAND="${COMMAND} --database-user ${OWNCLOUD_DB_USERNAME}"
+    [[ -n "${OWNCLOUD_DB_PASSWORD}" ]] && COMMAND="${COMMAND} --database-pass ${OWNCLOUD_DB_PASSWORD}"
+    [[ -n "${OWNCLOUD_DB_HOST}" ]] && COMMAND="${COMMAND} --database-host ${OWNCLOUD_DB_HOST}"
+    [[ -n "${OWNCLOUD_DB_PREFIX}" ]] && COMMAND="${COMMAND} --database-table-prefix ${OWNCLOUD_DB_PREFIX}"
+    [[ -n "${OWNCLOUD_ADMIN_USERNAME}" ]] && COMMAND="${COMMAND} --admin-user ${OWNCLOUD_ADMIN_USERNAME}"
+    [[ -n "${OWNCLOUD_ADMIN_PASSWORD}" ]] && COMMAND="${COMMAND} --admin-pass ${OWNCLOUD_ADMIN_PASSWORD}"
+
+    set +e
+    ${COMMAND}
+    
+    echo "### Executing ldap initialize"
+    arrayL=(${LDAP_HOST//:/ })
+    #occ config:system:set trusted_domains 0 --value=$OWNCLOUD_HOST
+    occ config:system:set filesystem_check_changes --value=1
+    occ config:system:set   skeletondirectory --value=''
+    occ app:enable user_ldap
+    occ ldap:create-empty-config
+    occ ldap:set-config s01 ldapHost ${arrayL[0]}
+    occ ldap:set-config s01 ldapPort ${arrayL[1]}
+    occ ldap:set-config s01 ldapAgentName ${LDAP_BIND_DN}
+    occ ldap:set-config s01 ldapAgentPassword ${LDAP_ADMIN_PASSWORD}
+    occ ldap:set-config s01 ldapBase ${LDAP_BASE_DN}
+    occ ldap:set-config s01 ldapLoginFilterUsername 1
+    occ ldap:set-config s01 ldapLoginFilterEmail 1
+    occ ldap:set-config s01 ldapLoginFilterAttributes uid
+    occ ldap:set-config s01 ldapLoginFilter "(&(|(objectclass=person))(|(uid=%uid)(|(mailPrimaryAddress=%uid)(mail=%uid))(|(uid=%uid))))"
+    occ ldap:set-config s01 ldapGroupFilterObjectclass groupOfNames
+    occ ldap:set-config s01 ldapGroupMemberAssocAttr member
+    occ ldap:set-config s01 ldapGroupFilter "(&(|(objectclass=groupOfNames))(|(cn=user)))"
+    occ ldap:set-config s01 ldapUserFilterObjectclass inetOrgPerson
+    occ ldap:set-config s01 ldapUserFilter "(|(objectclass=inetOrgPerson))"
+    occ ldap:set-config s01 ldapUserDisplayName cn
+    occ ldap:set-config s01 ldapExpertUsernameAttr mail
+    occ ldap:test-config s01
+    occ ldap:set-config s01 ldapConfigurationActive 1
+    echo "### ldap init finished"
+
+    initPath demo init
+    initPath admin init
+
+    RES=$?
+    set -e
+
+    if [[ "${RES}" -ge "1" ]]
+    then
+      exit ${RES}
+    else
+      exit 0
+    fi
+    ;;
+  migrate)
+    COMMAND="occ upgrade --no-interaction"
+
+    set +e
+    ${COMMAND}
+    RES=$?
+    set -e
+
+    if [[ "${RES}" -ge "4" ]]
+    then
+      exit ${RES}
+    else
+      exit 0
+    fi
+    ;;
+  installed)
+    if [[ $(occ -V | awk -F- '$1=="ownCloud is not installed "{print "false"}') == "false" ]]
+    then
+      exit 1
+    else
+      exit 0
+    fi
+    ;;
+  *)
+    for FILE in $(find /etc/owncloud.d -iname \*.sh | sort)
+    do
+      source ${FILE}
+    done
+
+    initPath demo
+    initPath admin
+    exec $@
+    ;;
+esac

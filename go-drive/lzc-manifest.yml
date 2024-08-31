@@ -1,0 +1,24 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.godrive
+version: 0.0.4
+name: go-drive
+description: godrive
+homepage: ""
+author: admin@linakesi.com
+application:
+  background_task: true
+  user_app: true
+  routes:
+    - /=http://gd.cloud.lazycat.app.godrive.lzcapp:8089
+  depends_on:
+    - gd
+  subdomain: go-drive
+  image: registry.lazycat.cloud/alpine:3.16
+  basic_auth_path:
+    - /dav
+services:
+  gd:
+    image: registry.lazycat.cloud/devld/go-drive:20230824
+    binds:
+      - /lzcapp/var/data:/app/data
+      - /lzcapp/pkg/content/config.yml:/app/config.yml

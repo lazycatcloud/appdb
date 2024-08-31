@@ -1,0 +1,59 @@
+application:
+  routes:
+  - /=http://kanboard.cloud.lazycat.app.kanboard.lzcapp:8000
+  subdomain: kanboard
+description: "This app packages Kanboard <upstream>1.2.20</upstream>\n\nKanboard is\
+  \ a project management software that use the Kanban methodology.\n\n### Features\n\
+  * Fast and simple to use\n* Visualize your work\n* Limit your work in progress to\
+  \ be more efficient\n* Customize your boards according to your business activities\n\
+  * Multiple boards with the ability to drag and drop tasks\n* Reports and analytics\n\
+  * Access from anywhere with a modern browser\n* Visual and clear overview of your\
+  \ tasks\n* Search and filter tasks\n* Single dashboard for all projects\n* Tasks,\
+  \ subtasks, attachments and comments\n* Swimlines, Gantt charts and much more\n\n\
+  ### About Kanban\n\nKanban is a methodology originally developed by Toyota to be\
+  \ more efficient.\n\nThere is only two constraints imposed by Kanban:\n\n  * Visualize\
+  \ your workflow\n  * Limit your work in progress\n  * Measure performance and improvement\n\
+  \nYou can read more about kanban [here](http://kanboard.net/documentation/what-is-kanban).\n"
+lzc-sdk-version: '0.1'
+name: Kanboard
+package: cloud.lazycat.app.kanboard
+services:
+  kanboard:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=ou=groups,dc=lazycat
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://kanboard.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://kanboard.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=kanboard.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.kanboard.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/net.kanboard.cloudronapp:20210609-114249-14608d25b
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 1.14.12

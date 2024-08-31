@@ -1,0 +1,19 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.webtver
+version: 0.1.1
+name: webTV
+description: 网络电视, web-tv, online stream tv
+
+license: https://opensource.org/license/mit
+homepage: https://github.com/weekend-project-space/web-tv
+author: d1y
+
+application:
+  subdomain: webtv
+  background_task: false
+  user_app: true
+
+  routes:
+    - /=file:///lzcapp/pkg/content/
+
+  image: registry.lazycat.cloud/alpine:3.16

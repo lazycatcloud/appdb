@@ -1,0 +1,18 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.yanknote
+version: 0.0.3
+name: Yank Note
+description: 一款强大可扩展的 Markdown 编辑器，为生产力而生。
+license: https://choosealicense.com/licenses/agpl-3.0
+homepage: https://github.com/purocean/yn
+application:
+  subdomain: yanknote
+  user_app: true
+  routes:
+    - /=http://$uid.yn.cloud.lazycat.app.yanknote.lzcapp:8888
+    - /chown=exec://8000,/lzcapp/pkg/content/chown
+services:
+  yn:
+    image: registry.lazycat.cloud/yanknote:0.0.3
+    binds:
+      - /lzcapp/var/yank-note:/home/node/yank-note

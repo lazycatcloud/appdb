@@ -1,0 +1,25 @@
+application:
+  routes:
+  - /=http://cubby.cloud.lazycat.app.cubby.lzcapp:3000
+  subdomain: cubby
+description: 'This app packages Cubby <upstream>0.1.9</upstream>
+
+
+  ### Overview
+
+
+  Plain awesome Filesharing.
+
+
+  **WARNING!!! This is app is under heavy development and far from stable for production
+  use. Data put into this app might be at risk!**
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Cubby
+package: cloud.lazycat.app.cubby
+services:
+  cubby:
+    image: cloudron/io.cloudron.cubby:20211031-225258-669403686
+version: 0.2.10

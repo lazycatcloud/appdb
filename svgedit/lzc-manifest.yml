@@ -1,0 +1,13 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.svgedit
+version: 7.3.2-lzc1-1
+name: SVG-Edit
+license: https://opensource.org/license/mit/
+homepage: https://github.com/SVG-Edit/svgedit
+application:
+  subdomain: svgedit
+  routes:
+    - /=http://svgedit.cloud.lazycat.app.svgedit.lzcapp:80
+services:
+  svgedit:
+    image: registry.lazycat.cloud/appdb/svgedit:v7.3.2-lzc1-1

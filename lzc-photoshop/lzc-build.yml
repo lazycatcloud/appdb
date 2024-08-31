@@ -1,0 +1,4 @@
+manifest: ./lzc-manifest.yml
+icon: ./logo.png
+contentdir: ./ps/www.photopea.com
+pkgout: ./

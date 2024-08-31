@@ -1,0 +1,11 @@
+mqtt:
+  host: mqtt.cloud.lazycat.app.frigate.lzcapp
+
+cameras:
+  test:
+    ffmpeg:
+      inputs:
+        - path: /media/frigate/car-stopping.mp4
+          input_args: -re -stream_loop -1 -fflags +genpts
+          roles:
+            - rtmp

@@ -1,0 +1,4 @@
+FROM debian:sid-20230522
+
+RUN apt-get update
+RUN apt-get install -y build-essential make gnupg pkg-config cpanminus redis-server libarchive-dev imagemagick webp libssl-dev zlib1g-dev libjxl-dev perlmagick ghostscript npm redis

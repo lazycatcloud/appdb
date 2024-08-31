@@ -1,0 +1,115 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.standardnotes
+version: 0.1.1
+name: standardnotes
+description: 一款界面非常清爽的跨平台开源云笔记应用
+license: https://choosealicense.com/licenses/gpl-3.0
+homepage: https://github.com/standardnotes
+application:
+  subdomain: standardnotes
+  public_path:
+    - /v1
+    - /v2
+    - /manifest.webmanifest
+  environment:
+    - DEFAULT_SYNC_SERVER=https://${LAZYCAT_APP_ORIGIN}
+    - DEFAULT_FILES_HOST=https://${LAZYCAT_APP_ORIGIN}
+  routes:
+    - /=http://web.cloud.lazycat.app.standardnotes.lzcapp:80
+    - /v1/files=http://server.cloud.lazycat.app.standardnotes.lzcapp:3104/v1/files
+    - /v1/files/=http://server.cloud.lazycat.app.standardnotes.lzcapp:3104/v1/files
+    - /v1/files/valet-tokens=http://server.cloud.lazycat.app.standardnotes.lzcapp:3000/v1/files/valet-tokens
+    - /current_lzc_account=http://server.cloud.lazycat.app.standardnotes.lzcapp:3000/current_lzc_account
+    - /current_lzc_account/=http://server.cloud.lazycat.app.standardnotes.lzcapp:3000/current_lzc_account
+    - /v1/=http://server.cloud.lazycat.app.standardnotes.lzcapp:3000/v1
+    - /v2/=http://server.cloud.lazycat.app.standardnotes.lzcapp:3000/v2
+services:
+  web:
+    image: registry.lazycat.cloud/standardnotes_web:0.0.11
+    environment:
+      - DEFAULT_SYNC_SERVER=https://${LAZYCAT_APP_ORIGIN}
+  server:
+    image: registry.lazycat.cloud/standardnotes_server:0.0.3
+    environment:
+      - DB_HOST=db.cloud.lazycat.app.standardnotes.lzcapp
+      - DB_PORT=3306
+      - DB_USERNAME=std_notes_user
+      - DB_PASSWORD=changeme123
+      - DB_DATABASE=standard_notes_db
+      - REDIS_PORT=6379
+      - REDIS_HOST=cache.cloud.lazycat.app.standardnotes.lzcapp
+      - PUBLIC_FILES_SERVER_URL=https://${LAZYCAT_APP_ORIGIN}
+      - AUTH_SERVER_SNS_ENDPOINT="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566"
+      - AUTH_SERVER_SQS_QUEUE_URL="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566/000000000000/auth-local-queue"
+      - AUTH_SERVER_SQS_ENDPOINT="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566"
+      - SYNCING_SERVER_SNS_ENDPOINT="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566"
+      - SYNCING_SERVER_SQS_QUEUE_URL="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566/000000000000/syncing-server-local-queue"
+      - SYNCING_SERVER_SQS_ENDPOINT="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566"
+      - FILES_SERVER_SNS_ENDPOINT="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566"
+      - FILES_SERVER_SQS_QUEUE_URL="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566/000000000000/files-local-queue"
+      - FILES_SERVER_SQS_ENDPOINT="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566"
+      - REVISIONS_SERVER_SNS_ENDPOINT="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566"
+      - REVISIONS_SERVER_SQS_QUEUE_URL="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566/000000000000/revisions-server-local-queue"
+      - REVISIONS_SERVER_SQS_ENDPOINT="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566"
+      - AUTH_SERVER_SNS_ENDPOINT="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566"
+      - AUTH_SERVER_SQS_QUEUE_URL="http://localstack.cloud.lazycat.app.standardnotes.lzcapp:4566/000000000000/auth-local-queue" 
+      - LOCALSTACK_HOST=localstack.cloud.lazycat.app.standardnotes.lzcapp
+      - AUTH_JWT_SECRET=b989cedbbb1252b254ae8ddbdeaaae6e015caf4c5f1b01dc383db7a96cf37d43
+      - AUTH_SERVER_ENCRYPTION_SERVER_KEY=8eeee846a6fc83e291aad008f956621d7b911bb122f4771aef88ce144ec41403
+      - VALET_TOKEN_SECRET=6d4259cfa625fbc95c3ced201622e9ef6dcf48a8ab12662d20732d0f96dc2fe8
+    binds:
+      - /lzcapp/var/logs:/var/lib/server/logs
+      - /lzcapp/var/uploads:/opt/bundled/files/packages/files/dist/uploads
+  localstack:
+    image: localstack/localstack:1.3
+    environment:
+      - SERVICES=sns,sqs
+      - HOSTNAME_EXTERNAL=localstack
+      - LS_LOG=warn
+      - DB_HOST=db.cloud.lazycat.app.standardnotes.lzcapp
+      - DB_PORT=3306
+      - DB_USERNAME=std_notes_user
+      - DB_PASSWORD=changeme123
+      - DB_DATABASE=standard_notes_db
+      - REDIS_PORT=6379
+      - REDIS_HOST=cache.cloud.lazycat.app.standardnotes.lzcapp
+      - AUTH_JWT_SECRET=b989cedbbb1252b254ae8ddbdeaaae6e015caf4c5f1b01dc383db7a96cf37d43
+      - AUTH_SERVER_ENCRYPTION_SERVER_KEY=8eeee846a6fc83e291aad008f956621d7b911bb122f4771aef88ce144ec41403
+      - VALET_TOKEN_SECRET=6d4259cfa625fbc95c3ced201622e9ef6dcf48a8ab12662d20732d0f96dc2fe8
+    binds:
+      - /lzcapp/pkg/content/localstack_bootstrap.sh:/etc/localstack/init/ready.d/localstack_bootstrap.sh
+  db:
+    image: mariadb:10.7
+    environment:
+      - MYSQL_DATABASE=standard_notes_db
+      - MYSQL_USER=std_notes_user
+      - MYSQL_ROOT_PASSWORD=changeme123
+      - MYSQL_PASSWORD=changeme123
+      - DB_HOST=db.cloud.lazycat.app.standardnotes.lzcapp
+      - DB_PORT=3306
+      - DB_USERNAME=std_notes_user
+      - DB_PASSWORD=changeme123
+      - DB_DATABASE=standard_notes_db
+      - REDIS_PORT=6379
+      - REDIS_HOST=cache.cloud.lazycat.app.standardnotes.lzcapp
+      - AUTH_JWT_SECRET=b989cedbbb1252b254ae8ddbdeaaae6e015caf4c5f1b01dc383db7a96cf37d43
+      - AUTH_SERVER_ENCRYPTION_SERVER_KEY=8eeee846a6fc83e291aad008f956621d7b911bb122f4771aef88ce144ec41403
+      - VALET_TOKEN_SECRET=6d4259cfa625fbc95c3ced201622e9ef6dcf48a8ab12662d20732d0f96dc2fe8
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    binds:
+      - /lzcapp/var/db/mysql:/var/lib/mysql
+  cache:
+    image: redis:6.0-alpine
+    environment:
+      - DB_HOST=db.cloud.lazycat.app.standardnotes.lzcapp
+      - DB_PORT=3306
+      - DB_USERNAME=std_notes_user
+      - DB_PASSWORD=changeme123
+      - DB_DATABASE=standard_notes_db
+      - REDIS_PORT=6379
+      - REDIS_HOST=cache.cloud.lazycat.app.standardnotes.lzcapp
+      - AUTH_JWT_SECRET=b989cedbbb1252b254ae8ddbdeaaae6e015caf4c5f1b01dc383db7a96cf37d43
+      - AUTH_SERVER_ENCRYPTION_SERVER_KEY=8eeee846a6fc83e291aad008f956621d7b911bb122f4771aef88ce144ec41403
+      - VALET_TOKEN_SECRET=6d4259cfa625fbc95c3ced201622e9ef6dcf48a8ab12662d20732d0f96dc2fe8
+    binds:
+      - /lzcapp/var/redis/:/data

@@ -1,0 +1,24 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.vikunja
+version: 0.21.0-lzc1-1
+name: Vikunja
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://vikunja.io/
+author: kolaente
+application:
+  subdomain: vikunja
+  routes:
+    - /=file:///lzcapp/pkg/content/
+    - /api/=http://vikunja-api.cloud.lazycat.app.vikunja.lzcapp:3456/api/
+  public_path:
+    - /assets/
+    - /favicon.ico
+    - /images/
+    - /manifest.webmanifest
+    - /robots.txt
+    - /sw.js
+    - /sw.js.map
+    - /workbox-v7.0.0/
+services:
+  vikunja-api:
+    image: registry.lazycat.cloud/appdb/vikunja-api:v0.21.0-lzc1

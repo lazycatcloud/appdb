@@ -1,0 +1,40 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.wordpress
+version: 0.1.1
+name: WordPress
+description: WordPress是一个以PHP和MySQL为平台的自由开源的博客软件和内容管理系统。 WordPress具有插件架构和模板系统。 截至2018年4月，排名前1000万的网站中超过30.6%使用WordPress。 WordPress是最受欢迎的网站内容管理系统。
+license: https://choosealicense.com/licenses/gpl-2.0/
+homepage: https://github.com/WordPress/WordPress/
+application:
+  subdomain: wordpress
+  routes:
+    # - /=http://pc.lan:8000/
+    # - /=file:///lzcapp/pkg/content/
+    - /=http://web.cloud.lazycat.app.wordpress.lzcapp:80
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/wordpress:6.4.1.1
+    environment:
+      - WORDPRESS_DB_HOST=${LAZYCAT_USER_ID}.db.cloud.lazycat.app.wordpress.lzcapp
+      - WORDPRESS_DB_USER=wordpress
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_URL=https://wordpress.$LAZYCAT_BOX_DOMAIN
+      - WORDPRESS_TITLE=My.WordPress
+      - WORDPRESS_ADMINNAME=admin
+      - WORDPRESS_ADMINPASS=admin
+      - WORDPRESS_EMAIL=admin@example.com
+      - WORDPRESS_PLUGIN_DIR=/wp_plugins # 包含 wp plugin zip格式插件的目录，将由wp命令直接安装
+    binds:
+      - /lzcapp/var/wordpress:/var/www/html
+      - /lzcapp/pkg/content:/wp_plugins
+  db:
+    image: registry.lazycat.cloud/mysql:5.7
+    environment:
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=wordpress
+      - MYSQL_ROOT_PASSWORD=wordpress
+    binds:
+      - /lzcapp/var/mysql:/var/lib/mysql

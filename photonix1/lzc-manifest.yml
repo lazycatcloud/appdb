@@ -1,0 +1,31 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.photonix
+version: 0.0.1
+name: Photonix
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://photonix.org/
+application:
+  subdomain: photonix
+  routes:
+    - /=http://$uid.photonix.cloud.lazycat.app.photonix.lzcapp:80
+  user_app: true
+services:
+  photonix-postgres:
+    environment:
+      - POSTGRES_DB=photonix
+      - POSTGRES_PASSWORD=password
+      - PGDATA=/lzcapp/var/db
+    image: postgres:11.1-alpine
+  photonix-redis:
+    image: redis:6.2.2
+  photonix:
+    environment:
+      - ENV=prod
+      - POSTGRES_HOST=${LAZYCAT_USER_ID}.photonix-postgres.cloud.lazycat.app.photonix.lzcapp
+      - POSTGRES_DB=photonix
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - REDIS_HOST=${LAZYCAT_USER_ID}.photonix-redis.cloud.lazycat.app.photonix.lzcapp
+      - ADMIN_PASSWORD=password
+      - ALLOWED_HOSTS=photonix.${LAZYCAT_BOX_DOMAIN}
+    image: registry.lazycat.cloud/appdb/photonix:v0.0.1

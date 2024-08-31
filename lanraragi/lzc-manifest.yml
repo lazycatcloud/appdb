@@ -1,0 +1,19 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.lanraragi
+version: 0.0.1
+name: LANraragi
+description: Web application for archival and reading of manga/doujinshi.
+license: https://choosealicense.com/licenses/mit
+homepage: https://github.com/Difegue/LANraragi
+application:
+  subdomain: lanraragi
+  user_app: true
+  routes:
+    - /=http://$uid.server.cloud.lazycat.app.lanraragi.lzcapp:3000
+services:
+  server:
+    image: registry.lazycat.cloud/lanraragi:0.0.1
+    binds:
+      - /lzcapp/var/lanraragi:/LANraragi/content
+      - /lzcapp/var/redis:/var/lib/redis
+      - /lzcapp/var/redislog:/var/log/redis

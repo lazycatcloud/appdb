@@ -1,0 +1,20 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.musicn
+version: 0.0.2
+name: musicn-container
+description: 播放及下载高品质音乐的命令行工具 musicn 容器
+homepage: https://github.com/wy580477/musicn-container
+author: admin@linakesi.com
+application:
+  user_app: true
+  routes:
+    - /=http://music.cloud.lazycat.app.musicn.lzcapp:7478
+  depends_on:
+    - music
+  subdomain: musicn
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  music:
+    image: registry.lazycat.cloud/d1y/musicn-container:0.1
+    binds:
+      - /lzcapp/run/mnt/home/musicn:/data

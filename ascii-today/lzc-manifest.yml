@@ -1,0 +1,9 @@
+lzc-sdk-version: '0.1'
+version: 0.0.1
+name: ascii-today
+package: cloud.lazycat.app.asciitoday
+description: 一套媒体播放器及媒体服务器软.
+application:
+  routes:
+  - /=file:///lzcapp/pkg/content/
+  subdomain: asciitoday

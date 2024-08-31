@@ -1,0 +1,56 @@
+application:
+  routes:
+  - /=http://directus9.cloud.lazycat.app.directus9.lzcapp:8055
+  subdomain: directus9
+description: 'This app packages Directus <upstream>9.2.1</upstream>.
+
+
+  ## About
+
+
+  Directus is an open-source tool that wraps your database with an API, and provides
+  an intuitive admin app for
+
+  non-technical users to manage its content. It''s what you''d get if you mixed a
+  headless CMS, database client,
+
+  and WebApp builder. Created in 2004, our platform powers over a million data-driven
+  projects around the world.
+
+
+  ## What makes Directus so special?
+
+
+  * Freedom to Innovate
+
+  * All Platforms & Devices
+
+  * Free & Open-Source
+
+  * Pure SQL Content
+
+  * Whitelabel with your Brand
+
+
+  ## Features
+
+
+  * Custom Workflows
+
+  * Form Layout
+
+  * Digital Asset Management
+
+  * Database Mirroring
+
+  * Multilingual Support
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Directus 9
+package: cloud.lazycat.app.directus9
+services:
+  directus9:
+    image: cloudron/io.directus9.cloudronapp:20211207-165749-36293986e
+version: 1.2.11

@@ -1,0 +1,37 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.unblockneteasemusic
+version: 0.0.1
+name: UnblockNeteaseMusic
+description: 解锁网易云音乐客户端变灰歌曲
+author: admin@linakesi.com
+application:
+  public_path:
+    - /
+  background_task: true
+  subdomain: unm
+  image: registry.lazycat.cloud/alpine:3.16
+  depends_on:
+    - unme
+  health_check:
+    test_url: unme.cloud.lazycat.app.unblockneteasemusic.lzcapp:80/proxy.pac
+    start_period: 90s
+  ingress:
+    - protocol: tcp
+      port: 8080
+      service: unme
+services:
+  unme:
+    # copy by https://github.com/UnblockNeteaseMusic/server/blob/enhanced/Dockerfile
+    image: pan93412/unblock-netease-music-enhanced
+    # FIXME: reimpl restart field
+    # restart: always
+    # copy by https://github.com/okxlin/appstore/blob/600d0a281ec472e691ac1cd6b4a610d9f7576d59/apps/unblockneteasemusic/latest/docker-compose.yml#L60
+    command: -e https://music.163.com -p 8080:8081
+    environment:
+      - JSON_LOG=true
+      - LOG_LEVEL=debug
+      - ENABLE_LOCAL_VIP=true
+      - NO_CACHE=true
+      - ENABLE_FLAC=true
+      - BLOCK_ADS=true
+      - DISABLE_UPGRADE_CHECK=true

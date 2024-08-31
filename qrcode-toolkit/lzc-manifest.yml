@@ -1,0 +1,18 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.toolkit.qrcode
+version: 0.0.2
+name: qrcode-toolkit
+description: A toolkit mainly for AI-Generated QR Codes, with the ability to
+  generate base QR codes, and compare with the output to find misaligned pixels.
+homepage: https://github.com/antfu/qrcode-toolkit
+author: antfu
+application:
+  routes:
+    - /=http://qr.cloud.lazycat.app.toolkit.qrcode.lzcapp:3000
+  depends_on:
+    - qr
+  subdomain: qrcode-toolkit
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  qr:
+    image: registry.lazycat.cloud/antfu/qrcode-toolkit:0.1

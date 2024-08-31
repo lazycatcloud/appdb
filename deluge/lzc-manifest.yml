@@ -1,0 +1,15 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.deluge
+version: 2.1.1-lzc1-1
+name: Deluge
+description:
+license: https://git.deluge-torrent.org/deluge/tree/LICENSE
+homepage: https://deluge-torrent.org/
+application:
+  subdomain: deluge
+  routes:
+    - /=http://deluge.cloud.lazycat.app.deluge.lzcapp:8112
+  user_app: true
+services:
+  deluge:
+    image: registry.lazycat.cloud/appdb/deluge:v2.1.1-lzc1-1

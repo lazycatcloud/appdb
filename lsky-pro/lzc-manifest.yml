@@ -1,0 +1,18 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.pro.lsky
+version: 0.0.2
+name: 兰空图床
+description: 图床
+license: https://www.gnu.org/licenses/gpl-3.0.en.html
+homepage: https://www.lsky.pro/
+application:
+  subdomain: lsky-pro
+  routes:
+    - /=http://lsky-pro.cloud.lazycat.app.pro.lsky.lzcapp:80
+  public_path:
+    - /i/
+services:
+  lsky-pro:
+    image: registry.lazycat.cloud/appdb/lsky-pro:v0.0.2
+    environment:
+      - APP_URL=https://lsky-pro.${LAZYCAT_BOX_DOMAIN}

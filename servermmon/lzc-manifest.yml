@@ -1,0 +1,13 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.servermmon
+version: 1.0.4-lzc1-1
+name: 青蛇探针
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://github.com/souying/serverMmon
+application:
+  subdomain: servermmon
+  routes:
+    - /=http://servermmon.cloud.lazycat.app.servermmon.lzcapp:5999
+services:
+  servermmon:
+    image: registry.lazycat.cloud/appdb/servermmon:v1.0.4-lzc1-1

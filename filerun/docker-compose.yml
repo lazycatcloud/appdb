@@ -1,0 +1,31 @@
+version: "3.9"
+x-lazycat-app:
+  quality: normal
+  id: filerun
+  icon: icon_filerun.png
+  title: Filerun
+  summary: A self-hosted G Drive/Photos/Music alternative
+  screenshots:
+    - screenshot_filerun.png
+  categories:
+    - files
+  postInstallMessage: "default username and password is superuser"
+  mysql: true
+  ingress:
+    - service:   filerun
+      port:      80
+      subdomain: filerun
+services:
+  filerun:
+    image: filerun/filerun:latest
+    environment:
+    - FR_DB_HOST=${LAZYCAT_MYSQL_HOST}
+    - FR_DB_PORT=${LAZYCAT_MYSQL_PORT}
+    - FR_DB_NAME=${LAZYCAT_MYSQL_DB_NAME}
+    - FR_DB_USER=${LAZYCAT_MYSQL_USER}
+    - FR_DB_PASS=${LAZYCAT_MYSQL_PASSWORD}
+    volumes:
+    - ${BOX_HOME}/Documents/${LAZYCAT_APP_ID}:/user-files
+    - filerun--config--config:/var/www/html
+volumes:
+  filerun--config--config: {}

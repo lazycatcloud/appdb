@@ -1,0 +1,54 @@
+version: "3.9"
+x-lazycat-app:
+  quality: normal
+  id: photonix
+  icon: icon.png
+  title: PhotoniX
+  upstream: https://photonix.org/docs/installing/
+  summary: PhotoniX aims to cover all aspects of fundamental and cutting-edge photonic technology.
+  screenshots:
+    - screenshot.jpeg
+  categories:
+    - files
+    - pictures
+services:
+  postgres:
+    container_name: photonix-postgres
+    image: postgres:11.1-alpine
+    environment:
+      POSTGRES_DB: photonix
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db:/var/lib/postgresql/data
+  redis:
+    container_name: photonix-redis
+    image: redis:6.2.2
+
+  photonix:
+    container_name: photonix
+    image: photonixapp/photonix:0.24.0
+    labels:
+      ingress-80: photonix
+    environment:
+      ENV: prd
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: photonix
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      REDIS_HOST: redis
+      ALLOWED_HOSTS: '*'
+      # More configuration options here: https://photonix.org/docs/configuration/
+    volumes:
+      - photos:/data/photos
+      - raw-processed:/data/raw-photos-processed
+      - cache:/data/cache
+      - models:/data/models
+    links:
+      - postgres
+      - redis
+volumes:
+  photos: {}
+  raw-processed: {}
+  cache: {}
+  models: {}
+  db: {}

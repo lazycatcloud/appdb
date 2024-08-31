@@ -1,0 +1,5 @@
+buildscript: ./build.sh all v1.3.1-lzc2-1
+
+pkgout: ./
+
+icon: ./logo.png

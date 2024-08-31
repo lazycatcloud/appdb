@@ -1,0 +1,19 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.arya
+version: 0.0.1
+name: Arya编辑器
+description: 基于Vue/Vditor，为未来而构建的在线 Markdown 编辑器；轻量且强大：内置粘贴 HTML 自动转换为
+  Markdown，支持流程图、甘特图、时序图、任务列表，可导出携带样式的图片、PDF、微信公众号特制的 HTML 等等
+homepage: ""
+author: admin@linakesi.com
+application:
+  routes:
+    - /=http://md.cloud.lazycat.app.arya.lzcapp:80
+  depends_on:
+    - md
+  subdomain: arya
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  md:
+    image: registry.lazycat.cloud/nicejade/markdown-online-editor:0.1
+    restart: no

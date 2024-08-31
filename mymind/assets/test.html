@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/lzc-file-picker/lzc-file-pickers.umd.js"></script>
+  </head>
+  <body>
+    <button type="button" id="open">打开文件选择器</button>
+    <lzc-file-picker accept="*.mymind" type="file" id="dev"></lzc-file-picker>
+  </body>
+  <script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const $0 = document.getElementById('dev')
+    const button = document.querySelector('button')
+
+    function toggle() {
+      $0._instance.exposed.toggle()
+    }
+
+    function setState(value) {
+      $0._instance.exposed[value ? 'open' : 'close']()
+    }
+
+    function dataTransfer(raw) {
+      if (!raw) return
+      const output = raw.detail[0]
+      return output
+    }
+    
+    button.addEventListener('click', ()=>{
+      $0._instance.exposed.init()
+      toggle()
+    })
+
+    $0.addEventListener('submit', raw=> {
+      const selected = dataTransfer(raw)
+      // TODO impl this
+      console.log({selected})
+      setState(false)
+    })
+
+    $0.addEventListener('visible', raw=> {
+      const show = dataTransfer(raw)
+      setState(false)
+    })
+
+  })
+
+  </script>
+</html>

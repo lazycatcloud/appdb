@@ -1,0 +1,23 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.lubuntu
+version: 0.0.1
+name: lubuntu
+description: lubuntu
+author: admin@linakesi.com
+application:
+  background_task: true
+  routes: []
+  depends_on:
+    - lb
+  subdomain: lubuntu
+  image: registry.lazycat.cloud/alpine:3.16
+  ingress:
+    - protocol: tcp
+      port: 5901
+      service: lb
+services:
+  lb:
+    image: registry.lazycat.cloud/vncserver/lubuntu:latest
+    environment:
+      - TZ=Asia/Shanghai
+    restart: always

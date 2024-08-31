@@ -1,0 +1,14 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.yarr
+version: 2.4.0-lzc1-1
+name: yarr
+license: https://opensource.org/license/mit/
+homepage: https://github.com/nkanaev/yarr
+application:
+  subdomain: yarr
+  routes:
+    - /=http://yarr.cloud.lazycat.app.yarr.lzcapp:7070
+  user_app: true
+services:
+  yarr:
+    image: registry.lazycat.cloud/appdb/yarr:v2.4-lzc1-1

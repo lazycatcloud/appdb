@@ -1,0 +1,20 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.pingvin.share
+version: 0.0.2
+name: pingvin-share
+description: 一个自托管文件共享平台，结合了轻盈和美观，非常适合无缝高效的文件共享。
+homepage: https://github.com/stonith404/pingvin-share
+author: admin@linakesi.com
+application:
+  user_app: true
+  routes:
+    - /=http://ps.cloud.lazycat.app.pingvin.share.lzcapp:3000
+  depends_on:
+    - ps
+  subdomain: pingvinshare
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  ps:
+    image: registry.lazycat.cloud/d1y/pingvin-share:0.0.1
+    binds:
+      - /lzcapp/var/backend:/opt/app/backend/data

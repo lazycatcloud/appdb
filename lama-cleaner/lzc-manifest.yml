@@ -1,0 +1,18 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.lama
+version: 0.0.1
+name: Lama Cleaner
+description: A free and open-source inpainting tool powered by SOTA AI model.
+homepage: https://github.com/Sanster/lama-cleaner
+author: admin@linakesi.com
+application:
+  user_app: true
+  routes:
+    - /=http://lama.cloud.lazycat.app.lama.lzcapp:8080
+  depends_on:
+    - lama
+  subdomain: lama
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  lama:
+    image: registry.lazycat.cloud/cwq1913/lama-cleaner-dademon:0.0.5

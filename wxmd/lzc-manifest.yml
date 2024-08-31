@@ -1,0 +1,19 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.wxmd
+version: 0.0.1
+name: 微信 Markdown 编辑器
+description: 支持 Markdown 语法、色盘取色、多图上传、一键下载文档、自定义 CSS 样式、一键重置等特性
+homepage: https://github.com/doocs/md
+author: admin@linakesi.com
+application:
+  routes:
+    - /=http://wx.cloud.lazycat.app.wxmd.lzcapp:80
+  depends_on:
+    - wx
+  subdomain: wxmd
+  image: registry.lazycat.cloud/alpine:3.16
+services:
+  wx:
+    # base image: doocs/md:latest
+    image: registry.lazycat.cloud/doocs/md:20230823
+    restart: always

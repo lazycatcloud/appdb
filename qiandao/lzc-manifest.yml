@@ -1,0 +1,21 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.qiandao
+version: 0.0.1
+name: 自动签到
+description: 一个HTTP请求定时任务自动执行框架 base on HAR Editor and Tornado Server。
+license: https://github.com/qd-today/qd/blob/master/LICENSE (mit)
+homepage: https://github.com/qd-today/qd
+application:
+  subdomain: qiandao
+  routes:
+    - /=http://server.cloud.lazycat.app.qiandao.lzcapp
+services:
+  server:
+    image: registry.lazycat.cloud/qiandao:20230718
+    binds:
+      - /lzcapp/var/config:/usr/src/app/config
+      # - /lzcapp/pkg/content/run.py:/usr/src/app/run.py
+      # - /lzcapp/pkg/content/db_converter.py:/usr/src/app/db/db_converter.py
+      # - /lzcapp/pkg/content/register.html:/usr/src/app/web/tpl/register.html
+    environment:
+      - DOMAIN=${LAZYCAT_APP_ORIGIN}

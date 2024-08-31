@@ -1,0 +1,38 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.movim
+version: 0.22.3-lzc1-2
+name: Movim
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://movim.eu/
+application:
+  subdomain: movim
+  routes:
+    - /=http://movim.cloud.lazycat.app.movim.lzcapp:80
+  public_path:
+    - /
+services:
+  movim-postgres:
+    image: postgres:15.4-bookworm
+    environment:
+      - POSTGRES_DB=movim
+      - POSTGRES_USER=movim
+      - POSTGRES_PASSWORD=movim
+      - PGDATA=/lzcapp/var/pgdata
+  movim:
+    image: registry.lazycat.cloud/appdb/movim:v0.22.3-lzc1-1
+    environment:
+      - DAEMON_URL=https://movim.${LAZYCAT_BOX_DOMAIN}
+      - DAEMON_PORT=8080
+      - DAEMON_INTERFACE=127.0.0.1
+      - DAEMON_DEBUG=true
+      - DAEMON_VERBOSE=true
+      - DB_DRIVER=pgsql
+      - DB_HOST=movim-postgres.cloud.lazycat.app.movim.lzcapp
+      - DB_PORT=5432
+      - DB_DATABASE=movim
+      - DB_USERNAME=movim
+      - DB_PASSWORD=movim
+      - LOG_PATH=/lzcapp/var/log/
+      - CACHE_PATH=/lzcapp/cache/cache/
+    depends_on:
+      - movim-postgres

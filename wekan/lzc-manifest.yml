@@ -1,0 +1,69 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.wekan
+version: 0.0.1
+name: Wekan
+description: 支持多语言的开源看板。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://wekan.github.io
+application:
+  authcallback: /_oauth/oidc
+  subdomain: wekan
+  public_path:
+    - /_oauth
+  routes:
+    # - /=http://192.168.1.224:3000/
+    - /=http://web.cloud.lazycat.app.wekan.lzcapp:8080/
+services:
+  db:
+    # from mongo:6
+    image: registry.lazycat.cloud/appdb/mongo:6
+    command: mongod --logpath /dev/null --oplogSize 128 --quiet
+    binds:
+      - /lzcapp/var/db/mongodb:/data/db
+      - /lzcapp/var/db/dump:/dump
+  web:
+    # from ghcr.io/wekan/wekan:latest
+    image: wekanteam/wekan:v6.95
+    environment:
+      - OAUTH2_ENABLED=true
+      # - OAUTH2_CA_CERT=""
+      # - OAUTH2_ADFS_ENABLED=false
+      - OAUTH2_LOGIN_STYLE=redirect
+      - OAUTH2_CLIENT_ID=${LAZYCAT_AUTH_OIDC_CLIENT_ID}
+      - OAUTH2_SECRET=${LAZYCAT_AUTH_OIDC_CLIENT_SECRET}
+      - OAUTH2_SERVER_URL=${LAZYCAT_AUTH_OIDC_ISSUER_URL}/auth
+      # - OAUTH2_AUTH_ENDPOINT=""
+      # - OAUTH2_USERINFO_ENDPOINT=""
+      # - OAUTH2_TOKEN_ENDPOINT=""
+      # - OAUTH2_ID_MAP=""
+      # - OAUTH2_USERNAME_MAP=""
+      # - OAUTH2_FULLNAME_MAP=""
+      # - OAUTH2_ID_TOKEN_WHITELIST_FIELDS=""
+      # - OAUTH2_REQUEST_PERMISSIONS='openid profile email'
+
+      # - LDAP_PORT=389
+      # - LDAP_ENABLE=true
+      # - LDAP_HOST=${LAZYCAT_AUTH_LDAP_HOST}
+      # - LDAP_BASEDN=${LAZYCAT_AUTH_LDAP_BASE_DN}
+      # - LDAP_URL=
+      # - LDAP_BINDDN=${LAZYCAT_AUTH_LDAP_BIND_DN}
+      # - LDAP_BINDPASSWORD=${LAZYCAT_AUTH_LDAP_BIND_PASS}
+
+      - DEBUG=true
+      - MONGO_URL=mongodb://db.cloud.lazycat.app.wekan.lzcapp:27017/wekan
+      - WRITABLE_PATH=/data
+      - PASSWORD_LOGIN_ENABLED=false
+      - ROOT_URL=https://wekan.lhbox.heiyu.space #   <=== using only at same laptop/desktop where Wekan is installed
+      # - ROOT_URL=http://localhost #   <=== using only at same laptop/desktop where Wekan is installed
+      - MAIL_URL=smtp://<mail_url>:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
+      - MAIL_FROM=Wekan Notifications <noreply.wekan@mydomain.com>
+      - WITH_API=true
+      - RICHER_CARD_COMMENT_EDITOR=false
+      - CARD_OPENED_WEBHOOK_ENABLED=false
+      - BIGEVENTS_PATTERN=NONE
+      - BROWSER_POLICY_ENABLED=true
+    depends_on:
+      - db
+    binds:
+      - /lzcapp/var/data/attachments:/data/attachments
+      - /lzcapp/var/data/avatars:/data/avatars

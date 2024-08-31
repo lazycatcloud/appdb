@@ -1,0 +1,25 @@
+application:
+  routes:
+  - /=http://jirafeau.cloud.lazycat.app.jirafeau.lzcapp:8000
+  subdomain: jirafeau
+description: 'This app packages Jirafeau <upstream>4.3.0</upstream>
+
+
+  Jirafeau is a "one-click-filesharing": Select your file, upload, share a link. That''s
+  it.
+
+  '
+lzc-sdk-version: '0.1'
+name: Jirafeau
+package: cloud.lazycat.app.jirafeau
+services:
+  jirafeau:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_API_ORIGIN=https://jirafeau.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://jirafeau.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=jirafeau.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_PROXY_IP=host.lzcapp
+    image: cloudron/net.jirafeau.cloudronapp:20210308-200819-7464352c6
+version: 1.2.10

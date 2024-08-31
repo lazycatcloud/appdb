@@ -1,0 +1,26 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.vaultwarden
+version: "0.1.2"
+name: vaultwarden
+description: vaultwarden
+  Vaultwarden 是一个开源的自托管密码管理器，你可以将所有其他应用或者网站的账号密码保存到这里统一管理。
+homepage: https://github.com/dani-garcia/vaultwarden
+author: admin@linakesi.com
+
+application:
+  background_task: true
+  subdomain: vaultwarden
+  routes:
+    - /=http://web.cloud.lazycat.app.vaultwarden.lzcapp:80
+  public_path:
+    - /
+  depends_on:
+    - web
+
+services:
+  web:
+    image: registry.lazycat.cloud/vaultwarden/server:latest
+    environment:
+      - SIGNUPS_ALLOWED="true"
+    binds:
+      - /lzcapp/var/data:/data

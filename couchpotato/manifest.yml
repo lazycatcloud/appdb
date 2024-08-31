@@ -1,0 +1,46 @@
+application:
+  routes:
+  - /=http://couchpotato.cloud.lazycat.app.couchpotato.lzcapp:5050
+  subdomain: couchpotato
+description: 'This app packages CouchPotato <upstream>7260c12f72447ddb6f062367c6dfbda03ecd4e9c</upstream>.
+
+
+  ### Overview
+
+
+  Automatically find movies you want to watch
+
+
+  Awesome PVR for usenet and torrents. Just fill in what you want to see and CouchPotato
+  will add it to your "want to watch"-list. Every day it will search through multiple
+  sources, looking for the best possible match. If available, it will send it using
+  your favorite download software.
+
+
+
+  ### Features
+
+
+  - Keep a list of what you want to watch: Just add it and it will be downloaded once
+  it is available. You don''t have to keep track yourself, it''s all fully automated!
+
+
+  - Customized to your liking: Set the download quality, your favorite search engine,
+  favorite release groups and more.
+
+
+  - Sit back and wait: Once downloaded, it''s renamed and moved to your movie folder.
+
+
+  - Super easy: It will message you on your favorite network that it''s ready to watch.
+
+
+
+  '
+lzc-sdk-version: '0.1'
+name: CouchPotato
+package: cloud.lazycat.app.couchpotato
+services:
+  couchpotato:
+    image: cloudron/to.couchpota.cloudronapp:20210112-062834-34885ec9d
+version: 0.2.10

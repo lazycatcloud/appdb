@@ -1,0 +1,54 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.moodle
+version: 0.0.1
+name: Moodle
+description: 获得支持、提出和回答问题以及为开源学习平台 Moodle LMS 做出贡献的地方。
+license: https://choosealicense.com/licenses/gpl-3.0/
+homepage: https://github.com/moodle/moodle
+application:
+  subdomain: moodle
+  routes:
+    # - /=file:///lzcapp/pkg/content/
+    # - /=http://192.168.2.175:8000/
+    - /=http://pc.lan/
+    # - /=http://web.cloud.lazycat.app.moodle.lzcapp:80
+    # - /account=http://account.cloud.lazycat.app.moodle.lzcapp:80
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/appdb/moodle:202306251
+    binds:
+      - /lzcapp/var/moodledata:/var/www/moodledata
+      - /lzcapp/pkg/content/docker-entrypoint.sh:/usr/local/bin/docker-entrypoint.sh
+    #   - /lzcapp/run/mnt/home:/homes
+    #   - /lzcapp/cache:/app/cache
+    depends_on:
+      - db
+    environment:
+      - MOODLE_LANG=zh_cn
+      - MOODLE_URL=https://moodle.$LAZYCAT_BOX_DOMAIN/
+      - MOODLE_DB_TYPE=mariadb
+      - MOODLE_DB_HOST=${LAZYCAT_USER_ID}.db.cloud.lazycat.app.moodle.lzcapp
+      - MOODLE_DB_NAME=moodle
+      - MOODLE_DB_USER=root
+      - MOODLE_DB_PASS=password
+      - MOODLE_DB_PORT=3306
+      - MOODLE_DB_PREFIX=mdl_
+      - MOODLE_FULLNAME=在线学习平台
+      - MOODLE_SHORTNAME=学习平台
+      - MOODLE_SUMMARY=我的个人在线学习平台
+      - MOODLE_ADMIN_USER=admin
+      - MOODLE_ADMIN_PASS=password
+      - MOODLE_ADMIN_EMAIL=moodle@heiyu.space
+  # account:
+  #   image: php:8.2.7-cli-alpine3.18
+  #   command: php -S 0.0.0.0:80 -t /app
+  #   binds:
+  #     - /lzcapp/pkg/content/account:/app
+  db:
+    image: mariadb:10.6.14
+    environment:
+      - MARIADB_ROOT_PASSWORD=password
+    binds:
+      # - /lzcapp/pkg/content/mysql_conf.d:/etc/mysql/conf.d
+      - /lzcapp/var/db/mysql:/var/lib/mysql

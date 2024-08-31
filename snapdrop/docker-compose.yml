@@ -1,0 +1,25 @@
+version: "3.9"
+x-lazycat-app:
+  quality: normal
+  id: snapdrop
+  icon: icon.png
+  title: Snapdrop
+  summary: Instantly share images, videos and links with people nearby.
+  upstream: https://hub.docker.com/r/linuxserver/snapdrop
+  screenshots:
+    - screenshot.jpg
+  categories:
+    - files
+services:
+  snapdrop:
+    image: lscr.io/linuxserver/snapdrop
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    volumes:
+      - app-config:/config
+    labels:
+      ingress-80: snapdrop
+volumes:
+  app-config:

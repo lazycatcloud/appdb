@@ -1,0 +1,106 @@
+application:
+  routes:
+  - /=http://limesurveyce.cloud.lazycat.app.limesurveyce.lzcapp:8000
+  subdomain: limesurveyce
+description: 'This app packages LimeSurvey <upstream>5.2.4</upstream>
+
+
+  ### Overview
+
+
+  LimeSurvey is the tool to use for your online surveys. Whether you are conducting
+  simple
+
+  questionnaires with just a couple of questions or advanced assessments with conditionals
+
+  and quota management, LimeSurvey has got you covered.
+
+
+  LimeSurvey is 100% open source and will always be transparently developed.
+
+  We can help you reach your goals.
+
+
+  ### Features
+
+
+  * Multilingual - Supporting more than 80 languages
+
+  * Unlimited administrators - Give administrative access to colleagues or friends
+
+  * 28 different question types - We have them all!
+
+  * What you see is what you get - Simple editing of your HTML content
+
+  * Quota management - Control your target group participation by quotas
+
+  * Skip logic / branching - Set conditions for your questions based on previous answers
+
+  * Reuse survey content - Copy questions, answers or complete surveys
+
+  * Analyze your surveys easier - Use assessment scores to analyze survey site.
+
+  * Invite and remind - Invite your participant using LimeSurvey
+
+  * Anonymized responses - protected participants - Invite participants by email and
+  anonymize their responses
+
+  * Open and closed surveys - Create invite-only, open or public surveys
+
+  * Design your survey appearance - Individual design of your survey
+
+  * Offline functionality - Printable version and manual data entry
+
+  * Visualize your response data - Create statistics and graphs inside the application
+
+  * Export your responses - Export to all common formats and applications
+
+  * Dynamic questions - Create questions based on previous answers
+
+
+  '
+lzc-sdk-version: '0.1'
+name: LimeSurvey CE
+package: cloud.lazycat.app.limesurveyce
+services:
+  limesurveyce:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_PROXY_IP=host.lzcapp
+    - CLOUDRON_LDAP_SERVER=host.lzcapp
+    - CLOUDRON_LDAP_HOST=host.lzcapp
+    - CLOUDRON_LDAP_PORT=389
+    - CLOUDRON_LDAP_URL=ldap://host.lzcapp:389
+    - CLOUDRON_LDAP_USERS_BASE_DN=ou=users,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_GROUPS_BASE_DN=${LAZYCAT_AUTH_LDAP_BASE_DN}
+    - CLOUDRON_LDAP_BIND_DN=cn=admin,dc=heiyu,dc=space
+    - CLOUDRON_LDAP_BIND_PASSWORD=unsafe_password
+    - CLOUDRON_API_ORIGIN=https://limesurveyce.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://limesurveyce.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=limesurveyce.${LAZYCAT_BOX_DOMAIN}
+    - DBENGINE=InnoDB
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.limesurveyce.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    - CLOUDRON_MAIL_SMTP_SERVER=mail
+    - CLOUDRON_MAIL_SMTP_PORT=2525
+    - CLOUDRON_MAIL_SMTPS_PORT=2465
+    - CLOUDRON_MAIL_STARTTLS_PORT=2587
+    - CLOUDRON_MAIL_SMTP_USERNAME=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_SMTP_PASSWORD=666666
+    - CLOUDRON_MAIL_FROM=wiki.app@xxx.heiyu.space
+    - CLOUDRON_MAIL_DOMAIN=xxx.heiyu.space
+    image: cloudron/org.limesurvey.cloudronapp:20211207-165855-924705838
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 1.31.14

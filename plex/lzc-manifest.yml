@@ -1,0 +1,47 @@
+lzc-sdk-version: '0.1'
+version: 0.0.12
+name: Plex
+package: cloud.lazycat.app.plex
+description: 一套媒体播放器及媒体服务器软.
+application:
+  routes:
+  - /=http://server.cloud.lazycat.app.plex.lzcapp:32400
+  subdomain: plex
+  user_app: true
+  ingress:
+    - protocol: tcp
+      port: 32400
+      service: server
+    - protocol: tcp
+      port: 8324
+      service: server
+    - protocol: tcp
+      port: 32469
+      service: server
+    - protocol: udp
+      port: 1900
+      service: server
+    - protocol: udp
+      port: 32410
+      service: server
+    - protocol: udp
+      port: 32412
+      service: server
+    - protocol: udp
+      port: 32413
+      service: server
+    - protocol: udp
+      port: 32414
+      service: server
+services:
+  server:
+    image: registry.lazycat.cloud/plexinc/pms-docker:1.32.5.7349-8f4248874
+    binds:
+    - /lzcapp/run/mnt/home:/home
+    - /lzcapp/var/config:/config
+    - /lzcapp/var/transcode:/transcode
+    - /lzcapp/var/data:/data
+    environment:
+    - PUID=0
+    - PGID=0
+    - VERSION=docker

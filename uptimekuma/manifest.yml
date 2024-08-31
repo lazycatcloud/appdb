@@ -1,0 +1,18 @@
+application:
+  routes:
+  - /=http://uptimekuma.cloud.lazycat.app.uptimekuma.lzcapp:3001
+  subdomain: uptimekuma
+description: "This app packages Uptime Kuma <upstream>1.11.0</upstream>.\n\n## About\n\
+  \nIt is a self-hosted monitoring tool like \"Uptime Robot\".\n \n## Feature\n\n\
+  * Monitoring uptime for HTTP(s) / TCP / Ping.\n* Fancy, Reactive, Fast UI/UX.\n\
+  * Notifications via Webhook, Telegram, Discord and email (SMTP).\n* 20 seconds interval.\n\
+  \n"
+lzc-sdk-version: '0.1'
+name: Uptime Kuma
+package: cloud.lazycat.app.uptimekuma
+services:
+  uptimekuma:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/louislam.uptimekuma.app:20211208-075415-81812a703
+version: 1.8.10

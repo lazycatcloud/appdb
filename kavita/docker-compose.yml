@@ -1,0 +1,23 @@
+version: "3.9"
+x-lazycat-app:
+  quality: normal
+  id: kavita
+  icon: icon.svg
+  title: Kavita
+  summary:  Self-hosted digital library supports many file formats.
+  upstream: https://hub.docker.com/r/kizaing/kavita
+  screenshots:
+    - screenshot.png
+  categories:
+    - files
+services:
+  kavita:
+    image: kizaing/kavita:0.4.9
+    volumes:
+      - manga:/manga
+      - data:/kavita/config
+    labels:
+      ingress-5000: kavita
+volumes:
+  manga: {}
+  data: {}

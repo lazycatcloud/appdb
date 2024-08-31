@@ -1,0 +1,12 @@
+application:
+  routes:
+  - /=http://kityminder.cloud.lazycat.app.kityminder.lzcapp:80
+  subdomain: kityminder
+description: 一款在线的脑图编辑工具
+lzc-sdk-version: '0.1'
+name: Kity Minder
+package: cloud.lazycat.app.kityminder
+services:
+  kityminder:
+    image: xinyewdz/kityminder:latest
+version: 1.0.10

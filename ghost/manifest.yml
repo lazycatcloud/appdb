@@ -1,0 +1,62 @@
+application:
+  routes:
+  - /=http://ghost.cloud.lazycat.app.ghost.lzcapp:2368
+  subdomain: ghost
+description: 'This app packages Ghost <upstream>4.26.1</upstream>
+
+
+  ## About
+
+
+  Ghost is a simple, powerful publishing platform that allows you to share
+
+  your stories with the world.
+
+
+  The project is maintained by a non-profit organisation called the **Ghost Foundation**,
+  along with an amazing group of independent [contributors](https://github.com/TryGhost/Ghost/contributors).
+  We''re trying to make publishing software that changes the shape of online journalism.
+
+
+  - [Ghost.org](https://ghost.org)
+
+  - [Latest Release](https://ghost.org/download/)
+
+  - [Support](http://support.ghost.org/)
+
+  - [Theme Docs](http://themes.ghost.org)
+
+  - [Contributing Guide](https://github.com/TryGhost/Ghost/blob/master/CONTRIBUTING.md)
+
+  - [Feature Requests](http://ideas.ghost.org/)
+
+  - [Dev Blog](http://dev.ghost.org)
+
+  '
+lzc-sdk-version: '0.1'
+name: Ghost
+package: cloud.lazycat.app.ghost
+services:
+  ghost:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_MYSQL_HOST=mysql.cloud.lazycat.app.ghost.lzcapp
+    - CLOUDRON_MYSQL_PORT=3306
+    - CLOUDRON_MYSQL_DATABASE=LAZYCAT
+    - CLOUDRON_MYSQL_USERNAME=LAZYCAT
+    - CLOUDRON_MYSQL_PASSWORD=LAZYCAT
+    - CLOUDRON_API_ORIGIN=https://ghost.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_ORIGIN=https://ghost.${LAZYCAT_BOX_DOMAIN}
+    - CLOUDRON_APP_DOMAIN=ghost.${LAZYCAT_BOX_DOMAIN}
+    image: cloudron/org.ghost.cloudronapp2:20211207-165942-3893fa30c
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 3.195.11

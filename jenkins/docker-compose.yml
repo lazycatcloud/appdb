@@ -1,0 +1,24 @@
+version: "3.9"
+x-lazycat-app:
+  id: jenkins
+  version: 2.327
+  icon: jenkins-header-logo-v2.svg
+  title: Gitea
+  summary: 领先的开源自动化服务器，提供了数百个插件来支持项目的构建、部署和自动化
+  screenshots:
+    - Jenkins-featured.png
+  categories:
+    - developer
+  quality: normal
+services:
+  gitea:
+    image: jenkins/jenkins:2.327-alpine
+    user: ${BOX_UID}:${BOX_GID}
+    volumes:
+    - /etc/timezone:/etc/timezone:ro
+    - /etc/localtime:/etc/localtime:ro
+    - ${BOX_HOME}/.config/${LAZYCAT_APP_ID}/jenkins_home:/var/jenkins_home
+    ports:
+      - 50000:50000
+    labels:
+      ingress-8080: jenkins

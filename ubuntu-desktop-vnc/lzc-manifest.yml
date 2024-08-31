@@ -1,0 +1,19 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.ubuntuvnc
+version: 0.0.1
+name: UbuntuVNC
+description: UbuntuVNC 是一个可以直接在网页中访问 ubuntu 系统环境的方式。
+license: https://choosealicense.com/licenses/apache-2.0/
+homepage: https://github.com/fcwu/docker-ubuntu-vnc-desktop
+application:
+  subdomain: ubuntuvnc
+  routes:
+    # - /=http://pc.lan:8000/
+    # - /=file:///lzcapp/pkg/content/
+    - /=http://web.cloud.lazycat.app.ubuntuvnc.lzcapp:80
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/dorowu/ubuntu-desktop-lxde-vnc
+    binds:
+      - /lzcapp/run/mnt/home:/root/Hostdisk

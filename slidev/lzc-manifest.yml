@@ -1,0 +1,26 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.slidev
+version: 0.1.1
+
+name: Slidev
+description: 为开发者打造的演示文稿工具
+
+author: admin@linakesi.com
+
+application:
+  subdomain: slidev
+  background_task: false
+  user_app: true
+  routes:
+    - /=http://web.cloud.lazycat.app.slidev.lzcapp:3030
+
+  image: registry.lazycat.cloud/alpine:3.16
+
+  depends_on:
+    - web
+
+services:
+  web:
+    image: registry.lazycat.cloud/tangramor/slidev:latest
+    binds:
+      - /lzcapp/var/web:/slidev

@@ -1,0 +1,67 @@
+application:
+  routes:
+  - /=http://element.cloud.lazycat.app.element.lzcapp:3000
+  subdomain: element
+description: 'This app packages Element <upstream>1.9.6</upstream>.
+
+
+  ## About
+
+
+  Element is for everyone, from casual chat to high powered collaboration. Communicate
+  the way you want with
+
+  Element - a universal secure chat app entirely under your control.
+
+
+  Whether you’re a team, a family, a community.
+
+
+  Whether you’re after one-to-one chats, small private groups, big public ones.
+
+
+  Whether you want to be visible to attract more members, flexible to gather users
+  across different entities and apps, independent and confidential to keep your privacy.
+
+
+  Or if you’re after all of these at the same time. Element is where you’ll feel at
+  home. Join or create rooms per topic, per group, per event.
+
+
+  Decide the level of access control you want to provide (invite only, if one has
+  the link, public), how visible the history should be. Create your own private communities
+  to group your rooms by topic and filter them.
+
+
+  Dark theme or light theme - make Element your own!
+
+
+  ## Features
+
+
+  * Choose who you trust with your data
+
+  * Share Files
+
+  * Intelligent Notifications
+
+  * Other Apps, Stickers, Widgets & Bots
+
+  * Bridge other apps and networks
+
+  * Open Source & Open Standard - Open source, and built on Matrix. Own your own data
+  by hosting your own server.
+
+
+  '
+lzc-sdk-version: '0.1'
+name: Element
+package: cloud.lazycat.app.element
+services:
+  element:
+    binds:
+    - /lzcapp/var:/app/data
+    environment:
+    - CLOUDRON_APP_DOMAIN=element.${LAZYCAT_BOX_DOMAIN}
+    image: cloudron/im.riot.cloudronapp:20211206-170550-604e5e0e8
+version: 1.7.16

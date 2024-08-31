@@ -1,0 +1,23 @@
+application:
+  routes:
+  - /=http://alltube.cloud.lazycat.app.alltube.lzcapp:8000
+  subdomain: alltube
+description: 'This app packages AllTube <upstream>3.0.0 (youtube-dl 2021.06.06)</upstream>.
+
+
+  ### Overview
+
+
+  AllTube is a webinterface for [youtube-dl](https://ytdl-org.github.io/youtube-dl/).
+
+  It allows to download media content from popular sites like YouTube, Soundcloud
+  or Vimeo. For a full list of supported sites, see [here](https://ytdl-org.github.io/youtube-dl/supportedsites.html)
+
+  '
+lzc-sdk-version: '0.1'
+name: AllTube
+package: cloud.lazycat.app.alltube
+services:
+  alltube:
+    image: cloudron/net.alltubedownload.cloudronapp:20211129-221842-8073bf5fb
+version: 1.9.13

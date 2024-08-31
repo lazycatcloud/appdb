@@ -1,0 +1,19 @@
+application:
+  routes:
+  - /=http://hastebin.cloud.lazycat.app.hastebin.lzcapp:7777
+  subdomain: hastebin
+description: "This app packages Haste server <upstream>e9ae74b7a99</upstream>.\n\n\
+  ## About\n\nHaste is a pastebin software.\n\nMajor design objectives:\n\n    Be\
+  \ really pretty\n    Be really simple\n\nHaste works really well with a little utility\
+  \ called haste-client, allowing you to do things like:\n\n    cat something | haste\n\
+  \nwhich will output a URL to share containing the contents of cat something's STDOUT.\n\
+  \n"
+lzc-sdk-version: '0.1'
+name: Hastebin
+package: cloud.lazycat.app.hastebin
+services:
+  hastebin:
+    binds:
+    - /lzcapp/var:/app/data
+    image: cloudron/com.hastebin.cloudronapp:20210308-184027-4336d764a
+version: 1.5.10

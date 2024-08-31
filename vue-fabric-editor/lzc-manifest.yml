@@ -1,0 +1,18 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.vuefabriceditor
+version: 0.0.1
+name: Vue Fabric Editor
+description: 一个图片编辑器，可自定义字体、素材、设计模板。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/nihaojob/vue-fabric-editor
+application:
+  subdomain: vuefabriceditor
+  routes:
+    - /=file:///lzcapp/pkg/content/
+    # - /=http://192.168.2.175:3000/
+    # - /=http://web.cloud.lazycat.app.qquanweigante.lzcapp:8088/
+  file_handler: # 声明本app支持操作的文件类型，mime至少存在一条记录，actions至少要支持open
+    mime:  #按照mime类型注册到系统
+      - x-lzc-extension/vfabric # app支持.vfabric
+    actions:  #打开对应文件的url路径,由文件管理器等app调用
+      open: /?file=%u   #%u是某个webdav上的具体文件路径，一定存在文件名后缀

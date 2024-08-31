@@ -1,0 +1,20 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.sonarr
+version: 0.0.1
+name: Sonarr
+description: 适用于新闻组和 BitTorrent 用户的智能 PVR。
+license: https://choosealicense.com/licenses/gpl-3.0
+homepage: https://github.com/Sonarr/Sonarr
+author: Sonarr
+application:
+  subdomain: sonarr
+  user_app: true
+  routes:
+    - /=http://server.cloud.lazycat.app.sonarr.lzcapp:8989
+services:
+  server:
+    image: registry.lazycat.cloud/sonarr:3.0.10-1
+    binds:
+      - /lzcapp/run/mnt/home:/home
+      - /lzcapp/var/conf:/config
+      - /lzcapp/run/mnt/home/下载:/downloads

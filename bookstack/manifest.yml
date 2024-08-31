@@ -1,0 +1,58 @@
+application:
+  routes:
+  - /=http://bookstack.cloud.lazycat.app.bookstack.lzcapp:80
+  subdomain: bookstack
+description: 'This app packages BookStack version <upstream>21.11.2</upstream>
+
+
+  ## About
+
+
+  BookStack is an opinionated wiki system that provides a pleasant and simple out
+
+  of the box experience. New users to an instance should find the experience intuitive
+
+  and only basic word-processing skills should be required to get involved in creating
+
+  content on BookStack.
+
+
+  ## Feature
+
+
+  * Free & Open Source
+
+  * Easy, Simple Interface
+
+  * Configurable
+
+  * Multi-lingual
+
+  * Integrated Authentication
+
+
+  '
+lzc-sdk-version: '0.1'
+name: BookStack
+package: cloud.lazycat.app.bookstack
+services:
+  bookstack:
+    binds:
+    - /lzcapp/cache:/config
+    environment:
+    - APP_URL=http://${LAZYCAT_APP_ORIGIN}
+    - DB_HOST=mysql.cloud.lazycat.app.bookstack.lzcapp
+    - DB_USER=LAZYCAT
+    - DB_PASS=LAZYCAT
+    - DB_DATABASE=LAZYCAT
+    image: lscr.io/linuxserver/bookstack
+  mysql:
+    binds:
+    - /lzcapp/var/mysql:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=LAZYCAT
+    - MYSQL_DATABASE=LAZYCAT
+    - MYSQL_USER=LAZYCAT
+    - MYSQL_PASSWORD=LAZYCAT
+    image: registry.lazycat.cloud/mysql
+version: 1.16.12

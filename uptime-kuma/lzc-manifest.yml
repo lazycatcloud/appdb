@@ -1,0 +1,14 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.kuma.uptime
+version: 1.23.2-lzc1-1
+name: Uptime Kuma
+license: https://opensource.org/license/mit/
+homepage: https://uptime.kuma.pet/
+application:
+  subdomain: uptime-kuma
+  routes:
+    - /=http://uptime-kuma.cloud.lazycat.app.kuma.uptime.lzcapp:3001
+  background_task: true
+services:
+  uptime-kuma:
+    image: registry.lazycat.cloud/appdb/uptime-kuma:v1.23.2-lzc1

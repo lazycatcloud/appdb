@@ -1,0 +1,55 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.fireflyiii
+version: 0.1.3
+name: Firefly III
+description: Firefly III 是一个完全免费和开源的财务管理软件。具有复式记账系统。可以快速输入和组织多种货币的交易。特殊的数据导入程序可帮助您将数据导入Firefly III管理。使用规则快速将速记转换为详细交易或清理银行糟糕的 CSV 文件。Firefly III具有高级报告功能，可显示您每周，每月或每年的费用。但它也可以帮助您通过详细的列表视图审核帐户。或者比较预算或标签？这一切都是可能的。
+license: https://choosealicense.com/licenses/agpl-3.0/
+homepage: https://github.com/firefly-iii/firefly-iii
+application:
+  subdomain: fireflyiii
+  routes:
+    - /=http://web.cloud.lazycat.app.fireflyiii.lzcapp:8080
+  user_app: true
+services:
+  web:
+    image: registry.lazycat.cloud/fireflyiii/core:version-6.0.18 # 6.1.18 有问题 https://github.com/firefly-iii/firefly-iii/issues/8715
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=false
+      - SITE_OWNER=mail@example.com
+      - APP_KEY=SomeRandomStringOf32CharsExactly
+      - DEFAULT_LANGUAGE=zh_CN
+      - DEFAULT_LOCALE=equal
+      - TZ=Asia/Shanghai
+      - LOG_CHANNEL=stack
+      - APP_LOG_LEVEL=notice
+      - AUDIT_LOG_LEVEL=info
+      - DB_CONNECTION=sqlite
+      - CACHE_DRIVER=file
+      - SESSION_DRIVER=file
+      - APP_NAME=FireflyIII
+      - BROADCAST_DRIVER=log
+      - QUEUE_DRIVER=sync
+      - CACHE_PREFIX=firefly
+      - FIREFLY_III_LAYOUT=v1
+      - APP_URL=https://fireflyiii.$LAZYCAT_BOX_DOMAIN
+      - FORCE_USE_HTTPS=true
+      - DISABLE_CSP_HEADER=true
+    binds:
+      - /lzcapp/var/firefly_iii_database:/var/www/html/storage/database
+      - /lzcapp/var/firefly_iii_upload:/var/www/html/storage/upload
+      - /lzcapp/pkg/content/session.twig:/var/www/html/resources/views/layout/v3/session.twig
+      - /lzcapp/pkg/content/auto-account:/var/www/html/public/v3-local/lib/auto-account
+      - /lzcapp/pkg/content/firefly.php:/var/www/html/config/firefly.php # CNY
+      - /lzcapp/pkg/content/AppServiceProvider.php:/var/www/html/app/Providers/AppServiceProvider.php
+    # 通过预生成数据库的方式，大幅提升首次启动速度。以后可以考虑打 patch 启用 SQLite WAL？
+    entrypoint: sh -c "if [ ! -e /var/www/html/storage/database/database.sqlite ]; then gzip -d < /lzcapp/pkg/content/database.sqlite.gz > /var/www/html/storage/database/database.sqlite ; fi ; sed -i.bak 's|sleep 10||' /usr/local/bin/entrypoint.sh ; /usr/local/bin/entrypoint.sh"
+    # 覆盖原有的健康检测（镜像自带的健康检测 interval 为 60 秒
+    health_check:
+      test:
+        - CMD-SHELL
+        - "curl -H \"User-Agent: Firefly III Health Checker/2.0\" -f http://localhost:8080/health || exit 1"
+      start_period: 40s
+  cron:
+    image: registry.lazycat.cloud/alpine:3.18.2
+    command: sh -c "echo \"0 3 * * * wget -qO- http://app:8080/api/v1/cron/REPLACEME\" | crontab - && crond -f -L /dev/stdout"

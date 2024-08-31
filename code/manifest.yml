@@ -1,0 +1,53 @@
+application:
+  routes:
+  - /=http://code.cloud.lazycat.app.code.lzcapp:8000
+  subdomain: code
+description: 'Collabora Online is an office suite for NextCloud.
+
+
+  This app packages Collabora Online Development Edition <upstream>21.11.0.3-1 (CODE
+  21.11-9)</upstream>
+
+
+  ### Overview
+
+
+  Collabora Online is a powerful LibreOffice-based online office that supports all
+  major document, spreadsheet and presentation file formats, which you can integrate
+  in your own infrastructure.
+
+
+  It allows collaborative editing with excellent office file format support.
+
+
+  ### Key features
+
+
+  - View and edit text documents, spreadsheets, presentations & more
+
+  - Collaborative editing features
+
+  - Long Term Support and signed security updates
+
+  - Works in any modern browser – no plugin needed
+
+
+  ### Document support
+
+
+  - Preservation of layout and formatting of documents
+
+  - text documents (odt, docx, doc,…)
+
+  - spreadsheets (ods, xlsx, xls, …)
+
+  - presentations (odp, pptx, ppt,…)
+
+  '
+lzc-sdk-version: '0.1'
+name: CODE
+package: cloud.lazycat.app.code
+services:
+  code:
+    image: cloudron/com.collaboraoffice.coudronapp:20211203-153336-907af0d50
+version: 1.11.10

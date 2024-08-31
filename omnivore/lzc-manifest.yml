@@ -1,0 +1,48 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.omnivore
+version: 0.0.1
+name: Omnivore
+description:
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://omnivore.app/
+application:
+  subdomain: omnivore
+  routes:
+    - /api/client/=http://omnivore.cloud.lazycat.app.omnivore.lzcapp:3000/api/client
+    - /api/=http://omnivore.cloud.lazycat.app.omnivore.lzcapp:4000/api
+    - /=http://omnivore.cloud.lazycat.app.omnivore.lzcapp:3000
+services:
+  omnivore-postgres:
+    image: postgres:12-alpine3.18
+    environment:
+      - POSTGRES_USER=omnivore
+      - POSTGRES_PASSWORD=omnivore
+      - POSTGRES_DB=omnivore
+      - PGDATA=/lzcapp/var/pgdata
+  omnivore-elastic:
+    image: elasticsearch:7.17.10
+    environment:
+      - discovery.type=single-node
+      - http.cors.allow-origin=*
+      - http.cors.enabled=true
+      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+      - http.cors.allow-credentials=true
+  omnivore:
+    image: registry.lazycat.cloud/appdb/omnivore:v0.0.1
+    environment:
+      - API_ENV=prod
+      - PG_HOST=omnivore-postgres.cloud.lazycat.app.omnivore.lzcapp
+      - PG_PORT=5432
+      - PG_USER=omnivore
+      - PG_PASSWORD=omnivore
+      - PG_DB=omnivore
+      - PG_POOL_MAX=20
+      - JWT_SECRET=unsafe_jwt_secret
+      - SSO_JWT_SECRET=unsafe_sso_jwt_secret
+      - GATEWAY_URL=https://omnivore.${LAZYCAT_BOX_DOMAIN}/api
+      - CLIENT_URL=https://omnivore.${LAZYCAT_BOX_DOMAIN}
+      - ELASTIC_URL=http://omnivore-elastic.cloud.lazycat.app.omnivore.lzcapp:9200
+      - ELASTIC_USERNAME=elastic
+      - ELASTIC_PASSWORD=changeme
+      - CONTENT_FETCH_URL=http://localhost:9090/
+      - PUBSUB_VERIFICATION_TOKEN=unsafe_verification_token

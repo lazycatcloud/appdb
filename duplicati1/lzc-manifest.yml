@@ -1,0 +1,22 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.duplicati1
+version: 0.0.1
+name: Duplicati
+description: 支持多个后端的文件备份工具
+license: https://www.gnu.org/licenses/lgpl-2.1.en.html
+homepage: https://www.duplicati.com/
+author: Duplicati authors
+application:
+  subdomain: duplicati
+  routes:
+    - /=http://duplicati.cloud.lazycat.app.duplicati1.lzcapp:8200
+  user_app: true
+services:
+  duplicati:
+    image: registry.lazycat.cloud/appdb/duplicati:v0.0.1
+    command: /usr/bin/duplicati-server
+      --webservice-port=8200
+      --webservice-interface=any
+      --server-datafolder=/lzcapp/var
+      --tempdir=/lzcapp/cache
+      --webservice-allowed-hostnames=duplicati.${LAZYCAT_BOX_DOMAIN}

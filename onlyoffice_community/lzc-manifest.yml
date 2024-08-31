@@ -1,0 +1,83 @@
+name: ONLYOFFICE Docs
+package: cloud.lazycat.app.onlyofficedocs
+version: 0.0.2
+lzc-sdk-version: v0.1
+application:
+  public_path:
+     - /browser
+     - /cool
+     - /cache
+     - /hosting
+     - /wopi/files
+     - /web-apps
+     - /7.4.1-36
+  routes:
+    - /wopi/=exec://8080,/lzcapp/pkg/content/backend
+    - /browser/=http://server.cloud.lazycat.app.onlyofficedocs.lzcapp:80/browser
+    - /cool/=http://server.cloud.lazycat.app.onlyofficedocs.lzcapp:80/cool
+    - /cache/=http://server.cloud.lazycat.app.onlyofficedocs.lzcapp:80/cache
+    - /hosting/=http://server.cloud.lazycat.app.onlyofficedocs.lzcapp:80/hosting
+    - /web-apps/=http://server.cloud.lazycat.app.onlyofficedocs.lzcapp:80/web-apps
+    - /7.4.1-36/=http://server.cloud.lazycat.app.onlyofficedocs.lzcapp:80/7.4.1-36
+    - /=file:///lzcapp/pkg/content/dist
+  subdomain: onlyoffice
+  file_handler:
+    actions:
+      open: /?file=%u
+    mime:
+      - application/pdf
+      - image/vnd.djvu
+      - application/vnd.ms-xpsdocument
+      - application/oxps
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.template
+      - application/vnd.ms-word.template.macroenabled.12
+      - application/msword
+      - application/vnd.oasis.opendocument.text-template
+      - application/rtf
+      - text/rtf
+      - text/html
+      - application/xml
+      - text/xml
+      - application/epub+zip
+      - application/vnd.sun.xml.writer
+      - application/vnd.sun.xml.writer.template
+      - application/vnd.ms-works
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+      - application/vnd.ms-word.document.macroenabled.12
+      - application/vnd.oasis.opendocument.text
+      - text/plain
+      - application/vnd.ms-excel.sheet.binary.macroenabled.12
+      - application/vnd.openxmlformats-officedocument.spreadsheetml.template
+      - application/vnd.ms-excel.template.macroenabled.12
+      - application/vnd.ms-excel
+      - application/vnd.oasis.opendocument.spreadsheet-template
+      - application/vnd.sun.xml.calc
+      - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+      - application/vnd.ms-excel.sheet.macroenabled.12
+      - application/vnd.oasis.opendocument.spreadsheet
+      - text/csv
+      - application/vnd.ms-powerpoint
+      - application/vnd.openxmlformats-officedocument.presentationml.slideshow
+      - application/vnd.ms-powerpoint.slideshow.macroenabled.12
+      - application/vnd.openxmlformats-officedocument.presentationml.template
+      - application/vnd.ms-powerpoint.template.macroenabled.12
+      - application/vnd.oasis.opendocument.presentation-template
+      - application/vnd.sun.xml.impress
+      - application/vnd.openxmlformats-officedocument.presentationml.presentation
+      - application/vnd.ms-powerpoint.presentation.macroenabled.12
+      - application/vnd.oasis.opendocument.presentation
+services:
+  server:
+    image: registry.lazycat.cloud/onlyoffice/documentserver:7.4.1-36
+    environment:
+      - TIMEZONE=Asia/Shanghai
+      - CONTAINER_NAME=collabora-online-app
+      - LOG_LEVEL=debug
+      - ADMIN_USER=admin
+      - ADMIN_PASS=collabora-online
+      - ALLOWED_HOSTS=${LAZYCAT_APP_ORIGIN},server.cloud.lazycat.app.onlyofficedocs.lzcapp
+      - WOPI_ENABLED=true
+      - ENABLE_TLS=FALSE
+      - ENABLE_TLS_REVERSE_PROXY=TRUE
+      - INTERFACE=notebookbar
+      - HOSTNAME=${LAZYCAT_APP_ORIGIN}

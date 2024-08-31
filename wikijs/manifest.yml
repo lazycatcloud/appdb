@@ -1,0 +1,20 @@
+application:
+  routes:
+  - /=http://wikijs.cloud.lazycat.app.wikijs.lzcapp:3000
+  subdomain: wikijs
+description: "This app packages Wiki.js <upstream>2.5.255</upstream>\n\n### Overview\n\
+  \nWiki.js is a powerful and extensible open source Wiki software.\nIt aims to make\
+  \ writing documentation a joy through a beautiful and intuitive interface.\n\n###\
+  \ Features\n * Performance: Running on the blazing fast Node.js engine, Wiki.js\
+  \ is built with performance in mind.\n * Protected: Make your wiki public, completely\
+  \ private or a mix of both.\n * Administration: Manage all aspects of your wiki\
+  \ using the extensive and intuitive admin area.\n * Customizable: Fully customize\
+  \ the appearance of your wiki, including a light and dark mode.\n * Extensible:\
+  \ There is a wide range of [modules](https://wiki.js.org/modules) available\n"
+lzc-sdk-version: '0.1'
+name: Wiki.js
+package: cloud.lazycat.app.wikijs
+services:
+  wikijs:
+    image: cloudron/org.wikijs.cloudronapp:20211207-165724-894722a57
+version: 1.8.17

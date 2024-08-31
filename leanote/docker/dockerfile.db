@@ -1,0 +1,7 @@
+FROM mongo:4.0.28-xenial
+
+COPY ./db.tar.gz /
+COPY ./start.sh /
+RUN chmod +x /start.sh
+
+ENTRYPOINT /start.sh

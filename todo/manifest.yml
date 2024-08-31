@@ -1,0 +1,14 @@
+application:
+  routes:
+  - /=http://todo.cloud.lazycat.app.todo.lzcapp:8000
+  subdomain: todo
+description: Track your todos in a easy and minimal way
+lzc-sdk-version: '0.1'
+name: Todo List
+package: cloud.lazycat.app.todo
+services:
+  todo:
+    binds:
+    - /lzcapp/var:/usr/local/go/src/todo/
+    image: prologic/todo
+version: 0.0.11

@@ -1,0 +1,16 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.excalidraw
+version: 0.0.1
+name: ExcaliDraw绘图板
+description: 一个开源的虚拟白板，用于绘制手绘的类似图表的草图。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/excalidraw/excalidraw
+application:
+  subdomain: excalidraw
+  routes:
+    - /=file:///lzcapp/pkg/content/
+  file_handler: # 声明本app支持操作的文件类型，mime至少存在一条记录，actions至少要支持open
+    mime:  #按照mime类型注册到系统
+      - x-lzc-extension/excalidraw      # app支持.excalidraw
+    actions:  #打开对应文件的url路径,由文件管理器等app调用
+      open: /?fileUrl=/%u   #%u是某个webdav上的具体文件路径，一定存在文件名后缀

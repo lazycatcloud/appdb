@@ -1,0 +1,20 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.qwant
+version: 0.0.1
+name: Qwant
+description: The map service that finds the right addresses and guides you around without tracking you.
+license: https://choosealicense.com/licensesq/apache-2.0
+homepage: https://github.com/Qwant/erdapfel
+author: Qwant
+application:
+  subdomain: qwant
+  routes:
+    - /=http://server.cloud.lazycat.app.qwant.lzcapp:3000
+services:
+  server:
+    image: registry.lazycat.cloud/qwantresearch/erdapfel:23.7
+    environment:
+      - TILEVIEW_mapStyle_baseMapUrl=["https://www.qwant.com/maps/tiles/ozbasemap/{z}/{x}/{y}.pbf"]
+      - TILEVIEW_mapStyle_poiMapUrl=["https://www.qwant.com/maps/tiles/ozpoi/{z}/{x}/{y}.pbf"]
+      - TILEVIEW_services_geocoder_url=https://www.qwant.com/maps/detail/v1/autocomplete
+      - TILEVIEW_services_idunn_url=https://www.qwant.com/maps/detail
