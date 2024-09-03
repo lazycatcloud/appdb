@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.koel
-version: 1.2.2
+version: 1.2.3
 name: Koel
 description: 为您提供更加现代的个人音乐流媒体服务
 license: https://choosealicense.com/licenses/mit/
@@ -28,6 +28,7 @@ services:
       - /lzcapp/pkg/content/koel:/var/www/koelmnt
       # - /lzcapp/pkg/content/koel/app/Services/FileSynchronizer.php:/var/www/html/app/Services/FileSynchronizer.php
       - /lzcapp/pkg/content/koel/app/Values/SongScanInformation.php:/var/www/html/app/Values/SongScanInformation.php
+      - /lzcapp/pkg/content/koel/app/Values/UserPreferences.php:/var/www/html/app/Values/UserPreferences.php
       - /lzcapp/pkg/content/koel/app/Console/Commands/InitCommand.php:/var/www/html/app/Console/Commands/InitCommand.php
       - /lzcapp/run/mnt/home/Music:/music
       - /lzcapp/var/db/user:/var/www/html/database_user
