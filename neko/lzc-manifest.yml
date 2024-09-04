@@ -1,0 +1,51 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.neko
+version: 0.0.1
+name: neko
+description: 远程浏览器
+license: https://github.com/m1k1o/neko#Apache-2.0-1-ov-file
+homepage: https://neko.m1k1o.net
+author: https://github.com/m1k1o
+unsupported_platforms: # 不支持的平台
+  - ios
+
+application:
+  subdomain: neko
+  gpu_accel: true
+  background_task: true
+  routes:
+    - /ip=exec://8090,/lzcapp/pkg/content/lookup
+    - /=http://apps.cloud.lazycat.app.neko.lzcapp:8080
+  environment:
+    - LAZYCAT_BOX_DOMAIN=${LAZYCAT_BOX_DOMAIN}
+    - NEKO_CONFIG=/lzcapp/var/neko.yaml
+  public_path:
+    - /ip
+  # health_check:
+    # test_url: http://app.cloud.lazycat.app.neko.lzcapp:8090
+  ingress:
+    - protocol: udp     #tcp or udp
+      port: 52000          #需要曝露的端口号
+      service: apps       #为空则为此app容器内的端口,也可以指定为db等其他service的名称
+
+services:
+  apps:
+    # Build FROM Dockerfile
+    image: registry.lazycat.cloud/appdb/neko-chromium:2.8.0
+    # ports:
+    #   - "80:8080"
+    #   - "52000-52100:52000-52100/udp"
+    environment:
+      - NEKO_SCREEN=1920x1080@30
+      - NEKO_PASSWORD=neko
+      - NEKO_PASSWORD_ADMIN=admin
+      # - NEKO_EPR=52000-52002
+      - NEKO_ICELITE=1
+      - NEKO_UDPMUX=52000
+      # - NEKO_CERT=/lzcapp/run/certs/app.crt
+      # - NEKO_KEY=/lzcapp/run/certs/app.key
+      # - NEKO_IPFETCH=https://${LAZYCAT_APP_ORIGIN}/ip
+    binds:
+      - /lzcapp/var/neko.yaml:/etc/neko/neko.yaml
+    depends_on:
+      - app
