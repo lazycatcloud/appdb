@@ -1,0 +1,56 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.rustdeskoss
+version: 0.0.1
+name: rustdeskoss
+description: >-
+  RustDesk is a full-featured open source remote control alternative for
+  self-hosting and security with minimal configuration.
+license: https://choosealicense.com/licenses/mit/
+homepage: https://rustdesk.com
+author: rustdesk term
+application:
+  subdomain: rustdeskoss
+  routes:
+    - /=file:///lzcapp/pkg/content/
+  handlers:
+    error_page_templates:
+      '502': /lzcapp/pkg/content/502.html.tpl
+
+  # ingress:
+  #   - protocol: tcp
+  #     port: 21115
+  #     service: hbbs
+  #   - protocol: tcp
+  #     port: 21116
+  #     service: hbbs
+  #   - protocol: tcp
+  #     port: 21118
+  #     service: hbbs
+  #   - protocol: udp
+  #     port: 21116
+  #     service: hbbs
+
+  #   - protocol: tcp
+  #     port: 21117
+  #     service: hbbr
+  #   - protocol: tcp
+  #     port: 21119
+  #     service: hbbr
+
+
+services:
+  hbbs:
+    image: registry.lazycat.cloud/rustdesk/rustdesk-server:1.1.11-1
+    command: hbbs -k 9f6029362af3be8fc4d90fcb08ff3c02a6a4ddbae994325ac821e0474c881ef7
+    binds:
+      - /lzcapp/var/data:/root
+    network_mode: "host"
+    depends_on:
+      - hbbr
+
+  hbbr:
+    image: registry.lazycat.cloud/rustdesk/rustdesk-server:1.1.11-1
+    command: hbbr
+    binds:
+      - /lzcapp/var/data:/root
+    network_mode: "host"
