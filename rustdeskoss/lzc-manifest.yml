@@ -11,7 +11,6 @@ author: rustdesk term
 application:
   subdomain: rustdeskoss
   routes:
-    - /web=http://web.cloud.lazycat.app.rustdeskoss.lzcapp:5000
     - /key=file:///lzcapp/var/rustdeskoss.key
     - /=file:///lzcapp/pkg/content/public
   handlers:
@@ -42,9 +41,6 @@ application:
 
 
 services:
-  web:
-    image: registry.lazycat.cloud/keyurbhole/flutter_web_desk:v1.0.0
-    
   hbbs:
     image: registry.lazycat.cloud/rustdesk/rustdesk-server:1.1.11-1
     command: /lzcapp/pkg/content/randkey
