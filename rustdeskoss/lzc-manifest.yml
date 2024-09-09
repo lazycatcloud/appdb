@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.rustdeskoss
-version: 0.0.1
+version: 0.0.2
 name: rustdeskoss
 description: >-
   RustDesk is a full-featured open source remote control alternative for
@@ -11,10 +11,13 @@ author: rustdesk term
 application:
   subdomain: rustdeskoss
   routes:
-    - /=file:///lzcapp/pkg/content/
+    - /web=http://web.cloud.lazycat.app.rustdeskoss.lzcapp:5000
+    - /key=file:///lzcapp/var/rustdeskoss.key
+    - /=file:///lzcapp/pkg/content/public
   handlers:
     error_page_templates:
-      '502': /lzcapp/pkg/content/502.html.tpl
+      '502': /lzcapp/pkg/content/public/502.html.tpl
+  background_task: true
 
   # ingress:
   #   - protocol: tcp
@@ -39,9 +42,12 @@ application:
 
 
 services:
+  web:
+    image: registry.lazycat.cloud/keyurbhole/flutter_web_desk:v1.0.0
+    
   hbbs:
     image: registry.lazycat.cloud/rustdesk/rustdesk-server:1.1.11-1
-    command: hbbs -k 9f6029362af3be8fc4d90fcb08ff3c02a6a4ddbae994325ac821e0474c881ef7
+    command: /lzcapp/pkg/content/randkey
     binds:
       - /lzcapp/var/data:/root
     network_mode: "host"
