@@ -8,13 +8,23 @@ import { decompress, mapKey, sleep } from "./common";
 
 const PORT = 21116;
 // only the first is used to init `HOST`
-const HOSTS = [
-  "rs-sg.rustdesk.com",
-  "rs-cn.rustdesk.com",
-  "rs-us.rustdesk.com",
-];
-let HOST = localStorage.getItem("rendezvous-server") || HOSTS[0];
-const SCHEMA = "ws://";
+// const HOSTS = [
+//   "rs-sg.rustdesk.com",
+//   "rs-cn.rustdesk.com",
+//   "rs-us.rustdesk.com",
+// ];
+
+fetch("/key")
+  .then((response) => response.text())
+  .then((data) => {
+    localStorage.setItem("key", data);
+    localStorage.setItem("custom-rendezvous-server", document.location.host);
+  })
+  .catch((error) => {
+    alert(`获取key时出错: ${error}`);
+  });
+let HOST = document.location.host;
+const SCHEMA = "wss://";
 
 type MsgboxCallback = (type: string, title: string, text: string) => void;
 type DrawCallback = (data: Uint8Array) => void;
@@ -726,21 +736,21 @@ export default class Connection {
   }
 }
 
-function testDelay() {
-  var nearest = "";
-  HOSTS.forEach((host) => {
-    const now = new Date().getTime();
-    new Websock(getrUriFromRs(host), true).open().then(() => {
-      console.log("latency of " + host + ": " + (new Date().getTime() - now));
-      if (!nearest) {
-        HOST = host;
-        localStorage.setItem("rendezvous-server", host);
-      }
-    });
-  });
-}
+// function testDelay() {
+//   var nearest = "";
+//   HOSTS.forEach((host) => {
+//     const now = new Date().getTime();
+//     new Websock(getrUriFromRs(host), true).open().then(() => {
+//       console.log("latency of " + host + ": " + (new Date().getTime() - now));
+//       if (!nearest) {
+//         HOST = host;
+//         localStorage.setItem("rendezvous-server", host);
+//       }
+//     });
+//   });
+// }
 
-testDelay();
+// testDelay();
 
 function getDefaultUri(isRelay: Boolean = false): string {
   const host = localStorage.getItem("custom-rendezvous-server");
@@ -755,9 +765,9 @@ function getrUriFromRs(
   if (uri.indexOf(":") > 0) {
     const tmp = uri.split(":");
     const port = parseInt(tmp[1]);
-    uri = tmp[0] + ":" + (port + (isRelay ? roffset || 3 : 2));
+    uri = tmp[0] + "/" + (port + (isRelay ? roffset || 3 : 2));
   } else {
-    uri += ":" + (PORT + (isRelay ? 3 : 2));
+    uri += "/" + (PORT + (isRelay ? 3 : 2));
   }
   return SCHEMA + uri;
 }
