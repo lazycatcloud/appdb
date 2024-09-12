@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.rustdeskoss
-version: 0.0.3
+version: 0.0.4
 name: rustdeskoss
 description: >-
   RustDesk is a full-featured open source remote control alternative for
@@ -19,6 +19,8 @@ application:
     error_page_templates:
       '502': /lzcapp/pkg/content/public/502.html.tpl
   background_task: true
+  depends_on:
+    - hbbs
 
   # ingress:
   #   - protocol: tcp
