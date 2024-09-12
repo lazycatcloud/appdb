@@ -1,94 +1,250 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="theme-color" content="#ffffff" />
     <meta
-      content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width viewport-fit=cover"
       name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
-    <title>RustDesk</title>
+    <meta name="theme-color" content="#ffffff" />
+    <title>RustDesk 配置指南</title>
     <style>
-      li {
-        margin: 14px;
-        line-height: 36px;
+      body {
+        font-family: "Microsoft YaHei", Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .info-box {
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .copy-btn {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 3px;
+      }
+      .client-btn {
+        background-color: #008cba;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .warning {
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        color: #856404;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        margin: 10px 0;
       }
       code {
-        background-color: #eeeecc;
-        color: blank;
-        padding: 7px;
-        border: 14px;
+        background-color: #f8f8f8;
+        border: 1px solid #e1e1e1;
+        border-radius: 3px;
+        padding: 2px 5px;
+        font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+        font-size: 14px;
+        color: #d63384;
+      }
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #e1e1e1;
+        border-radius: 5px;
+        padding: 10px;
+        overflow-x: auto;
+      }
+      pre code {
+        border: none;
+        padding: 0;
+        background-color: transparent;
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
       }
     </style>
   </head>
   <body>
     <div id="app">
-      <ul>
+      <h1>RustDesk 配置指南</h1>
+
+      <div class="info-box">
+        <h2>重要信息</h2>
+        <p>
+          <strong>ID 服务器：</strong> <code id="hostname"></code>
+          <button class="copy-btn" onclick="copyToClipboard('hostname')">
+            复制
+          </button>
+        </p>
+        <p>
+          <strong>密钥：</strong> <code id="rustdeskosskey"></code>
+          <button class="copy-btn" onclick="copyToClipboard('rustdeskosskey')">
+            复制
+          </button>
+        </p>
+        <p>您需要在 RustDesk 客户端中输入这些信息。</p>
+      </div>
+
+      <h2>可用客户端</h2>
+      <button class="client-btn" onclick="downloadClient('linux')">
+        Linux
+      </button>
+      <button class="client-btn" onclick="downloadClient('windows')">
+        Windows
+      </button>
+      <button class="client-btn" onclick="downloadClient('macos')">
+        MacOS
+      </button>
+      <button class="client-btn" onclick="downloadClient('android')">
+        Android
+      </button>
+      <button class="client-btn" onclick="downloadClient('ios')">iOS</button>
+
+      <div class="warning">
+        <h3>Web 客户端（测试版）</h3>
+        <p>
+          Web 客户端目前处于测试阶段，只能用于接受连接。Web
+          客户端不支持屏幕共享功能。
+        </p>
+        <button class="client-btn" onclick="openWebClient()">
+          打开 Web 客户端
+        </button>
+      </div>
+
+      <h2>安装和配置步骤</h2>
+      <ol>
         <li>
-          1. 安装 Rustdesk 的客户端 <br />
-          Archlinux 下，可以直接执行 <code>pacman -S rustdesk</code>
-
-          <br />
-          支持 Android, Windows, MacOS, iOS 各种系统。
-          <a
-            href="https://github.com/rustdesk/rustdesk/releases/tag/1.3.0"
-            target="_blank"
-            >点击打开下载界面</a
-          >
-
-          <br />
-          浏览器中可以直接使用 Web 客户端（目前 Web 客户端处于 Beta
-          阶段，推荐使用本地原生客户端进行访问）
-          <button onclick="openWebClient()">点击打开 Web 端</button>
+          <h3>安装 RustDesk 客户端</h3>
+          <p>使用上方的按钮下载并安装适用于您操作系统的 RustDesk 客户端。</p>
+          <p>Archlinux 用户可以使用以下命令安装 RustDesk：</p>
+          <pre><code>pacman -S rustdesk</code></pre>
+          <p>
+            支持 Android, Windows, MacOS, iOS 各种系统。
+            <a
+              href="https://github.com/rustdesk/rustdesk/releases/tag/1.3.0"
+              target="_blank"
+              >点击打开下载界面</a
+            >
+          </p>
         </li>
         <li>
-          2. Linux, Windows, MacOs 端打开 RustDesk 后点击顶部的设置按钮<br />
-          <img src="image/rustdesk-setting.png" />
-
-          <br />
-          点击网络 -> 填写对应的网络配置<br />
-          <b
-            >ID服务器写您的
-            <code id="hostname">rustdeskoss.$name.heiyu.space</code>
-          </b>
-          <br />
-          中继服务器可以留空，默认会从 ID/服务器 信息中推导.<br />
-          <b>目前是随机生成的</b> Key:<code id="rustdeskosskey"></code><br />
-          <img src="image/rustdesk-network-config.png" /> <br />
-
-          填写完成后，点击应用保存。
+          <h3>配置 RustDesk</h3>
+          <p>在 Linux, Windows, MacOS 端打开 RustDesk 后点击顶部的设置按钮</p>
+          <img src="image/rustdesk-setting.png" alt="RustDesk 设置按钮" />
+          <p>点击网络 -> 填写对应的网络配置</p>
+          <p><strong>ID 服务器：</strong> <code id="hostname2"></code></p>
+          <p><strong>密钥：</strong> <code id="rustdeskosskey2"></code></p>
+          <p>中继服务器可以留空，默认会从 ID 服务器信息中推导。</p>
+          <img
+            src="image/rustdesk-network-config.png"
+            alt="RustDesk 网络配置"
+          />
+          <p>填写完成后，点击应用保存。</p>
         </li>
         <li>
-          3. Web 客户端使用方式.
-          <button onclick="openWebClient()">点击打开 Web 端</button>
-          <br />
-          连接其他 RustDesk ID <br />
-          <img src="image/rustdesk-web-connect-id.png" /> <br />
-          填写完成后，点击右边的 -> 即能正常访问被邀请的机器.
+          <h3>使用 Web 客户端（测试版）</h3>
+          <p>点击上方的"打开 Web 客户端"按钮访问 Web 界面。</p>
+          <p>连接其他 RustDesk ID：</p>
+          <img
+            src="image/rustdesk-web-connect-id.png"
+            alt="RustDesk Web 连接 ID"
+          />
+          <p>填写完成后，点击右边的 -> 即能正常访问被邀请的机器。</p>
         </li>
         <li>
-          4. 其他客户端相同的配置方式，配置完成后，就可以通过 ID
-          来控制别的电脑了
+          <h3>连接到其他计算机</h3>
+          <p>
+            其他客户端相同的配置方式，配置完成后，就可以通过 ID
+            来控制别的电脑了。
+          </p>
         </li>
-      </ul>
+      </ol>
     </div>
+
+    <script>
+      let hostname = document.getElementById("hostname");
+      let hostname2 = document.getElementById("hostname2");
+      hostname.innerText = document.location.host;
+      hostname2.innerText = document.location.host;
+
+      fetch("/key")
+        .then((response) => response.text())
+        .then((data) => {
+          let e = document.getElementById("rustdeskosskey");
+          let e2 = document.getElementById("rustdeskosskey2");
+          e.innerText = data;
+          e2.innerText = data;
+        })
+        .catch((error) => {
+          alert(`获取密钥时出错：${error}`);
+        });
+
+      function openWebClient() {
+        window.open("/web.html", "_blank");
+      }
+
+      function copyToClipboard(elementId) {
+        const el = document.getElementById(elementId);
+        const text = el.innerText;
+        navigator.clipboard.writeText(text).then(
+          () => {
+            alert("已复制到剪贴板！");
+          },
+          () => {
+            alert("复制失败。请重试。");
+          }
+        );
+      }
+
+      function downloadClient(os) {
+        let url =
+          "https://github.com/rustdesk/rustdesk/releases/download/1.3.0/";
+        switch (os) {
+          case "windows":
+            url += "rustdesk-1.3.0-x86_64.exe";
+            break;
+          case "linux":
+            url += "rustdesk-1.3.0-x86_64.deb";
+            break;
+          case "macos":
+            url += "rustdesk-1.3.0-x86_64.dmg";
+            break;
+          case "android":
+            url += "rustdesk-1.3.0-aarch64-signed.apk";
+            break;
+          case "ios":
+            url = "https://testflight.apple.com/join/KBG9EsZW";
+            break;
+        }
+        window.open(url, "_blank");
+      }
+    </script>
   </body>
-  <script>
-    let hostname = document.getElementById("hostname");
-    hostname.innerText = document.location.host;
-
-    fetch("/key")
-      .then((response) => response.text())
-      .then((data) => {
-        let e = document.getElementById("rustdeskosskey");
-        e.innerText = data;
-      })
-      .catch((error) => {
-        alert(`获取key时出错: ${error}`);
-      });
-
-    function openWebClient() {
-      window.open("/web.html", "_blank");
-    }
-  </script>
 </html>
