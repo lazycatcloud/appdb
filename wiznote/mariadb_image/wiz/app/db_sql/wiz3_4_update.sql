@@ -1,2 +1,0 @@
-use `wizksent`;
-ALTER TABLE `wiz_kb_stat` ADD COLUMN `FAVOR_VERSION` INT(10) UNSIGNED NULL DEFAULT 0;

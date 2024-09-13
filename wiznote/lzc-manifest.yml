@@ -1,27 +1,19 @@
 name: 为知笔记
 package: cloud.lazycat.app.wiznote
-version: 0.0.3
+version: 1.0.31-patch5
 lzc-sdk-version: v0.1.16-81-gcd415dbd
 application:
   public_path:
-    - /api
-    - /as
-    - /ks
-    - /manager
-    - /manage
-    - /wapp
-    - /admin
-    - /pages
-    - /static
-    - /share
+    - /
   routes:
-    - /=exec://8080,/lzcapp/pkg/content/backend
+    - /=http://wiz.cloud.lazycat.app.wiznote.lzcapp:80
   subdomain: wiznote
 services:
   wiz:
-    image: registry.lazycat.cloud/wiznote/wizserver:23.5.6-mariadb-jammy
+    image: registry.lazycat.cloud/wiznote/wizserver:240913-patch5
     binds:
       - /lzcapp/var/storage:/wiz/storage
       - /lzcapp/var/logs:/wiz/logs
+      - /lzcapp/pkg/content/entrypoint.sh:/wiz/app/entrypoint.sh
     environment:
       - LAZYCAT_APP_ORIGIN=${LAZYCAT_APP_ORIGIN}
