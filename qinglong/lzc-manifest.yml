@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.qinglong
-version: 0.1.1
+version: 0.1.2
 name: 青龙面板
 description: 支持 Python3、JavaScript、Shell、Typescript 的定时任务管理平台
 
@@ -23,6 +23,6 @@ application:
 
 services:
   gateway:
-    image: registry.lazycat.cloud/qinglong:0.1
+    image: registry.lazycat.cloud/qinglong:0.1.2
     binds:
       - /lzcapp/run/mnt/home/.ql:/ql/data

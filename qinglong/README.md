@@ -7,12 +7,12 @@
 然后 fork `https://github.com/whyour/qinglong` 项目, 并且手动创建一个 `qinglong-static` 项目, 将 `git clone`的地址手动指向一下, 例如:
 
 ```bash
-RUN git clone --depth=1 -b dev https://github.com/d1ylab/qinglong ${QL_DIR} \
+RUN git clone --depth=1 -b dev https://github.com/lazycatcloud/qinglong ${QL_DIR} \
   && cd ${QL_DIR} \
   && cp -f .env.example .env \
   && chmod 777 ${QL_DIR}/shell/*.sh \
   && chmod 777 ${QL_DIR}/docker/*.sh \
-  && git clone --depth=1 -b master https://github.com/d1ylab/qinglong-static /static \
+  && git clone --depth=1 -b master https://github.com/lazycatcloud/qinglong-static /static \
 ```
 
 我将前端默认指向为账号和密码都为: `admin`, 并且简单的改动一下后端, 接下来手动编译出 `static`
@@ -29,3 +29,9 @@ pnpm run build:back
 cd static
 git push -f
 ```
+
+## Resource
+
+<https://gitee.com/lazycatcloud/qinglong>
+
+<https://gitee.com/lazycatcloud/qinglong-static>
