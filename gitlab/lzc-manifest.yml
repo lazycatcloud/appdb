@@ -1,0 +1,27 @@
+application:
+  health_check:
+    test_url: http://gitlab.cloud.lazycat.app.gitlab.lzcapp:80/users/sign_in # 进行健康检查的url，如果返回大于500则健康检查失败
+    start_period: 1800s
+  routes:
+    - /=http://gitlab.cloud.lazycat.app.gitlab.lzcapp:80
+  subdomain: gitlab
+  public_path:
+    - /
+  ingress:
+    - protocol: tcp
+      port: 22
+      service: gitlab
+lzc-sdk-version: '0.1'
+name: GitLab
+package: cloud.lazycat.app.gitlab
+services:
+  gitlab:
+    image: registry.lazycat.cloud/gitlab/gitlab-ee:17.2.8-patch7
+    binds:
+      - /lzcapp/var/config:/etc/gitlab
+      - /lzcapp/var/logs:/var/log/gitlab
+      - /lzcapp/var/data:/var/opt/gitlab
+    environment:
+      - GITLAB_OMNIBUS_CONFIG=external_url 'http://gitlab.${LAZYCAT_BOX_DOMAIN}'; gitlab_rails['lfs_enabled'] = true;
+      - GITLAB_ROOT_PASSWORD=LZC_240930
+version: 17.2.8-patch1

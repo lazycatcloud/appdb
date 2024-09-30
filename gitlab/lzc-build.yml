@@ -1,0 +1,6 @@
+#contentdir: ./content
+
+pkgout: ./
+
+icon: ./icon.png
+
