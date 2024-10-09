@@ -1,0 +1,19 @@
+lzc-sdk-version: '0.1'
+package: cloud.lazycat.app.rutorrent
+version: 4.3.6-6.0patch1
+name: ruTorrent
+unsupported_platforms:
+  - android
+  - ios
+application:
+  routes:
+  - /=http://server.cloud.lazycat.app.rutorrent.lzcapp:8080
+  subdomain: rutorrent
+  user_app: true
+services:
+  server:
+    image: registry.lazycat.cloud/crazymax/rtorrent-rutorrent:4.3.6-6.0
+    binds:
+      - /lzcapp/var/data:/data
+      - /lzcapp/var/passwd:/passwd
+      - /lzcapp/run/mnt/home/Downloads/ruTorrent:/downloads
