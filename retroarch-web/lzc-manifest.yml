@@ -1,0 +1,17 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.retroweb
+version: 1.19.1-patch1
+name: RetroArch Web
+description: RetroArch是一款开源、免费、跨平台模拟器应用程序，它支持多种游戏平台，包括Nintendo、Sega、PlayStation等各种怀旧游戏。RetroArch Web是它的Web网页版，功能及设置比原生RetroArch略有缩减，但是可玩性仍然非常高
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/Inglebard/dockerfiles
+unsupported_platforms:
+  - android
+  - ios
+application:
+  subdomain: retroweb
+  routes:
+    - /=http://web.cloud.lazycat.app.retroweb.lzcapp:80
+services:
+  web:
+    image: registry.lazycat.cloud/inglebard/retroarch-web:1.19.1
