@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.calibreweb
-version: 2.0.1-patch1
+version: 2.0.1-patch2
 name: Calibre-Web Automated
 description: Calibre-Web，但自动化且具有 Calibre 功能
 license: https://choosealicense.com/licenses/gpl-3.0/
@@ -14,6 +14,9 @@ application:
 services:
   server:
     image: registry.lazycat.cloud/crocodilestick/calibre-web-automated:v2.0.1-patch1
+    environment:
+      - PUID=0
+      - PGID=0
     binds:
       - /lzcapp/var/config:/config
       - /lzcapp/var/cwa-book-ingest:/cwa-book-ingest
