@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.calibreweb
-version: 2.0.1-patch2
+version: 2.0.1-patch3
 name: Calibre-Web Automated
 description: Calibre-Web，但自动化且具有 Calibre 功能
 license: https://choosealicense.com/licenses/gpl-3.0/
@@ -22,3 +22,5 @@ services:
       - /lzcapp/var/cwa-book-ingest:/cwa-book-ingest
       - /lzcapp/var/calibre-library:/calibre-library
       - /lzcapp/var/books:/books
+      - /lzcapp/pkg/content/auto-library.py:/app/calibre-web-automated/scripts/auto-library.py
+
