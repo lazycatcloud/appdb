@@ -1,0 +1,31 @@
+lzc-sdk-version: 0.1
+name: iptvnator
+package: cloud.lazycat.app.iptvnator
+version: 0.16.0-patch2
+description: IPTVnator 是一个视频播放器应用程序，支持播放 IPTV 播放列表（m3u、m3u8）。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/4gray/iptvnator
+author: 4gray
+application:
+  subdomain: iptvnator
+  routes:
+    - /=http://frontend.cloud.lazycat.app.iptvnator.lzcapp:80
+    - /api/=http://backend.cloud.lazycat.app.iptvnator.lzcapp:3000
+    - /cors/=http://cors.cloud.lazycat.app.iptvnator.lzcapp:80
+  public_path:
+    - /
+    - /api/
+    - /cors/
+services:
+  backend:
+    image: registry.lazycat.cloud/4gray/iptvnator-backend:0.16.0
+    command: >
+      sh -c "sed -i '209a\        url: `/cors/`+item.url,' index.js ;
+      node index.js"
+  frontend:
+    image: registry.lazycat.cloud/4gray/iptvnator:0.16.0
+    environment:
+      - BACKEND_URL=/api
+  cors:
+    image: registry.lazycat.cloud/joveyu/nginx-cors:v1
+
