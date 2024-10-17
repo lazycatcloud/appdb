@@ -1,10 +1,13 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.chinesesubfinder
-version: 0.0.3
+version: 0.55.3-patch2
 name: ChineseSubFinder
 description: 自动化中文字幕下载。字幕网站支持 shooter、xunlei、arrst、a4k、SubtitleBest 。支持 Emby、Jellyfin、Plex、Sonarr、Radarr、TMM。
 license: https://choosealicense.com/licenses/mit/
 homepage: https://github.com/ChineseSubFinder/ChineseSubFinder
+unsupported_platforms: # 不支持的平台
+  - android
+  - ios
 application:
   subdomain: chinesesubfinder
   routes:
@@ -16,12 +19,11 @@ application:
   #   start_period: 900s
 services:
   web:
-    image: registry.lazycat.cloud/allanpk716/chinesesubfinder:v0.53.3
+    image: registry.lazycat.cloud/allanpk716/chinesesubfinder:v0.55.3-pathch2
     binds:
       - /lzcapp/var/config:/config  # 冒号左边请修改为你想在主机上保存配置、日志等文件的路径
       - /lzcapp/run/mnt/home/media:/media    # 请修改为你的媒体目录，冒号右边可以改成你方便记忆的目录，多个媒体目录需要分别映射进来
       - /lzcapp/var/browser:/root/.cache/rod/browser    # 容器重启后无需再次下载 chrome，除非 go-rod 更新
-      - /lzcapp/pkg/content/chinesesubfinder:/usr/bin/chinesesubfinder
     environment:
       - PUID=0            # uid
       - PGID=0            # gid

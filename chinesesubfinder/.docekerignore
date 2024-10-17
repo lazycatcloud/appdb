@@ -1,0 +1,3 @@
+./source/frontend/dist/spa/
+./source/frontend/node_modules/
+./source/vendor
