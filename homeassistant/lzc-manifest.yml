@@ -11,5 +11,6 @@ application:
 services:
   server:
     image: registry.lazycat.cloud/homeassistant:23.8.4
+    network_mode: "host"
     binds:
       - /lzcapp/var/config://homeassistant/config
