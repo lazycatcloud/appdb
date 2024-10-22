@@ -1,0 +1,17 @@
+version: '3'
+
+services: 
+    mybili:
+        image: ellermister/mybili
+        ports:
+            - "5151:80"
+        volumes:
+#            - "./data:/app/storage/app/public"
+            - "./.env:/app/.env"
+            - "./cookie.txt:/app/storage/app/cookie.txt"
+    redis:
+        image: redis
+        volumes:
+            - "./redis:/data"
+        command: redis-server --save 60 1 --loglevel warning
+        

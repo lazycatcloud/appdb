@@ -1,0 +1,29 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.mybili
+version: 0.0.2
+name: mybili
+description: bilibili 收藏夹下载工具。主要是解决翻看收藏夹时，很多视频莫名其妙不见了的现象，也不知道原来的视频标题和内容，进而无法溯源和寻找备份。该工具能够将你的收藏夹全部备份下来。
+license: https://choosealicense.com/licenses/mit
+homepage: https://github.com/ellermister/mybili
+author: ellermister
+application:
+  subdomain: mybili
+  user_app: true
+  routes:
+    - /=http://$uid.server.cloud.lazycat.app.mybili.lzcapp:80
+services:
+  server:
+    image: registry.lazycat.cloud/ellermister/mybili:20241014
+    entrypoint: /lzcapp/pkg/content/docker-php-entrypoint
+    command: /usr/local/bin/supervisord -c /etc/supervisord.conf
+    depends_on:
+      - redis
+    binds:
+      #- /lzcapp/pkg/content/.env:/app/.env
+      - /lzcapp/var/app:/app/storage/app
+      - /lzcapp/run/mnt/home/Downloads/mybili:/app/storage/app/public
+  redis:
+    image: registry.lazycat.cloud/mybili/redis:7.0.12
+    binds:
+      - /lzcapp/var/redis:/data
+    command: redis-server --save 60 1 --loglevel warning
