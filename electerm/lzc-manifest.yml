@@ -1,0 +1,26 @@
+lzc-sdk-version: 0.1
+name: electerm
+package: cloud.lazycat.app.electerm
+version: 2.40.18-patch1
+description: Electerm是一款开源终端， 支持ssh/telnet/serialport/RDP/VNC/sftp客户端(linux, mac, win)。Electerm-web是Electerm的网页版，可以在浏览器中运行，几乎拥有与桌面版本相同的功能。
+license: https://choosealicense.com/licenses/mit/
+homepage: https://github.com/electerm/electerm-web-docker
+author: electerm
+unsupported_platforms:
+  - android
+  - ios
+application:
+  subdomain: electerm
+  routes:
+    - /=http://server.cloud.lazycat.app.electerm.lzcapp:5577
+  user_app: true
+services:
+  server:
+    image: registry.lazycat.cloud/zxdong262/electerm-web:2.40.18-patch4
+    environment:
+      - HOST=0.0.0.0
+      - DB_PATH=/home/electerm/data
+      - SERVER=https://electerm.${LAZYCAT_BOX_DOMAIN}
+    binds:
+      - /lzcapp/var/data:/home/electerm/data
+
