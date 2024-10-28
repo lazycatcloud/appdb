@@ -1,0 +1,22 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.metube
+version: 0.0.1
+name: metube
+description: metube是 youtube-dl 的 Web GUI（使用 yt-dlp fork）具有播放列表支持。允许您从 YouTube 和许多其他网站下载视频。
+homepage: https://github.com/alexta69/metube
+author: alexta69
+
+application:
+  subdomain: metube
+  routes:
+    - /=http://server.cloud.lazycat.app.metube.lzcapp:8081
+  user_app: true
+
+services:
+  server:
+    image: registry.lazycat.cloud/alexta69/metube:2024-10-23
+    environment:
+      - UID=0
+      - GID=0
+    binds:
+      - /lzcapp/var/downloads:/downloads
