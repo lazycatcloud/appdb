@@ -1,17 +1,17 @@
 lzc-sdk-version: 0.1
-package: cloud.lazycat.app.codeserver
-version: 4.59.3-patch1
+package: cloud.lazycat.app.code
+version: 4.59.3-patch2
 name: VS Code Web
 description: 浏览器中的 VS Code
 license: https://opensource.org/license/mit/
 homepage: https://github.com/coder/code-server
 author: coder
 application:
-  subdomain: codeserver
+  subdomain: code
   routes:
-    - /=http://$uid.web.cloud.lazycat.app.codeserver.lzcapp:8080
+    - /=http://$uid.web.cloud.lazycat.app.code.lzcapp:8080
   user_app: true
 services:
   web:
-    image: registry.lazycat.cloud/codercom/code-server:4.59.3-bookworm
+    image: registry.lazycat.cloud/codercom/code-server:4.59.3-bookworm-p1
     command: --auth none --user-data-dir /lzcapp/var/user-data --extensions-dir /lzcapp/var/extension /lzcapp/run/mnt/home
