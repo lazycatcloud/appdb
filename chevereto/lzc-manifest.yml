@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.chevereto
-version: 0.0.3
+version: 0.0.4
 name: Chevereto
 description: 图床
 license: https://www.gnu.org/licenses/agpl-3.0.en.html
@@ -13,7 +13,7 @@ application:
     - /images/
 services:
   chevereto:
-    image: registry.lazycat.cloud/appdb/chevereto:v0.0.3
+    image: registry.lazycat.cloud/appdb/chevereto:v0.0.4
     environment:
       - CHEVERETO_DB_HOST=127.0.0.1
       - CHEVERETO_DB_PORT=3306
@@ -27,3 +27,4 @@ services:
       - CHEVERETO_ASSET_STORAGE_BUCKET=/lzcapp/var/images/_assets
       - CHEVERETO_ENVIRONMENT=dev
       - CHEVERETO_DEBUG_LEVEL=3
+      - CHEVERETO_MAX_USERS=20
