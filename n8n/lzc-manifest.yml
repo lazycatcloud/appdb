@@ -1,6 +1,6 @@
 lzc-sdk-version: '0.1'
 package: cloud.lazycat.app.n8n
-version: 1.61.0-patch1
+version: 1.68.0-patch1
 name: n8n
 unsupported_platforms:
   - android
@@ -14,7 +14,7 @@ application:
   background_task: true
 services:
   server:
-    image: registry.lazycat.cloud/n8nio/n8n:1.61.0-patch1
+    image: registry.lazycat.cloud/n8nio/n8n:1.68.0-patch1
     binds:
       - /lzcapp/var/data:/root/.n8n
     environment:
