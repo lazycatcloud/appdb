@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iCloudPD</title>
+    <link href="static/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>iCloudPD - iCloud文件同步</h1>
+        <form method="post" action="/submit">
+
+            <div class="form-group">
+                <label for="username">iCloud 用户名:</label>
+                <input type="email" class="form-control" id="username" name="username" placeholder="example@icloud.com" value="{{.Username}}">
+            </div>
+
+            <div class="form-group">
+                <label for="password">密码:</label>
+                <input type="password" class="form-control" id="password" name="password" value="{{.Password}}">
+            </div>
+
+            <div class="form-group">
+                <label for="domain">iCloud 服务器(是否为中国大陆境内的服务器):</label>
+                <select class="form-control" id="domain" name="domain">
+                    <option value="com" {{if eq .Domain "com" }}selected{{end}}>国际服务器(com)</option>
+                    <option value="cn" {{if eq .Domain "cn" }}selected{{end}}>云上贵州(cn)</option>
+                </select>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="auth_only" name="auth_only" {{if .AuthOnly}}checked{{end}} data-toggle="collapse" data-target="#downloadConfig" aria-expanded="false" aria-controls="downloadConfig">
+                <label class="form-check-label" for="auth_only">仅验证 (仅生成登录文件)</label>
+            </div>
+            <br/>
+            <div class="alert alert-info" role="alert">
+                <strong>iCloud端到端加密</strong>
+                <p>iCloudpd 不支持端到<a href="https://support.apple.com/zh-cn/102651#advanced">端加密功能</a>, 如果发现mfa验证后依然无法同步
+                可以在iCloud中<a href="https://support.apple.com/zh-cn/108756">关闭</a>此功能</p>
+                <strong>关于仅验证</strong> 
+                <p>由于本应用依赖的 icloudpd 有概率会遇到验证出现错误的情况, 如果发现终端运行时出现 401 验证错误, 可以尝试勾选此项</p>
+                <strong>关于 iCloud 服务器选项</strong>
+                <p>如果您的 iCloud 账号为国内账号, 请选择云上贵州服务器</p>
+            </div>  
+
+            <hr/>
+            <div class="collapse show" id="downloadConfig">
+            <div class="form-group">
+                <label for="album">相册:</label>
+                <input type="text" class="form-control" id="album" name="album" placeholder="留空则默认获取所有相册" value="{{.Album}}">
+            </div>
+
+            <div class="form-group">
+                <label for="size">图片大小:</label>
+                <select class="form-control" id="size" name="size">
+                    <option value="original" {{if eq .Size "original" }}selected{{end}}>原始</option>
+                    <option value="medium" {{if eq .Size "medium" }}selected{{end}}>中等</option>
+                    <option value="thumb" {{if eq .Size "thumb" }}selected{{end}}>缩略图</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="live_photo_size">Live Photo 视频大小:</label>
+                <select class="form-control" id="live_photo_size" name="live_photo_size">
+                    <option value="original" {{if eq .LivePhotoSize "original" }}selected{{end}}>原始</option>
+                    <option value="medium" {{if eq .LivePhotoSize "medium" }}selected{{end}}>中等</option>
+                    <option value="thumb" {{if eq .LivePhotoSize "thumb" }}selected{{end}}>缩略图</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recent">下载最近的照片数量(设置为0则下载所有照片):</label>
+                <input type="number" class="form-control" id="recent" name="recent" value="{{.Recent}}">
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="auto_delete" name="auto_delete" {{if .AutoDelete}}checked{{end}}>
+                <label class="form-check-label" for="auto_delete">下载后自动删除(删除后可在近期删除中找回)</label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="skip_videos" name="skip_videos" {{if .SkipVideos}}checked{{end}}>
+                <label class="form-check-label" for="skip_videos">跳过视频</label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="skip_live_photos" name="skip_live_photos" {{if .SkipLivePhotos}}checked{{end}}>
+                <label class="form-check-label" for="skip_live_photos">跳过 Live Photos</label>
+            </div>
+
+            <div class="form-group">
+                <label for="folder_structure">文件夹结构:</label>
+                <input type="text" class="form-control" id="folder_structure" name="folder_structure" placeholder="留空则使用默认配置: {:%Y/%m/%d} = 年(后两位)/月/日" value="{{.FolderStructure}}">
+            </div>
+
+            <div class="form-group">
+                <label for="log_level">日志级别:</label>
+                <select class="form-control" id="log_level" name="log_level">
+                    <option value="debug" {{if eq .LogLevel "debug" }}selected{{end}}>调试</option>
+                    <option value="info" {{if eq .LogLevel "info" }}selected{{end}}>信息</option>
+                    <option value="error" {{if eq .LogLevel "error" }}selected{{end}}>错误</option>
+                </select>
+            </div>           
+            </div>
+            <div class="alert alert-info" role="alert">
+                <strong>高级配置 (可选参数):</strong> 
+                <p class="mb-0">点击下方展开以配置更多命令行参数，如 <code>--verbose</code>、<code>--debug</code> 等。
+                <a href="https://icloud-photos-downloader.github.io/icloud_photos_downloader/reference.html">详细参数</a>
+                </p>
+                <div class="form-group">
+                    <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#advancedConfig" aria-expanded="false" aria-controls="advancedConfig">
+                        展开高级配置
+                    </button>
+                </div>
+                <div class="collapse" id="advancedConfig">
+                    <div class="form-group">
+                        <label for="anvanced">可选参数:</label>
+                        <input type="text" class="form-control" id="advanced" name="advanced" placeholder="如 --verbose" value="{{.Advanced}}">
+                        <small class="form-text text-muted">如果需要额外的命令行参数，可以在此输入。</small>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+    </div>
+
+    <script src="static/jquery.min.js"></script>
+    <script src="static/popper.min.js"></script>
+    <script src="static/bootstrap.min.js"></script>
+</body>
+</html>

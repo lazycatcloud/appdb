@@ -1,0 +1,24 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.icloud
+version: 0.0.4
+name: iCloud同步工具
+description: test
+license: https://choosealicense.com/licenses/mit/
+homepage: http://localhost
+author: fish
+application:
+  subdomain: icloud
+  background_task: false
+  user_app: true
+  routes:
+    - /=http://sync.cloud.lazycat.app.icloud.lzcapp:8086
+  depends_on:
+    - sync
+services:
+  sync:
+    image: registry.lazycat.cloud/icloud-sync:0.1.6
+    binds:
+      - /lzcapp/pkg/content:/content
+    environment:
+      - LC_ALL=zh_CN.UTF.8
+    entrypoint: /bin/bash -c /content/entry.sh

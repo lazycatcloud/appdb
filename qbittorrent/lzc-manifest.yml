@@ -10,7 +10,7 @@ application:
   subdomain: qbittorrent
   user_app: true
   routes:
-    - /=http://$uid.bt.cloud.lazycat.app.qbittorrent.lzcapp:3044
+    - /=http://bt.cloud.lazycat.app.qbittorrent.lzcapp:3044
 services:
   bt:
     image: registry.lazycat.cloud/qbittorrent:0.0.1
