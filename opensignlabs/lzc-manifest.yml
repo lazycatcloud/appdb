@@ -1,0 +1,67 @@
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.opensign
+version: 0.0.2
+name: OpenSign
+description: 自助签名
+license: https://www.gnu.org/licenses/agpl-3.0.en.html
+homepage: https://www.opensignlabs.com/
+application:
+  subdomain: opensign
+  routes:
+    - /=http://caddy.cloud.lazycat.app.opensign.lzcapp:80
+services:
+  server:
+    image: registry.lazycat.cloud/opensign/opensignserver:main-20241128-patch4
+    depends_on:
+      - mongo
+    binds:
+      - /lzcapp/var/files:/usr/src/app/files
+    environment:
+      - NODE_ENV=production
+      - SERVER_URL=${HOST_URL:-https://opensign.${LAZYCAT_BOX_DOMAIN}/app}
+      - PUBLIC_URL=http://localhost:3000
+      - GENERATE_SOURCEMAP=false
+      - REACT_APP_APPID=opensign
+      - APP_ID=opensign
+      - appName=open_sign_server
+      - MASTER_KEY=XnAadwKxxByMr
+      - MONGODB_URI=mongodb://mongo.cloud.lazycat.app.opensign.lzcapp:27017/OpenSignDB
+      - PARSE_MOUNT=/app
+      - SERVER_URL=https://opensign.${LAZYCAT_BOX_DOMAIN}/app
+      - USE_LOCAL=true
+      - PASS_PHRASE=opensign
+      - "PFX_BASE64=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\n3pXAXxZuvVvv9tsb4bdrBAhyb+KCIjp/gAICCAA="
+  mongo:
+    image: registry.lazycat.cloud/mongo:8.0.3
+    binds:
+      - /lzcapp/var/db:/data/db
+  client:
+    image: registry.lazycat.cloud/opensign/opensign:main-20241128
+    depends_on:
+      - server
+    environment:
+      - PUBLIC_URL=http://localhost:3000
+      - GENERATE_SOURCEMAP=false
+      - REACT_APP_APPID=opensign
+      - APP_ID=opensign
+      - appName=open_sign_server
+      - MASTER_KEY=XnAadwKxxByMr
+      - MONGODB_URI=mongodb://mongo.cloud.lazycat.app.opensign.lzcapp:27017/OpenSignDB
+      - PARSE_MOUNT=/app
+      - SERVER_URL=https://opensign.${LAZYCAT_BOX_DOMAIN}/app
+      - USE_LOCAL=true
+      - PASS_PHRASE=opensign
+      - "PFX_BASE64=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\n3pXAXxZuvVvv9tsb4bdrBAhyb+KCIjp/gAICCAA="
+  caddy:
+    image: registry.lazycat.cloud/caddy:2.8.4
+    ports:
+      - "3001:3001"
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    binds:
+      - /lzcapp/pkg/content/Caddyfile:/etc/caddy/Caddyfile
+      - /lzcapp/var/caddy_data:/data
+      - /lzcapp/var/caddy_config:/config
+    environment:
+      - HOST_URL=${HOST_URL:-localhost:3001}

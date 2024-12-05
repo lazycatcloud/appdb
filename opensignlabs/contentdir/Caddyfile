@@ -1,0 +1,7 @@
+:80 {
+    reverse_proxy client.cloud.lazycat.app.opensign.lzcapp:3000
+    handle_path /app/* {
+        reverse_proxy server.cloud.lazycat.app.opensign.lzcapp:8080
+            rewrite * /app{uri}
+    }
+}
