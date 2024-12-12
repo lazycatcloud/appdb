@@ -1,5 +1,5 @@
 manifest: ./lzc-manifest.yml
-contentdir: ./build
+
 icon: ./logo.png
 pkgout: ./
 devshell:

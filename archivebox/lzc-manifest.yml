@@ -1,42 +1,22 @@
-lzc-sdk-version: 0.1  #决定了manifest文件格式以及lzcinit的最低版本.(最终版本取此值与实际盒子runtime两种中较大者)
-
-package: cloud.lazycat.app.archivebox #app的唯一标识符
-version: 0.1.2         #app的版本
-
+lzc-sdk-version: 0.1
+package: cloud.lazycat.app.archivebox
+version: 0.6.2-patch1
 name: ArchiveBox
 description: 开源自托管 Web 存档。获取URL/浏览器历史记录/书签/口袋/插板/等，保存HTML，JS，PDF，媒体等...
-
 license: https://choosealicense.com/licenses/mit/
-homepage: https://github.com/ArchiveBox/ArchiveBox #出现bug时候提交反馈的地方
+homepage: https://github.com/ArchiveBox/ArchiveBox
 author: d1y
-
 application:
   subdomain: archivebox
   background_task: true
-
   routes:
-    - /=http://db.cloud.lazycat.app.archivebox.lzcapp:8000            #多实例应用会自动在route里加上uid
-
-  image: registry.lazycat.cloud/alpine:3.16  #可选的运行环境，为空则使用sdk对应版本的镜像。若上架到商店，则此处的镜像必须上传到商店仓库统一托管。
-
+    - /=http://db.cloud.lazycat.app.archivebox.lzcapp:8000
+  image: registry.lazycat.cloud/alpine:3.16
   depends_on:
     - db
 
-services: #传统docker镜像启动方式，如果需要数据库等配套容器一起运行则可以在这里申明。传统app如nextcloud、aria2c也可以使用这种方式进行兼容运行
-  db: #目前只支持以下参数，network,ipc之类的配置字段(故意)不支持
+services:
+  db:
     image: registry.lazycat.cloud/archivebox/archivebox:0.2
-    # environment:
-    # 仅支持以下挂载点:
-    # - /lzcapp/run
-    # - /lzcapp/run/mnt/home
-    # - /lzcapp/var
-    # - /lzcapp/cache
-    # - /lzcapp/pkg
-    # binds:
-      # - /lzcapp/run/mnt/home:/home
-      # - /lzcapp/var/db:/data
-      # - /lzcapp/cache/db:/cache
-      # - /lzcapp/pkg/content/entrypoint.sh:/entrypoint.sh # 挂载lpk包内的文件
-    # entrypoint: /bin/sh -c
-    # command: "/usr/bin/nextcloud"
-    #depends_on:
+    binds:
+      - /lzcapp/var/data:/data
