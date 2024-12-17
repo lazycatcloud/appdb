@@ -1,0 +1,7 @@
+./alist/alist
+./alist/public/dist/
+./alist-web/node_modules/
+./alist-web/dist/
+./alist-web/src/lang/zh/
+./alist-web/solid-router/node_modules/
+./alist-web/solid-router/dist/
