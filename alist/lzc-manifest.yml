@@ -1,11 +1,12 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.alist
-version: 3.34.0-patch2
+version: 3.34.0-patch3
 name: Alist
 description: 一个支持多存储的文件列表程序，使用 Gin 和 Solidjs
 license: https://choosealicense.com/licenses/mit/
 homepage:
 author:
+usage: 如果想使用 WebDAV 访问 AList，请先去 AList 的管理界面更改密码。
 application:
   subdomain: alist
   user_app: true
