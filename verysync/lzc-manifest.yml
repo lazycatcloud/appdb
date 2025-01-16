@@ -1,6 +1,6 @@
 lzc-sdk-version: "0.1"
 package: cloud.lazycat.app.verysync
-version: 0.0.3
+version: 2.20.1-patch2
 name: 微力同步
 description: verysync
 homepage: ""
@@ -15,21 +15,11 @@ application:
   depends_on:
     - vs
 
-  ingress:
-    # 22027/22037 为内网udp发现端口
-    - protocol: udp
-      port: 22027
-      service: vs
-    - protocol: udp
-      port: 22037
-      service: vs
-    #===========================
-
   subdomain: verysync
   image: registry.lazycat.cloud/alpine:3.16
 services:
   vs:
     # https://github.com/Jonnyan404/verysync/tree/master
-    image: registry.lazycat.cloud/jonnyan404/verysync:20230816
+    image: registry.lazycat.cloud/jonnyan404/verysync:2.20.1
     binds:
       - /lzcapp/run/mnt/home:/data
