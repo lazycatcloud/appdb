@@ -1,0 +1,24 @@
+lzc-sdk-version: "0.1"
+package: cloud.lazycat.app.embysingle
+version: 4.8.10-patch1
+name: emby 共享版
+description: Emby Server 是一个家庭媒体服务器，建立在其他流行的开源技术之上，例如 Service Stack、jQuery、jQuery mobile 和 .NET Core。
+homepage: https://emby.media/
+author: emby
+
+application:
+  subdomain: embysingle
+  routes:
+    - /=http://server.cloud.lazycat.app.embysingle.lzcapp:8096
+  gpu_accel: true
+
+services:
+  server:
+    image: registry.lazycat.cloud/emby/embyserver:4.8.10.0
+    environment:
+      - UID=0
+      - GID=0
+    binds:
+      - /lzcapp/var/config:/config
+      - /lzcapp/var/media:/media
+      - /lzcapp/run/mnt/home:/home
