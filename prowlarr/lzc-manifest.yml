@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.prowlarr
-version: 0.0.1
+version: 1.30.2-patch1
 name: Prowlarr
 description: Prowlarr 是一个索引器管理器/代理，构建在流行的 *arr .net/reactjs 基础堆栈上.
 license: https://choosealicense.com/licenses/gpl-3.0
@@ -13,7 +13,7 @@ application:
     - /=http://server.cloud.lazycat.app.prowlarr.lzcapp:9696
 services:
   server:
-    image: registry.lazycat.cloud/prowlarr:1.7.4
+    image: registry.lazycat.cloud/linuxserver/prowlarr:1.30.2-patch1
     binds:
       - /lzcapp/run/mnt/home:/home
       - /lzcapp/var/conf:/config
