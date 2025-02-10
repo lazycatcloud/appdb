@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.c2fauth
-version: 0.0.3
+version: 0.0.5
 name: 2FAuth
 description: 2FAuth 是谷歌身份验证器等一次性密码（OTP）生成器的基于网络的自托管替代品，专为移动和桌面而设计。
 license: https://raw.github.com/Bubka/2FAuth/refs/heads/master/LICENSE
@@ -10,15 +10,18 @@ application:
   subdomain: 2fauth
   routes:
     - /__not_use=exec://80,/lzcapp/pkg/content/init.sh
-    - /=http://$uid.service.cloud.lazycat.app.c2fauth.lzcapp:8000
+    - /=http://service.cloud.lazycat.app.c2fauth.lzcapp:8000
+  public_path:
+    - /api
   # handlers:
   #   error_page_templates:
   #     '502': /lzcapp/pkg/content/502.html.tpl
   background_task: false
-  user_app: true
+  user_app: false
 services:
   service:
-    image: registry.lazycat.cloud/2fauth/2fauth:5.3.2
+    # image: registry.lazycat.cloud/2fauth/2fauth:5.3.2
+    image: registry.lazycat.cloud/u7842111934/2fauth/2fauth:15895d386722472c # 2fauth:5.4.3
     environment:
       - "APP_NAME=2FAuth"
       - "APP_ENV=local"
