@@ -15,6 +15,7 @@ application:
 services:
   server:
     image: registry.lazycat.cloud/emby/embyserver:4.8.10.0
+    network_mode: "host"
     environment:
       - UID=0
       - GID=0
