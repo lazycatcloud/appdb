@@ -1,0 +1,22 @@
+description: 一套多媒体应用程序软件套装
+lzc-sdk-version: '0.1'
+name: Jellyfin
+version: 10.10.6
+package: cloud.lazycat.app.jellyfinsingle
+license: https://choosealicense.com/licenses/gpl-2.0/
+application:
+  public_path:
+  - /
+  routes:
+  - /=http://jellyfin.cloud.lazycat.app.jellyfinsingle.lzcapp:8096
+  subdomain: jellyfinsingle
+  background_task: true
+  user_app: true
+  gpu_accel: true
+services:
+  jellyfin:
+    image: registry.lazycat.cloud/nyanmisaka/jellyfin:250217-amd64
+    binds:
+      - /lzcapp/var/config:/config
+      - /lzcapp/var/cache:/cache
+      - /lzcapp/run/mnt/home/media:/media
