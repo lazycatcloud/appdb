@@ -11,7 +11,6 @@ application:
   - /=http://jellyfin.cloud.lazycat.app.jellyfinsingle.lzcapp:8096
   subdomain: jellyfinsingle
   background_task: true
-  user_app: true
   gpu_accel: true
 services:
   jellyfin:
