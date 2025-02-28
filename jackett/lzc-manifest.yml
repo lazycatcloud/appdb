@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.jackett
-version: 0.0.4
+version: 0.0.8
 name: Jackett
 description: 对您最喜爱的 torrent trackers 的 API 支持
 license: https://choosealicense.com/licenses/gpl-2.0
@@ -10,10 +10,13 @@ application:
   subdomain: jackett
   public_path:
     - /api/v2.0/indexers/
+  background_task: true
   routes:
     - /=http://server.cloud.lazycat.app.jackett.lzcapp:9117
 services:
   server:
-    image: registry.lazycat.cloud/jackett:v0.21.497-4
+    image: registry.lazycat.cloud/jackett:v0.22.1411-7
+    user: root
     binds:
+      - /lzcapp/var/home:/root/
       - /lzcapp/var/conf:/opt/JackettData
