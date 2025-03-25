@@ -1,9 +1,16 @@
 lzc-sdk-version: "0.1"
 package: cloud.lazycat.app.metube
-version: 0.0.2
+version: 0.0.3
 name: metube
 description: metube是 youtube-dl 的 Web GUI（使用 yt-dlp fork）具有播放列表支持。允许您从 YouTube 和许多其他网站下载视频。
 homepage: https://github.com/alexta69/metube
+usage: |
+  首次安装后，如果需要使用代理访问，可以通过下面的方法设置：
+  1. 本地创建一个文件，文件名为 "envfile"，文件内容为：
+  http_proxy=http://192.168.1.11:8001
+  https_proxy=http://192.168.1.11:8001
+  2. 替换上面的代理地址为你的代理地址后，保存并上传到 "应用数据" => "metube" => "config" 目录
+  3. 应用会自动读取并应用代理设置
 author: alexta69
 
 application:
@@ -19,4 +26,34 @@ services:
       - UID=0
       - GID=0
     binds:
+      - /lzcapp/var/config:/config
       - /lzcapp/run/mnt/home/Downloads/metube:/downloads
+    entrypoint: /lzcapp/pkg/content/init.sh
+locales:
+  zh:
+    description: metube是 youtube-dl 的 Web GUI（使用 yt-dlp fork）具有播放列表支持。允许您从 YouTube 和许多其他网站下载视频。
+    usage: |
+      首次安装后，如果需要使用代理访问，可以通过下面的方法设置：
+      1. 本地创建一个文件，文件名为 "envfile"，文件内容为：
+      http_proxy=http://192.168.1.11:8001
+      https_proxy=http://192.168.1.11:8001
+      2. 替换上面的代理地址为你的代理地址后，保存并上传到 "应用数据" => "metube" => "config" 目录
+      3. 应用会自动读取并应用代理设置
+  zh_CN:
+    description: metube是 youtube-dl 的 Web GUI（使用 yt-dlp fork）具有播放列表支持。允许您从 YouTube 和许多其他网站下载视频。
+    usage: |
+      首次安装后，如果需要使用代理访问，可以通过下面的方法设置：
+      1. 本地创建一个文件，文件名为 "envfile"，文件内容为：
+      http_proxy=http://192.168.1.11:8001
+      https_proxy=http://192.168.1.11:8001
+      2. 替换上面的代理地址为你的代理地址后，保存并上传到 "应用数据" => "metube" => "config" 目录
+      3. 应用会自动读取并应用代理设置
+  en:
+    description: metube is a web GUI for youtube-dl (using yt-dlp fork) with playlist support. It allows you to download videos from YouTube and many other websites. 
+    usage : |
+      After the first installation, if you need to use a proxy to access, you can set it up through the following methods:
+      1. Create a file locally, the file name is "envfile", the file content is:
+      http_proxy=http://192.168.1.11:8001
+      https_proxy=http://192.168.1.11:8001
+      2. Replace the proxy address in the above with your proxy address and save it, then upload it to the "Application Data" => "metube" => "config" directory
+      3. The application will automatically read and apply the proxy settings
