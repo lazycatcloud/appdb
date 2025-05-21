@@ -1,7 +1,7 @@
 description: 一套多媒体应用程序软件套装
 lzc-sdk-version: '0.1'
 name: Jellyfin
-version: 10.10.6
+version: 10.10.7
 package: cloud.lazycat.app.jellyfinsingle
 license: https://choosealicense.com/licenses/gpl-2.0/
 application:
@@ -14,8 +14,11 @@ application:
   gpu_accel: true
 services:
   jellyfin:
-    image: registry.lazycat.cloud/nyanmisaka/jellyfin:250217-amd64
+    image: registry.lazycat.cloud/nyanmisaka/jellyfin:250503-amd64
     binds:
       - /lzcapp/var/config:/config
       - /lzcapp/var/cache:/cache
       - /lzcapp/run/mnt/home/media:/media
+ext_config:
+  enable_document_access: true
+  enable_media_access: true
