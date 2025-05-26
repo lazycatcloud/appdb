@@ -11,8 +11,49 @@ application:
   subdomain: affine
   background_task: false
   routes:
-    - /=file:///lzcapp/pkg/content/
-
-  image: registry.lazycat.cloud/alpine:3.16
-
+    - /=http://affine.cloud.lazycat.app.affine.lzcapp:3010
   user_app: false
+services:
+  affine:
+    image: ghcr.io/toeverything/affine-graphql:stable
+    depends_on:
+      - redis
+      - postgres
+      - affine_migration
+    binds:
+      - /lzcapp/var/storage:/root/.affine/storage
+      - /lzcapp/var/config:/root/.affine/config
+    environment:
+      - REDIS_SERVER_HOST=redis
+      - DATABASE_URL=postgresql://affine:affine@postgres:5432/affine
+      - AFFINE_SERVER_EXTERNAL_URL=https://affine.${LAZYCAT_BOX_DOMAIN}
+
+  affine_migration:
+    image: ghcr.io/toeverything/affine-graphql:stable
+    binds:
+      # custom configurations
+      - /lzcapp/var/storage:/root/.affine/storage
+      - /lzcapp/var/config:/root/.affine/config
+    command: |
+      sh -c 'node ./scripts/self-host-predeploy.js && sleep 100000'
+    environment:
+      - REDIS_SERVER_HOST=redis
+      - DATABASE_URL=postgresql://affine:affine@postgres:5432/affine
+    depends_on:
+      - postgres
+      - redis
+
+  redis:
+    image: redis
+
+  postgres:
+    image: pgvector/pgvector:pg16
+    binds:
+      - /lzcapp/var/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=affine
+      - POSTGRES_PASSWORD=affine
+      - POSTGRES_DB=affine
+      - POSTGRES_INITDB_ARGS='--data-checksums'
+      - POSTGRES_HOST_AUTH_METHOD=trust
+

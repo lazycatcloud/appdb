@@ -1,5 +1,5 @@
 manifest: ./lzc-manifest.yml
-contentdir: ./AFFiNE/apps/web/out
+#contentdir: ./AFFiNE/apps/web/out
 pkgout: ./
 icon: ./logo.png
 devshell:
