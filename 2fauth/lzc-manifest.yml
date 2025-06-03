@@ -1,6 +1,6 @@
 lzc-sdk-version: 0.1
 package: cloud.lazycat.app.c2fauth
-version: 0.0.6
+version: 0.0.7
 name: 2FAuth
 description: 2FAuth 是谷歌身份验证器等一次性密码（OTP）生成器的基于网络的自托管替代品，专为移动和桌面而设计。
 license: https://raw.github.com/Bubka/2FAuth/refs/heads/master/LICENSE
@@ -9,7 +9,7 @@ author: Bubka
 application:
   subdomain: 2fauth
   routes:
-    - /__not_use=exec://80,/lzcapp/pkg/content/init.sh
+    # - /__not_use=exec://80,/lzcapp/pkg/content/init.sh
     - /=http://service.cloud.lazycat.app.c2fauth.lzcapp:8000
   public_path:
     - /api
@@ -23,12 +23,14 @@ services:
     # image: registry.lazycat.cloud/2fauth/2fauth:5.3.2
     # image: registry.lazycat.cloud/u7842111934/2fauth/2fauth:15895d386722472c # 2fauth/2fauth:5.4.3
     image: registry.lazycat.cloud/u7842111934/2fauth/2fauth:9bad95565f04df9a # 2fauth/2fauth:5.5.2
+    user: 1000 # https://docs.2fauth.app/getting-started/installation/docker/docker-cli/#docker-cli-setup
+    setup_script: /pkg_content/init.sh
     environment:
       - "APP_NAME=2FAuth"
       - "APP_ENV=local"
       - "APP_URL=https://${LAZYCAT_APP_ORIGIN}"
       - "APP_KEY=vG6B0kjUiy0sI4SpLHYY2m1VgRCM13WE"
     binds:
-      - /lzcapp/run/mnt/home/2fauth:/2fauth
+      - /lzcapp/var/data:/2fauth
       - /lzcapp/pkg/content:/pkg_content
       - /lzcapp/pkg/content/00_2fauth.ini:/etc/php82/conf.d/00_2fauth.ini
