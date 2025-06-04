@@ -10,12 +10,18 @@ OLD_DATA_DIR=/lzcapp/run/mnt/home/2fauth
 NEW_DATA_DIR=/lzcapp/var/data
 
 mkdir -p "$NEW_DATA_DIR"
+# 旧数据文件夹存在
 if [ -d "$OLD_DATA_DIR" ]; then
-    mv "$OLD_DATA_DIR/"* "$NEW_DATA_DIR/"
-    echo "[Init] migrate data"
-    rm -rf "$OLD_DATA_DIR"
+    # 判断新数据是否存在（避免覆盖用户数据）
+    if [ ! -f "$NEW_DATA_DIR/installed" ]; then
+        mv "$OLD_DATA_DIR/"* "$NEW_DATA_DIR/"
+        rm -rf "$OLD_DATA_DIR" || true
+        echo "[Init] migrate data"
+    else
+        echo "[Init] warn ignore migrate data"
+    fi
 else
-    echo "[Init] create data"
+    echo "[Init] create new data"
 fi
 
 if [ $(stat -c '%u' "/2fauth") != "1000" ]; then
