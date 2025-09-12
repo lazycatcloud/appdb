@@ -1,3 +1,8 @@
+description: 用于使用Git，以及其他协作、托管、开发版本控制
+lzc-sdk-version: '0.1'
+name: Gitea
+package: cloud.lazycat.app.gitea
+version: 1.24-patch1
 application:
   routes:
   - /=http://gitea.cloud.lazycat.app.gitea.lzcapp:3000
@@ -9,16 +14,12 @@ application:
     - protocol: tcp     #tcp or udp
       port: 22          #需要曝露的端口号
       service: gitea
-description: 用于使用Git，以及其他协作、托管、开发版本控制
-lzc-sdk-version: '0.1'
-name: Gitea
-package: cloud.lazycat.app.gitea
 services:
   gitea:
     binds:
     - /lzcapp/pkg/content/start.sh:/start.sh
     - /lzcapp/var/data:/data
-    entrypoint: /usr/bin/entrypoint /start.sh
+    setup_script: /usr/bin/entrypoint /start.sh
     environment:
     - INSTALL_LOCK=true
     - LFS_START_SERVER=true
@@ -31,5 +32,4 @@ services:
     - LDAP_BASE_DN=${LAZYCAT_AUTH_LDAP_BASE_DN}
     - LDAP_BIND_DN=${LAZYCAT_AUTH_LDAP_BIND_DN}
     - LDAP_BIND_PASS=${LAZYCAT_AUTH_LDAP_BIND_PASS}
-    image: registry.lazycat.cloud/gitea/gitea:1.22.1
-version: 1.22.1-patch1
+    image: registry.lazycat.cloud/u7842111934/gitea/gitea:ee1d72007c5a021f # gitea/gitea:1.24
