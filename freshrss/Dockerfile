@@ -1,7 +1,7 @@
-# docker build -t registry.lazycat.cloud/freshrss:1.20.2.4 .
-# docker run -it --name rss --rm registry.lazycat.cloud/freshrss:1.20.2
+# docker build -t registry.lazycat.cloud/freshrss/freshrss:1.27.1 .
+# docker run -it --name rss --rm registry.lazycat.cloud/freshrss/freshrss:1.27.1
 # docker exec -it rss bash
-FROM linuxserver/freshrss:1.20.2
+FROM freshrss/freshrss:1.27.1
 RUN /app/www/cli/do-install.php \
 	--default_user admin \
 	--auth_type form \
