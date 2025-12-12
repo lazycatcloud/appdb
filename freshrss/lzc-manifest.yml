@@ -15,7 +15,7 @@ application:
     - /
 services:
   web:
-    image: registry.lazycat.cloud/freshrss/freshrss:1.24.3
+    image: registry.lazycat.cloud/clh021/freshrss/freshrss:0bebffdd0bf44090
     binds:
       - /lzcapp/var/data:/var/www/FreshRSS/data
       - /lzcapp/var/extensions:/var/www/FreshRSS/extensions
